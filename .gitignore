@@ -1,0 +1,7 @@
+/examples/**/build
+/examples/**/erase.*
+/examples/**/flash.*
+/examples/**/sdkconfig
+!/examples/**/sdkconfig.defaults
+/examples/**/sdkconfig.old
+/tools
