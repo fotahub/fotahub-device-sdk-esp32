@@ -23,74 +23,74 @@ SDKCONFIG := $(abspath sdkconfig)
 default: all
 
 $(SDKCONFIG): 
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory defconfig"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory defconfig"
 
 menuconfig: 
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory menuconfig"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory menuconfig"
 
 defconfig: 
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory defconfig"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory defconfig"
 
 all: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory all"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory all"
 
 flash: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory flash"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory flash"
 
 clean: 
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory clean"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory clean"
 
 size: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory size"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory size"
 
 size-components: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory size-components"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory size-components"
 
 size-symbols: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory size-symbols"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory size-symbols"
 
 erase_flash: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory erase_flash"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory erase_flash"
 
 erase_ota: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory erase_ota"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory erase_ota"
 
 monitor: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory monitor"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory monitor"
 
 simple_monitor: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory simple_monitor"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory simple_monitor"
 
 list-components: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory list-components"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory list-components"
 
 app: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory app"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory app"
 
 app-flash: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory app-flash"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory app-flash"
 
 app-clean: 
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory app-clean"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory app-clean"
 
 print_flash_cmd: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory print_flash_cmd"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory print_flash_cmd"
 
 check_python_dependencies: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory check_python_dependencies"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory check_python_dependencies"
 
 bootloader: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory bootloader"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory bootloader"
 
 bootloader-flash: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory bootloader-flash"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory bootloader-flash"
 
 bootloader-clean: 
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory bootloader-clean"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory bootloader-clean"
 
 partition_table: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory partition_table"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory partition_table"
 
 help: $(SDKCONFIG)
-	$(Q) $(BASH_C) "$(MAKE) -f project.mk --no-print-directory help"
+	$(Q) $(BASH_C) "$(MAKE) -C $(PROJECT_PATH) -f project.mk --no-print-directory help"
 

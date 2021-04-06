@@ -90,7 +90,7 @@ flash <COM port name, e.g., COM3>
 ./flash.sh <serial port name, e.g., /dev/ttyUSB0>
 ```
 
-<p style="margin-left: 2em">If you have built the firmware binary with `make` and the ESP-IDF SDK and ESP32 toolchain installed on your machine, invoke <code>make flash</code> to flash the firmware binary to your board. Indicate the serial port it is connected to by setting the <code>CONFIG_ESPTOOLPY_PORT</code> variable:</p> 
+<p style="margin-left: 2em">If you have built the firmware binary with <code>make</code> and the ESP-IDF SDK and ESP32 toolchain installed on your machine, invoke <code>make flash</code> to flash the firmware binary to your board. Indicate the serial port it is connected to by setting the <code>CONFIG_ESPTOOLPY_PORT</code> variable:</p> 
 
 ```bat
 make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<COM or serial port name, e.g., COM3 or /dev/ttyUSB0>
