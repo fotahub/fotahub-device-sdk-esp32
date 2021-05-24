@@ -18,7 +18,6 @@
 
 ![](upload-firmware-4.png "Upload firmware - step 2")
 
-
 > &#x1F6C8; If you have opted for `Signature` instead of `Checksum` as binary verification method for your product, you will be required to provide also the signature of the new firmware version. It must be based on the signature algorithm that you have configured upon product creation or through the product settings.
 
 6. Click on `Next` and then on `Upload` to start the firmware upload process. When completed, you will get redirected back to the product details view and see the newly uploaded firmware version along with its properties. Most importantly, you will be able to find the firmware binary download URL and its checksum that has been automatically calculated based on the binary checksum algorithm chosen upon product creation: 
