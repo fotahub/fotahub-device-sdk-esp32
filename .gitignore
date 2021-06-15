@@ -1,3 +1,6 @@
+/examples/**/*.pem
+!/examples/**/Certificate.pem
+!/examples/**/PrivateKey.pem
 /examples/**/build
 /examples/**/erase.*
 /examples/**/flash.*
