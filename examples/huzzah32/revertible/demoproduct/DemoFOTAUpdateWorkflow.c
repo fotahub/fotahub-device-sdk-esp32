@@ -30,6 +30,7 @@ enum DemoFOTAUpdateWorkflowEngine__inevents {
 typedef enum DemoFOTAUpdateWorkflowEngine__inevents DemoFOTAUpdateWorkflowEngine__inevents_t;
 
 enum DemoFOTAUpdateWorkflowEngine__states {
+  DemoFOTAUpdateWorkflowEngine___initializing__state = -2,
   DemoFOTAUpdateWorkflowEngine_idle__state = 0,
   DemoFOTAUpdateWorkflowEngine_connected__state,
   DemoFOTAUpdateWorkflowEngine_downloading__state,
@@ -107,260 +108,51 @@ static void DemoFOTAUpdateWorkflowEngine__init(DemoFOTAUpdateWorkflowEngine__dat
       }
     }
   }
+  else
+  {
+    instance->__currentState = DemoFOTAUpdateWorkflowEngine___initializing__state;
+  }
 }
 
 static bool DemoFOTAUpdateWorkflowEngine__execute(DemoFOTAUpdateWorkflowEngine__data_t *instance, DemoFOTAUpdateWorkflowEngine__inevents_t event, void **arguments)
 {
-  switch (instance->__currentState)
-  {
-    case DemoFOTAUpdateWorkflowEngine_idle__state:
+  bool __outstandingEvent;
+  do {
+    __outstandingEvent = false;
+    switch (instance->__currentState)
     {
-      switch (event)
+      case DemoFOTAUpdateWorkflowEngine___initializing__state:
       {
-        case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
+        /* 
+         * enter initial state
+         */
+        instance->__currentState = loadState();
+        switch (instance->__currentState)
         {
-          if ((*((ConnectionStatus_t *)((arguments[0])))) >= CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
+          case DemoFOTAUpdateWorkflowEngine_connected__state:
           {
-            /* 
-             * enter target state
-             */
-            instance->__currentState = DemoFOTAUpdateWorkflowEngine_connected__state;
             DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
-          }
-          break;
-        }
-        case DemoFOTAUpdateWorkflowEngine_updateVersionChanged__event:
-        {
-          /* 
-           * transition actions
-           */
-          printf("Cannot handle firmware over-the-air update request (missing network connection)\n");
-          
-          /* 
-           * enter target state
-           */
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-      break;
-    }
-    case DemoFOTAUpdateWorkflowEngine_connected__state:
-    {
-      switch (event)
-      {
-        case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
-        {
-          if ((*((ConnectionStatus_t *)((arguments[0])))) < CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
-          {
-            /* 
-             * enter target state
-             */
-            instance->__currentState = DemoFOTAUpdateWorkflowEngine_idle__state;
-          }
-          break;
-        }
-        case DemoFOTAUpdateWorkflowEngine_updateVersionChanged__event:
-        {
-          if (strcmp((*((char **)((arguments[0])))), DEMO_PRODUCT_FIRMWARE_VERSION) != 0) 
-          {
-            /* 
-             * transition actions
-             */
-            bool __transitionResult = true;
-            DemoFOTAUpdateWorkflowEngine__states_t __targetState = DemoFOTAUpdateWorkflowEngine_downloading__state;
-            
-            /* 
-             * Update internal firmware update info
-             */
-            instance->updateInfo.version = (*((char **)((arguments[0]))));
-            
-            /* 
-             * Start firmware update download
-             */
-            if (!fotahub_downloadFirmwareUpdate(&instance->updateInfo)) 
-            {
-              __targetState = DemoFOTAUpdateWorkflowEngine_connected__state;
-              __transitionResult = false;
-            }
-            
-            if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_connected__state) 
-            {
-              /* 
-               * enter target state
-               */
-              instance->__currentState = __targetState;
-              switch (__targetState)
-              {
-                case DemoFOTAUpdateWorkflowEngine_connected__state:
-                {
-                  DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
-                  break;
-                }
-                default: {
-                  break;
-                }
-              }
-            }
-            
-            if (!__transitionResult) 
-            {
-              return false;
-            }
             break;
           }
-          if (strcmp((*((char **)((arguments[0])))), DEMO_PRODUCT_FIRMWARE_VERSION) == 0) 
+          case DemoFOTAUpdateWorkflowEngine_restarting__state:
           {
-            /* 
-             * transition actions
-             */
-            printf("Ignoring firmware over-the-air update request to version %s as this version is already running\n", (*((char **)((arguments[0])))));
-            
-            /* 
-             * enter target state
-             */
-            DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
-          }
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-      break;
-    }
-    case DemoFOTAUpdateWorkflowEngine_downloading__state:
-    {
-      switch (event)
-      {
-        case DemoFOTAUpdateWorkflowEngine_updateStatusChanged__event:
-        {
-          if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_DOWNLOAD_SUCCEEDED) 
-          {
-            /* 
-             * transition actions
-             */
-            bool __transitionResult = true;
-            DemoFOTAUpdateWorkflowEngine__states_t __targetState = DemoFOTAUpdateWorkflowEngine_restarting__state;
-            
-            /* 
-             * Persist FOTA update state and activate downloaded firmware update
-             */
-            saveState(DemoFOTAUpdateWorkflowEngine_activating__state);
-            if (!fotahub_activateFirmwareUpdate(&instance->updateInfo)) 
-            {
-              saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
-              __targetState = DemoFOTAUpdateWorkflowEngine_connected__state;
-              __transitionResult = false;
-            }
-            
-            if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_downloading__state) 
-            {
-              /* 
-               * enter target state
-               */
-              instance->__currentState = __targetState;
-              switch (__targetState)
-              {
-                case DemoFOTAUpdateWorkflowEngine_restarting__state:
-                {
-                  DemoFOTAUpdateWorkflowEngine_restarting_EntryAction(instance);
-                  break;
-                }
-                case DemoFOTAUpdateWorkflowEngine_connected__state:
-                {
-                  DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
-                  break;
-                }
-                default: {
-                  break;
-                }
-              }
-            }
-            
-            if (!__transitionResult) 
-            {
-              return false;
-            }
+            DemoFOTAUpdateWorkflowEngine_restarting_EntryAction(instance);
             break;
           }
-          if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_CONNECTIVITY_UNAVAILABLE) 
-          {
-            /* 
-             * enter target state
-             */
-            instance->__currentState = DemoFOTAUpdateWorkflowEngine_idle__state;
+          default: {
             break;
           }
-          if ((*((FOTAUpdateStatus_t *)((arguments[0])))) != FOTA_UPDATE_STATUS_DOWNLOAD_SUCCEEDED || (*((FOTAUpdateStatus_t *)((arguments[0])))) != FOTA_UPDATE_STATUS_CONNECTIVITY_UNAVAILABLE) 
-          {
-            /* 
-             * enter target state
-             */
-            instance->__currentState = DemoFOTAUpdateWorkflowEngine_connected__state;
-            DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
-          }
-          break;
         }
-        default: {
-          break;
-        }
+        __outstandingEvent = true;
+        break;
       }
-      break;
-    }
-    case DemoFOTAUpdateWorkflowEngine_restarting__state:
-    {
-      switch (event)
+      case DemoFOTAUpdateWorkflowEngine_idle__state:
       {
-        default: {
-          break;
-        }
-      }
-      break;
-    }
-    case DemoFOTAUpdateWorkflowEngine_activating__state:
-    {
-      switch (event)
-      {
-        case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
+        switch (event)
         {
-          if ((*((ConnectionStatus_t *)((arguments[0])))) >= CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
+          case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
           {
-            /* 
-             * transition actions
-             */
-            validateFirmwareUpdateActivation();
-            
-            if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_activating__state) 
-            {
-              /* 
-               * enter target state
-               */
-            }
-          }
-          break;
-        }
-        case DemoFOTAUpdateWorkflowEngine_updateStatusChanged__event:
-        {
-          if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_ACTIVATION_SUCCEEDED) 
-          {
-            /* 
-             * transition actions
-             */
-            bool __transitionResult = true;
-            
-            /* 
-             * Reset persisted FOTA update state
-             */
-            saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
-            if (!fotahub_confirmFirmwareUpdate(&instance->updateInfo)) 
-            {
-              __transitionResult = false;
-            }
-            
-            if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_activating__state) 
+            if ((*((ConnectionStatus_t *)((arguments[0])))) >= CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
             {
               /* 
                * enter target state
@@ -368,118 +160,361 @@ static bool DemoFOTAUpdateWorkflowEngine__execute(DemoFOTAUpdateWorkflowEngine__
               instance->__currentState = DemoFOTAUpdateWorkflowEngine_connected__state;
               DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
             }
+            break;
+          }
+          case DemoFOTAUpdateWorkflowEngine_updateVersionChanged__event:
+          {
+            /* 
+             * transition actions
+             */
+            printf("Cannot handle firmware over-the-air update request (missing network connection)\n");
             
-            if (!__transitionResult) 
+            /* 
+             * enter target state
+             */
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+        break;
+      }
+      case DemoFOTAUpdateWorkflowEngine_connected__state:
+      {
+        switch (event)
+        {
+          case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
+          {
+            if ((*((ConnectionStatus_t *)((arguments[0])))) < CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
             {
-              return false;
+              /* 
+               * enter target state
+               */
+              instance->__currentState = DemoFOTAUpdateWorkflowEngine_idle__state;
             }
             break;
           }
-          if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_ACTIVATION_FAILED) 
+          case DemoFOTAUpdateWorkflowEngine_updateVersionChanged__event:
           {
-            /* 
-             * transition actions
-             */
-            bool __transitionResult = true;
-            DemoFOTAUpdateWorkflowEngine__states_t __targetState = DemoFOTAUpdateWorkflowEngine_restarting__state;
-            
-            /* 
-             * Persist FOTA update state and revert activated firmware update
-             */
-            saveState(DemoFOTAUpdateWorkflowEngine_reverting__state);
-            if (!fotahub_revertFirmwareUpdate(&instance->updateInfo)) 
-            {
-              saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
-              __targetState = DemoFOTAUpdateWorkflowEngine_connected__state;
-              __transitionResult = false;
-            }
-            
-            if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_activating__state) 
+            if (strcmp((*((char **)((arguments[0])))), DEMO_PRODUCT_FIRMWARE_VERSION) != 0) 
             {
               /* 
-               * enter target state
+               * transition actions
                */
-              instance->__currentState = __targetState;
-              switch (__targetState)
+              bool __transitionResult = true;
+              DemoFOTAUpdateWorkflowEngine__states_t __targetState = DemoFOTAUpdateWorkflowEngine_downloading__state;
+              
+              /* 
+               * Update internal firmware update info
+               */
+              instance->updateInfo.version = (*((char **)((arguments[0]))));
+              
+              /* 
+               * Start firmware update download
+               */
+              if (!fotahub_downloadFirmwareUpdate(&instance->updateInfo)) 
               {
-                case DemoFOTAUpdateWorkflowEngine_restarting__state:
+                __targetState = DemoFOTAUpdateWorkflowEngine_connected__state;
+                __transitionResult = false;
+              }
+              
+              if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_connected__state) 
+              {
+                /* 
+                 * enter target state
+                 */
+                instance->__currentState = __targetState;
+                switch (__targetState)
                 {
-                  DemoFOTAUpdateWorkflowEngine_restarting_EntryAction(instance);
-                  break;
-                }
-                case DemoFOTAUpdateWorkflowEngine_connected__state:
-                {
-                  DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
-                  break;
-                }
-                default: {
-                  break;
+                  case DemoFOTAUpdateWorkflowEngine_connected__state:
+                  {
+                    DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
+                    break;
+                  }
+                  default: {
+                    break;
+                  }
                 }
               }
+              
+              if (!__transitionResult) 
+              {
+                return false;
+              }
+              break;
             }
-            
-            if (!__transitionResult) 
+            if (strcmp((*((char **)((arguments[0])))), DEMO_PRODUCT_FIRMWARE_VERSION) == 0) 
             {
-              return false;
+              /* 
+               * transition actions
+               */
+              printf("Ignoring firmware over-the-air update request to version %s as this version is already running\n", (*((char **)((arguments[0])))));
+              
+              /* 
+               * enter target state
+               */
+              DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
             }
+            break;
           }
-          break;
+          default: {
+            break;
+          }
         }
-        default: {
-          break;
-        }
+        break;
       }
-      break;
-    }
-    case DemoFOTAUpdateWorkflowEngine_reverting__state:
-    {
-      switch (event)
+      case DemoFOTAUpdateWorkflowEngine_downloading__state:
       {
-        case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
+        switch (event)
         {
-          if ((*((ConnectionStatus_t *)((arguments[0])))) >= CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
+          case DemoFOTAUpdateWorkflowEngine_updateStatusChanged__event:
           {
-            /* 
-             * transition actions
-             */
-            validateFirmwareUpdateReversion();
-            
-            if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_reverting__state) 
+            if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_DOWNLOAD_SUCCEEDED) 
+            {
+              /* 
+               * transition actions
+               */
+              bool __transitionResult = true;
+              DemoFOTAUpdateWorkflowEngine__states_t __targetState = DemoFOTAUpdateWorkflowEngine_restarting__state;
+              
+              /* 
+               * Persist FOTA update state and activate downloaded firmware update
+               */
+              saveState(DemoFOTAUpdateWorkflowEngine_activating__state);
+              if (!fotahub_activateFirmwareUpdate(&instance->updateInfo)) 
+              {
+                saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
+                __targetState = DemoFOTAUpdateWorkflowEngine_connected__state;
+                __transitionResult = false;
+              }
+              
+              if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_downloading__state) 
+              {
+                /* 
+                 * enter target state
+                 */
+                instance->__currentState = __targetState;
+                switch (__targetState)
+                {
+                  case DemoFOTAUpdateWorkflowEngine_restarting__state:
+                  {
+                    DemoFOTAUpdateWorkflowEngine_restarting_EntryAction(instance);
+                    break;
+                  }
+                  case DemoFOTAUpdateWorkflowEngine_connected__state:
+                  {
+                    DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
+                    break;
+                  }
+                  default: {
+                    break;
+                  }
+                }
+              }
+              
+              if (!__transitionResult) 
+              {
+                return false;
+              }
+              break;
+            }
+            if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_CONNECTIVITY_UNAVAILABLE) 
             {
               /* 
                * enter target state
                */
+              instance->__currentState = DemoFOTAUpdateWorkflowEngine_idle__state;
+              break;
             }
+            if ((*((FOTAUpdateStatus_t *)((arguments[0])))) != FOTA_UPDATE_STATUS_DOWNLOAD_SUCCEEDED || (*((FOTAUpdateStatus_t *)((arguments[0])))) != FOTA_UPDATE_STATUS_CONNECTIVITY_UNAVAILABLE) 
+            {
+              /* 
+               * enter target state
+               */
+              instance->__currentState = DemoFOTAUpdateWorkflowEngine_connected__state;
+              DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
+            }
+            break;
           }
-          break;
+          default: {
+            break;
+          }
         }
-        case DemoFOTAUpdateWorkflowEngine_updateStatusChanged__event:
-        {
-          /* 
-           * transition actions
-           */
-          /* 
-           * Reset persisted FOTA update state
-           */
-          saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
-          
-          /* 
-           * enter target state
-           */
-          instance->__currentState = DemoFOTAUpdateWorkflowEngine_connected__state;
-          DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
-          break;
-        }
-        default: {
-          break;
-        }
+        break;
       }
-      break;
-    }
-    default: {
-      break;
+      case DemoFOTAUpdateWorkflowEngine_restarting__state:
+      {
+        switch (event)
+        {
+          default: {
+            break;
+          }
+        }
+        break;
+      }
+      case DemoFOTAUpdateWorkflowEngine_activating__state:
+      {
+        switch (event)
+        {
+          case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
+          {
+            if ((*((ConnectionStatus_t *)((arguments[0])))) >= CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
+            {
+              /* 
+               * transition actions
+               */
+              validateFirmwareUpdateActivation();
+              
+              if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_activating__state) 
+              {
+                /* 
+                 * enter target state
+                 */
+              }
+            }
+            break;
+          }
+          case DemoFOTAUpdateWorkflowEngine_updateStatusChanged__event:
+          {
+            if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_ACTIVATION_SUCCEEDED) 
+            {
+              /* 
+               * transition actions
+               */
+              bool __transitionResult = true;
+              
+              /* 
+               * Reset persisted FOTA update state
+               */
+              saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
+              if (!fotahub_confirmFirmwareUpdate(&instance->updateInfo)) 
+              {
+                __transitionResult = false;
+              }
+              
+              if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_activating__state) 
+              {
+                /* 
+                 * enter target state
+                 */
+                instance->__currentState = DemoFOTAUpdateWorkflowEngine_connected__state;
+                DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
+              }
+              
+              if (!__transitionResult) 
+              {
+                return false;
+              }
+              break;
+            }
+            if ((*((FOTAUpdateStatus_t *)((arguments[0])))) == FOTA_UPDATE_STATUS_ACTIVATION_FAILED) 
+            {
+              /* 
+               * transition actions
+               */
+              bool __transitionResult = true;
+              DemoFOTAUpdateWorkflowEngine__states_t __targetState = DemoFOTAUpdateWorkflowEngine_restarting__state;
+              
+              /* 
+               * Persist FOTA update state and revert activated firmware update
+               */
+              saveState(DemoFOTAUpdateWorkflowEngine_reverting__state);
+              if (!fotahub_revertFirmwareUpdate(&instance->updateInfo)) 
+              {
+                saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
+                __targetState = DemoFOTAUpdateWorkflowEngine_connected__state;
+                __transitionResult = false;
+              }
+              
+              if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_activating__state) 
+              {
+                /* 
+                 * enter target state
+                 */
+                instance->__currentState = __targetState;
+                switch (__targetState)
+                {
+                  case DemoFOTAUpdateWorkflowEngine_restarting__state:
+                  {
+                    DemoFOTAUpdateWorkflowEngine_restarting_EntryAction(instance);
+                    break;
+                  }
+                  case DemoFOTAUpdateWorkflowEngine_connected__state:
+                  {
+                    DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
+                    break;
+                  }
+                  default: {
+                    break;
+                  }
+                }
+              }
+              
+              if (!__transitionResult) 
+              {
+                return false;
+              }
+            }
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+        break;
+      }
+      case DemoFOTAUpdateWorkflowEngine_reverting__state:
+      {
+        switch (event)
+        {
+          case DemoFOTAUpdateWorkflowEngine_connectionStatusChanged__event:
+          {
+            if ((*((ConnectionStatus_t *)((arguments[0])))) >= CONNECTION_STATUS_CONNECTIVITY_AVAILABLE) 
+            {
+              /* 
+               * transition actions
+               */
+              validateFirmwareUpdateReversion();
+              
+              if (instance->__currentState == DemoFOTAUpdateWorkflowEngine_reverting__state) 
+              {
+                /* 
+                 * enter target state
+                 */
+              }
+            }
+            break;
+          }
+          case DemoFOTAUpdateWorkflowEngine_updateStatusChanged__event:
+          {
+            /* 
+             * transition actions
+             */
+            /* 
+             * Reset persisted FOTA update state
+             */
+            saveState(DemoFOTAUpdateWorkflowEngine_idle__state);
+            
+            /* 
+             * enter target state
+             */
+            instance->__currentState = DemoFOTAUpdateWorkflowEngine_connected__state;
+            DemoFOTAUpdateWorkflowEngine_connected_EntryAction(instance);
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+        break;
+      }
+      default: {
+        break;
+      }
     }
   }
+  while (__outstandingEvent);
   return true;
 }
 

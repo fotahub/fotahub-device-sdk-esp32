@@ -6,15 +6,21 @@ else
 Q = @
 endif
 
-export MSYSTEM = $(if $(filter Windows_NT,$(OS)),MINGW32,)
-BASH_C = $(if $(filter Windows_NT,$(OS)),/c/msys32/usr/bin/bash -lc,/bin/bash -c)
+ifeq ($(OS),Windows_NT)
+MSYS32_HOME := $(if $(MSYS32_HOME),$(subst \,/,$(MSYS32_HOME)),/c/msys32)
+export MSYSTEM = MINGW32
+BASH_C = $(MSYS32_HOME)/usr/bin/bash -lc
+else
+BASH_C = /bin/bash -c
+endif
 
 export IDF_PATH ?= /git/esp-idf
 export PROJECT_PATH = $(abspath $(dir $(firstword $(MAKEFILE_LIST))))
 
-export FOTAHUB_INCDIR ?=  $(abspath $(PROJECT_PATH)/../../..)/include
+export FOTAHUB_INCDIR ?= $(PREFIX)/include
+export PREFIX ?= $(abspath $(PROJECT_PATH)/../../..)
 export FOTAHUB_SRCDIR ?=
-export FOTAHUB_LIBDIR ?=  $(abspath $(PROJECT_PATH)/../../..)/lib
+export FOTAHUB_LIBDIR ?= $(PREFIX)/lib
 
 SDKCONFIG := $(abspath sdkconfig)
 

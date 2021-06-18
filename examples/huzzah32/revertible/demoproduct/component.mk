@@ -1,7 +1,3 @@
-export FOTAHUB_INCDIR ?=  $(abspath $(PROJECT_PATH)/../../..)/include
-export FOTAHUB_SRCDIR ?=
-export FOTAHUB_LIBDIR ?=  $(abspath $(PROJECT_PATH)/../../..)/lib
-
 #  
 # Begin DemoProduct executable
 #  
