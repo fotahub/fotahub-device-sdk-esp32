@@ -195,6 +195,10 @@ make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<C
 
 ### Perform a cloud-triggered firmare over-the-air update 
 
+You can perfom cloud-triggered firmare over-the-air updates either [interactively](#interactive-firmare-over-the-air-update-using-the-aws-iot-console) through the AWS IoT Console or [programmatically](#programmatic-firmare-over-the-air-update-using-the-aws-cli) by using the AWS CLI.
+
+#### Interactive firmare over-the-air update using the AWS IoT Console
+
 1. Go back to the [AWS IoT Console](https://console.aws.amazon.com/iot/home) and revisit the unnamed classic shadow of your AWS IoT thing (`Manage > Things > {{Your AWS IoT thing}} > Shadows > Classic Shadow`). Open the shadow state document for editing (`Shadow Document > Edit`). Add a `desired` object with a `newVersion` attribute to indicate the new firmware version your board should be updated to and a `verificationData` attribute with the checksum or signature of the same:
 
 ![](thingshadow-3.png "Trigger of FOTA update")
@@ -205,7 +209,11 @@ make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<C
    
 ![](thingshadow-4.png "Thing shadow state after FOTA update")
 
-> &#x1F6C8; As an alternative to perfoming cloud-triggered firmare over-the-air updates manually through the AWS IoT Console, you do that also programmatically by using the [AWS CLI version 2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html). Use the [aws iot-data publish](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/publish.html) command as shown below and provide the name of your AWS IoT thing, the new firmware version your board should be updated to as well as the checksum or signature of the same:
+#### Programmatic firmare over-the-air update using the AWS CLI
+
+1. If not already done so, [install](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config) the AWS CLI version 2.
+
+2. Trigger a firmware over-the-air update for your board by entering an [aws iot-data publish](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/publish.html) command as shown below. Provide the name of your AWS IoT thing, the new firmware version your board should be updated to as well as the checksum or signature of the same:
 
 **Windows:**   
 ```bat
@@ -214,4 +222,23 @@ aws iot-data publish --topic $aws/things/<Your AWS IoT thing>/shadow/update --cl
 **Linux/Mac OS X:**   
 ```sh
 aws iot-data publish --topic \$aws/things/<Your AWS IoT thing>/shadow/update --cli-binary-format raw-in-base64-out --payload '{"state":{"desired":{"newVersion":"1.1","verificationData":"<checksum or signature>"}}}'
+```
+
+3. Upon successful completion, the board will be restarted with the new firmware version. You can verify that by
+   * observing the red LED on your board which should end up blinking significantly faster than before
+   * retrieving the shadow state document using the [aws iot-data get-thing-shadow](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/get-thing-shadow.html) command as follows and checking whether it reflects the new firmware version as the currently running version:
+
+**Windows:**   
+```bat
+aws iot-data get-thing-shadow --thing-name <Your AWS IoT thing> shadow-state.json && type shadow-state.json 
+```
+**Linux/Mac OS X:**   
+```sh
+aws iot-data get-thing-shadow --thing-name <Your AWS IoT thing> shadow-state.json && cat shadow-state.json
+```
+
+**Resulting output:**
+
+```bat
+{"state":{"reported":{"currentVersion":"1.1"}},"metadata":{...},"version":...,"timestamp":...}
 ```
