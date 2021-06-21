@@ -46,15 +46,33 @@ void app_main(void)
   
   wifiStation_connect(WIFI_STATION_SSID, WIFI_STATION_PASSPHRASE);
   
-  xTaskCreate(&demoTasks, "demoTasks", TASK_DEFAULT_STACK_SIZE * 7, NULL, 10, NULL);
+  xTaskCreate(&thingShadowTask, "thingShadowTask", TASK_DEFAULT_STACK_SIZE * 7, NULL, 10, NULL);
+  xTaskCreate(&updateTask, "updateTask", TASK_DEFAULT_STACK_SIZE * 5, NULL, 10, NULL);
+  xTaskCreate(&blinkTask, "blinkTask", TASK_DEFAULT_STACK_SIZE, NULL, 10, NULL);
 }
 
-void demoTasks(void *args)
+void thingShadowTask(void *args)
 {
   while (true)
   {
     awsIoTThingShadow_run();
+    vTaskDelay(10);
+  }
+}
+
+void updateTask(void *args)
+{
+  while (true)
+  {
     fotahub_run();
+    vTaskDelay(10);
+  }
+}
+
+void blinkTask(void *args)
+{
+  while (true)
+  {
     blink_run();
     vTaskDelay(10);
   }

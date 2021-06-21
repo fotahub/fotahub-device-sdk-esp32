@@ -30,7 +30,7 @@
 extern "C" {
 #endif
 
-void demoTasks(void *args);
+void demoTask(void *args);
 
 #ifdef __cplusplus
 } /* extern "C" */

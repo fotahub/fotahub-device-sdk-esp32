@@ -203,7 +203,7 @@ You can perfom cloud-triggered firmare over-the-air updates either [interactivel
 
 ![](thingshadow-3.png "Trigger of FOTA update")
 
-2. Save the modified shadow state document (`Shadow Document > Save`). This will trigger the firmware over-the-air update procedure. Upon successful completion, the board will be restarted with the new firmware version. You can verify that by
+1. Save the modified shadow state document (`Shadow Document > Save`). This will trigger the firmware over-the-air update procedure. Upon successful completion (typically after 1 minute or so), the board will be restarted with the new firmware version. You can verify that by
    * observing the red LED on your board which should end up blinking significantly faster than before
    * refreshing and inspecting the shadow state document in the AWS IoT Console which should reflect the new firmware version as the currently running version:
    
@@ -224,7 +224,7 @@ aws iot-data publish --topic $aws/things/<Your AWS IoT thing>/shadow/update --cl
 aws iot-data publish --topic \$aws/things/<Your AWS IoT thing>/shadow/update --cli-binary-format raw-in-base64-out --payload '{"state":{"desired":{"newVersion":"1.1","verificationData":"<checksum or signature>"}}}'
 ```
 
-3. Upon successful completion, the board will be restarted with the new firmware version. You can verify that by
+3. Upon successful completion (typically after 1 minute or so), the board will be restarted with the new firmware version. You can verify that by
    * observing the red LED on your board which should end up blinking significantly faster than before
    * retrieving the shadow state document using the [aws iot-data get-thing-shadow](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iot-data/get-thing-shadow.html) command as follows and checking whether it reflects the new firmware version as the currently running version:
 
