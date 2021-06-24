@@ -53,7 +53,7 @@ struct AWSIoTThingShadowStack__cdata {
   /* 
    * fields
    */
-  AWSIoTX509CertStoreImpl__cdata_t *deviceCertStoreInst__field;
+  AWSIoTX509CertStoreImpl__cdata_t *certStoreInst__field;
   /* 
    * fields
    */

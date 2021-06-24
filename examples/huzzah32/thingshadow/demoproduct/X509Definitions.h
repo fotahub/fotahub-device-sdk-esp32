@@ -31,7 +31,7 @@ extern "C" {
 enum X509DataItemKind {
   ROOT_CA,
   CERT,
-  X509Definitions_X509DataItemKind__PRIVATE_KEY,
+  PRIV_KEY,
   CLIENT_ID
 };
 typedef enum X509DataItemKind X509DataItemKind_t;

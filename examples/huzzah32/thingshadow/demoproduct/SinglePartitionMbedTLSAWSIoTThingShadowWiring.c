@@ -30,7 +30,7 @@ static inline void awsIoTThingShadowInstances_thingShadowStack_mqttClientInst__w
 
 static inline void awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst__wire(void);
 
-static inline void awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst__wire(void);
+static inline void awsIoTThingShadowInstances_thingShadowStack_certStoreInst__wire(void);
 
 static inline void awsIoTThingShadowInstances_thingShadowStack_datagramInst__wire(void);
 
@@ -94,9 +94,9 @@ IRunnable__idata_t awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst
 /* 
  * comp instance data
  */
-AWSIoTX509CertStoreImpl__cdata_t awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst__instance = { 0 };
+AWSIoTX509CertStoreImpl__cdata_t awsIoTThingShadowInstances_thingShadowStack_certStoreInst__instance = { 0 };
 
-IX509DataProvider__idata_t awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops = { 0 };
+IX509DataProvider__idata_t awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops = { 0 };
 
 /* 
  * comp instance data
@@ -471,7 +471,7 @@ static inline void awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst
   /* 
    * required port ops
    */
-  awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst__instance.x509DataProvider__ops = &awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops;
+  awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst__instance.x509DataProvider__ops = &awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops;
   /* 
    * required port ops
    */
@@ -479,43 +479,43 @@ static inline void awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst
   
 }
 
-static inline void awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst__wire(void)
+static inline void awsIoTThingShadowInstances_thingShadowStack_certStoreInst__wire(void)
 {
   /* 
-   * INSTANCE: thingShadowStack_deviceCertStoreInst
+   * INSTANCE: thingShadowStack_certStoreInst
    */
   /* 
    * prov port
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.storeX509DataItem = &AWSIoTX509CertStoreImpl_x509DataProvider_storeX509DataItem;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.storeX509DataItem = &AWSIoTX509CertStoreImpl_x509DataProvider_storeX509DataItem;
   /* 
    * prov port
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.getX509RootCACount = &AWSIoTX509CertStoreImpl_x509DataProvider_getX509RootCACount;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.getX509RootCACount = &AWSIoTX509CertStoreImpl_x509DataProvider_getX509RootCACount;
   /* 
    * prov port
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.loadRootCA = &AWSIoTX509CertStoreImpl_x509DataProvider_loadRootCA;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.loadRootCA = &AWSIoTX509CertStoreImpl_x509DataProvider_loadRootCA;
   /* 
    * prov port
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.loadCertificate = &AWSIoTX509CertStoreImpl_x509DataProvider_loadCertificate;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.loadCertificate = &AWSIoTX509CertStoreImpl_x509DataProvider_loadCertificate;
   /* 
    * prov port
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.loadPrivateKey = &AWSIoTX509CertStoreImpl_x509DataProvider_loadPrivateKey;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.loadPrivateKey = &AWSIoTX509CertStoreImpl_x509DataProvider_loadPrivateKey;
   /* 
    * prov port
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.loadClientId = &AWSIoTX509CertStoreImpl_x509DataProvider_loadClientId;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.loadClientId = &AWSIoTX509CertStoreImpl_x509DataProvider_loadClientId;
   /* 
    * prov port
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.unloadX509DataItem = &AWSIoTX509CertStoreImpl_x509DataProvider_unloadX509DataItem;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.unloadX509DataItem = &AWSIoTX509CertStoreImpl_x509DataProvider_unloadX509DataItem;
   /* 
    * prov port owning instance
    */
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops.__instance = &awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst__instance;
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops.__instance = &awsIoTThingShadowInstances_thingShadowStack_certStoreInst__instance;
   
 }
 
@@ -600,7 +600,7 @@ static inline void awsIoTThingShadowInstances_thingShadowStack___shadow__wire(vo
   awsIoTThingShadowInstances_thingShadowStack___shadow__instance.thingShadowInst__field = &awsIoTThingShadowInstances_thingShadowStack_thingShadowInst__instance;
   awsIoTThingShadowInstances_thingShadowStack___shadow__instance.mqttClientInst__field = &awsIoTThingShadowInstances_thingShadowStack_mqttClientInst__instance;
   awsIoTThingShadowInstances_thingShadowStack___shadow__instance.mbedTLSClientInst__field = &awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst__instance;
-  awsIoTThingShadowInstances_thingShadowStack___shadow__instance.deviceCertStoreInst__field = &awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst__instance;
+  awsIoTThingShadowInstances_thingShadowStack___shadow__instance.certStoreInst__field = &awsIoTThingShadowInstances_thingShadowStack_certStoreInst__instance;
   awsIoTThingShadowInstances_thingShadowStack___shadow__instance.datagramInst__field = &awsIoTThingShadowInstances_thingShadowStack_datagramInst__instance;
   awsIoTThingShadowInstances_thingShadowStack___shadow__instance.jsonProcessorInst__field = &awsIoTThingShadowInstances_thingShadowStack_jsonProcessorInst__instance;
   /* 
@@ -621,7 +621,7 @@ void awsIoTThingShadowInstances__init(void)
   awsIoTThingShadowInstances_thingShadowStack_thingShadowInst__wire();
   awsIoTThingShadowInstances_thingShadowStack_mqttClientInst__wire();
   awsIoTThingShadowInstances_thingShadowStack_mbedTLSClientInst__wire();
-  awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst__wire();
+  awsIoTThingShadowInstances_thingShadowStack_certStoreInst__wire();
   awsIoTThingShadowInstances_thingShadowStack_datagramInst__wire();
   awsIoTThingShadowInstances_thingShadowStack_jsonProcessorInst__wire();
   awsIoTThingShadowInstances_thingShadowStack___shadow__wire();

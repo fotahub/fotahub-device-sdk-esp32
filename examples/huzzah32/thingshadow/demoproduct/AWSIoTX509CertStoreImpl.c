@@ -23,8 +23,8 @@ extern uint8_t const  AWSIoTX509CertStoreImpl_AWS_IOT_ROOT_CA_1_end[] asm("_bina
 extern uint8_t const  AWSIoTX509CertStoreImpl_AWS_IOT_ROOT_CA_3_start[] asm("_binary_AmazonRootCA3_pem_start");
 extern uint8_t const  AWSIoTX509CertStoreImpl_AWS_IOT_ROOT_CA_3_end[] asm("_binary_AmazonRootCA3_pem_end");
 
-extern uint8_t const  AWSIoTX509CertStoreImpl_CLIENT_CERTIFICATE_start[] asm("_binary_Certificate_pem_start");
-extern uint8_t const  AWSIoTX509CertStoreImpl_CLIENT_CERTIFICATE_end[] asm("_binary_Certificate_pem_end");
+extern uint8_t const  AWSIoTX509CertStoreImpl_CERTIFICATE_start[] asm("_binary_Certificate_pem_start");
+extern uint8_t const  AWSIoTX509CertStoreImpl_CERTIFICATE_end[] asm("_binary_Certificate_pem_end");
 
 extern uint8_t const  AWSIoTX509CertStoreImpl_PRIVATE_KEY_start[] asm("_binary_PrivateKey_pem_start");
 extern uint8_t const  AWSIoTX509CertStoreImpl_PRIVATE_KEY_end[] asm("_binary_PrivateKey_pem_end");
@@ -55,8 +55,8 @@ void AWSIoTX509CertStoreImpl_x509DataProvider_unloadX509DataItem(uint8_t const  
 
 bool AWSIoTX509CertStoreImpl_x509DataProvider_loadCertificate(uint8_t const  **ppDataItem, size_t *pDataItemSize, void *___id)
 {
-  *ppDataItem = ((uint8_t const  *)(AWSIoTX509CertStoreImpl_CLIENT_CERTIFICATE_start));
-  *pDataItemSize = (AWSIoTX509CertStoreImpl_CLIENT_CERTIFICATE_end - AWSIoTX509CertStoreImpl_CLIENT_CERTIFICATE_start);
+  *ppDataItem = ((uint8_t const  *)(AWSIoTX509CertStoreImpl_CERTIFICATE_start));
+  *pDataItemSize = (AWSIoTX509CertStoreImpl_CERTIFICATE_end - AWSIoTX509CertStoreImpl_CERTIFICATE_start);
   return true;
 }
 

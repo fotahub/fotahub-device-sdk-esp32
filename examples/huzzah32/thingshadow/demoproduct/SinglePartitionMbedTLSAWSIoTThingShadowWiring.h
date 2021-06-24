@@ -88,9 +88,9 @@ extern IRunnable__idata_t awsIoTThingShadowInstances_thingShadowStack_mbedTLSCli
 /* 
  * comp instance data
  */
-extern AWSIoTX509CertStoreImpl__cdata_t awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst__instance;
+extern AWSIoTX509CertStoreImpl__cdata_t awsIoTThingShadowInstances_thingShadowStack_certStoreInst__instance;
 
-extern IX509DataProvider__idata_t awsIoTThingShadowInstances_thingShadowStack_deviceCertStoreInst_x509DataProvider__ops;
+extern IX509DataProvider__idata_t awsIoTThingShadowInstances_thingShadowStack_certStoreInst_x509DataProvider__ops;
 
 /* 
  * comp instance data
