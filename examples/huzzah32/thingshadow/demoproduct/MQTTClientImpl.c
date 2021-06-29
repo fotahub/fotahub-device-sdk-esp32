@@ -288,8 +288,6 @@ bool MQTTClientImpl_mqttClient_sendPublishMessage(const void* hSession, char *to
 void MQTTClientImpl_mqttClient_disconnect(const void* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
-  printf("Disconnecting...\n");
-  
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *) hSession);
   if (MQTTClientImpl_isMQTTSessionDataDeleted(pSessionData, ___cid)) 
   {
@@ -324,7 +322,6 @@ void MQTTClientImpl_clientSocketHandler_connected(const void* hSession, void *__
   }
   
   pSessionData->hSocketSession = hSession;
-  printf("sending connection request to MQTT broker...\n");
   
   (*___cid->socket__ops->sendDatagram)(hSession, pSessionData->pConnDatagram, NULL, ___cid->socket__ops->__instance);
   pSessionData->pConnDatagram = NULL;
@@ -438,7 +435,6 @@ void MQTTClientImpl_clientSocketHandler_datagramReceived(const void* hSession, D
       }
       case MQTT_MSG_PINGRESP:
       {
-        printf("Ping SUCCEEDED!\n");
         MQTTClientImpl_cleanupReceivedDatagram(pSessionData, ___cid);
         if (___cid->keepAliveTimeoutTimer__ops != NULL) 
         {
@@ -471,7 +467,6 @@ void MQTTClientImpl_clientSocketHandler_datagramReceived(const void* hSession, D
 void MQTTClientImpl_clientSocketHandler_disconnected(const void* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
-  printf("Disconnected from server!\n");
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *)((*___cid->socket__ops->getUserData)(hSession, ___cid->socket__ops->__instance)));
   if (MQTTClientImpl_isMQTTSessionDataDeleted(pSessionData, ___cid)) 
   {
@@ -555,7 +550,7 @@ void MQTTClientImpl_keepAliveTimerHandler_expired(void *___id)
   {
     if (___cid->mqttSessions__field[__i].busy) 
     {
-      printf("Sending MQTT ping message...\n");
+      printf("Issuing MQTT ping request\n");
       Datagram_t *pingReqMsg = (*___cid->socket__ops->newDatagram)(NULL, PINGREQ_MESSAGE_LENGTH, PROTOCOL_SPECIFIC, ___cid->socket__ops->__instance);
       size_t len = ((size_t)(MQTTSerialize_pingreq(pingReqMsg->pVisiblePayload, ((int32_t)(pingReqMsg->visiblePayloadLength)))));
       if (len < PINGREQ_MESSAGE_LENGTH) 
@@ -577,10 +572,10 @@ void MQTTClientImpl_keepAliveTimeoutHandler_expired(void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   /* 
-   * be careful, this implementation is not complete and suppose that we support only one session at the same time (which is not correct)
-   * TODO A timeout timer should be associated to each session and a global timer should filters the expired ones to report ping error message...
+   * !! Important Note !! This implementation is not complete and supposes that we support only one session at the same time (which is not correct)
+   * TODO A timeout timer should be associated with each session and a global timer should filter the expired ones to report the ping error message
    */
-  printf("MQTT Ping message failed...\n");
+  printf("MQTT ping request failed\n");
   /* 
    * cancel keep alive timer to discard sending mqtt ping message
    */
@@ -617,7 +612,6 @@ void MQTTClientImpl_handleReceivedConnAckPacket(MQTTSessionData_t *pSessionData,
     return;
   }
   MQTTClientImpl_cleanupReceivedDatagram(pSessionData, ___cid);
-  printf("MQTT connection successfully acknowledged by server\n");
   (*___cid->mqttClientHandler__ops->connected)(pSessionData, ___cid->mqttClientHandler__ops->__instance);
   pSessionData->connected = true;
 }
@@ -679,14 +673,14 @@ void MQTTClientImpl_handleReceivedPublishPacket(MQTTSessionData_t *pSessionData,
   (*___cid->mqttClientHandler__ops->publishMessageReceived)(pSessionData, topicString.lenstring.data, ((size_t)(topicString.lenstring.len)), pSessionData->pReceivedDatagram, ___cid->mqttClientHandler__ops->__instance);
   MQTTClientImpl_cleanupReceivedDatagram(pSessionData, ___cid);
   /* 
-   * if qos 1 acknowledge the receiving of publish message
+   * If qos 1 acknowledge the receiving of publish message
    */
   if (qos == MQTT_QOS_1) 
   {
     /* 
-     * mqtt serialize pub ack
+     * MQTT serialize pub ack
      */
-    printf("acknowledging publish message receiving...\n");
+    printf("Acknowledging received publish message\n");
     Datagram_t *pubAckmsg = (*___cid->socket__ops->newDatagram)(pSessionData, SUBACK_MESSAGE_LENGTH, PROTOCOL_SPECIFIC, ___cid->socket__ops->__instance);
     if (MQTTSerialize_ack(pubAckmsg->pVisiblePayload, ((int32_t)(pubAckmsg->visiblePayloadLength)), MQTT_MSG_PUBACK, dup, packetID) != 1) 
     {

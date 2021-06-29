@@ -41,6 +41,7 @@ const void* AWSIoTMQTTThingShadowImpl_thingShadow_connect(AWSIoTConnectionParame
     AbstractAWSIoTMQTTThingShadowImpl_deleteAWSIoTData(pSessionData, ___cid);
     return NULL;
   }
+  
   if (mqttConnParams->clientID == NULL) 
   {
     mqttConnParams->clientID = pSessionData->pConnectionParams->thingName;

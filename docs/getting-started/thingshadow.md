@@ -1,6 +1,6 @@
 # AWS IoT Thing Shadow-driven FOTA update example
 
-The *Thing Shadow* example demonstrates a real-world firmware over-the-air update procedure using the AWS IoT Thing Shadow (aka Device Shadow) service. The thing shadow is used to trigger firmware over-the-air updates on the device that it represents through the cloud. Thanks to that, the device itself can be located in any place where Wi-Fi and Internet are available and does no longer need to be connected to a USB port of your laptop or computer as with the [Simple](simple.md) and [Revertible](revertible.md) examples. The thing shadow example also makes sure that misbehaving firmware updates are reverted to the previous version.
+The *Thing Shadow* example demonstrates a real-world firmware over-the-air update procedure using the AWS IoT Thing Shadow (aka Device Shadow) service. The thing shadow is used to trigger firmware over-the-air updates on the device it represents through the cloud. Thanks to that, the device itself can be located in any place where Wi-Fi and Internet are available and does no longer need to be connected to a USB port of your laptop or computer as with the [Simple](simple.md) and [Revertible](revertible.md) examples. The thing shadow example also detects misbehaving firmware updates and reverts them to the previous version.
 
 ## Technical context
 

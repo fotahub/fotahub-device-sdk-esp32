@@ -17,6 +17,8 @@
  */
 #include "AWSIoTX509CertStoreImpl.h"
 
+#include <string.h>
+
 extern uint8_t const  AWSIoTX509CertStoreImpl_AWS_IOT_ROOT_CA_1_start[] asm("_binary_AmazonRootCA1_pem_start");
 extern uint8_t const  AWSIoTX509CertStoreImpl_AWS_IOT_ROOT_CA_1_end[] asm("_binary_AmazonRootCA1_pem_end");
 

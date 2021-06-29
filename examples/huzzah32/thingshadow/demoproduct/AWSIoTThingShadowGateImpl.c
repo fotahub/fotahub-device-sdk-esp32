@@ -96,7 +96,6 @@ bool AWSIoTThingShadowGateImpl_awsThingShadowEngine__execute(awsThingShadowEngin
            */
           bool __transitionResult = true;
           
-          printf("Connected to AWS IoT Thing Shadow\n");
           ___cid->awsIoTThingShadowSession__field = (*((void const **)((arguments[0]))));
           if (!AWSIoTThingShadowGateImpl_updateThingShadowState(___cid)) 
           {

@@ -19,6 +19,7 @@
 
 #include "FotaHub.h"
 #include "DemoFOTAUpdateWorkflow.h"
+#include <string.h>
 
 static inline void awsIoTThingShadowInstances_thingShadowIOHandlerInst__wire(void);
 
@@ -240,6 +241,7 @@ static inline void awsIoTThingShadowInstances_thingShadowStack_thingShadowInst__
   /* 
    * INSTANCE: thingShadowStack_thingShadowInst
    */
+  memset(awsIoTThingShadowInstances_thingShadowStack_thingShadowInst__instance.baseComponentData.awsIoTRequests__field, 0, sizeof(awsIoTThingShadowInstances_thingShadowStack_thingShadowInst__instance.baseComponentData.awsIoTRequests__field));
   /* 
    * prov port
    */
@@ -324,6 +326,7 @@ static inline void awsIoTThingShadowInstances_thingShadowStack_mqttClientInst__w
   /* 
    * INSTANCE: thingShadowStack_mqttClientInst
    */
+  memset(awsIoTThingShadowInstances_thingShadowStack_mqttClientInst__instance.mqttSessions__field, 0, sizeof(awsIoTThingShadowInstances_thingShadowStack_mqttClientInst__instance.mqttSessions__field));
   /* 
    * prov port
    */

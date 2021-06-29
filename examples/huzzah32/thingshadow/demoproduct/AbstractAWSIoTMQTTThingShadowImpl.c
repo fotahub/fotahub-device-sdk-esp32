@@ -199,7 +199,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connected(const void* h
     return;
   }
   
-  printf("MQTT connection established, subscribing to AWS IoT Thing Shadow topics\n");
+  printf("Subscribing to AWS IoT Thing Shadow topics...\n");
   
   char updateAcceptedTopicName[MAX_AWS_IOT_THING_SHADOW_TOPIC_NAME_LENGTH + 1] = { 0 };
   char updateRejectedTopicName[MAX_AWS_IOT_THING_SHADOW_TOPIC_NAME_LENGTH + 1] = { 0 };
@@ -241,7 +241,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(const void* 
   {
     if (grantedQoS[__i] == MQTT_QOS_FAILURE) 
     {
-      printf("failed to subsbcribe to topic id %hi\n", __i);
+      printf("Failed to subsbcribe to MQTT topic with id %hi\n", __i);
       for ( uint8_t ___pc = 0 ; ___pc < MAX_AWS_IOT_THING_SHADOW_HANDLER_COUNT; ___pc++ )
       {
         if (___cid->awsIoTThingShadowHandlers__ops[___pc] != NULL && ___cid->awsIoTThingShadowHandlers__ops[___pc]->__instance != NULL) 
@@ -252,7 +252,6 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(const void* 
       return;
     }
   }
-  printf("Successfully subscribed to AWS IoT Thing Shadow topics\n");
   for ( uint8_t ___pc = 0 ; ___pc < MAX_AWS_IOT_THING_SHADOW_HANDLER_COUNT; ___pc++ )
   {
     if (___cid->awsIoTThingShadowHandlers__ops[___pc] != NULL && ___cid->awsIoTThingShadowHandlers__ops[___pc]->__instance != NULL) 
@@ -264,7 +263,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(const void* 
 
 void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_published(const void* hSession, void *___id)
 {
-  printf("MQTT publish message sent\n");
+  
 }
 
 void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_publishMessageReceived(const void* hSession, char *topicName, size_t topicNameLen, Datagram_t *pDatagram, void *___id)
@@ -324,7 +323,6 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_publishMessageReceived(
 void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_disconnected(const void* hSession, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
-  printf("Disconnected from MQTT\n");
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *)((*___cid->mqttClient__ops->getUserData)(hSession, ___cid->mqttClient__ops->__instance)));
   if (AbstractAWSIoTMQTTThingShadowImpl_isAWSIoTDataDeleted(pSessionData, ___cid)) 
   {
