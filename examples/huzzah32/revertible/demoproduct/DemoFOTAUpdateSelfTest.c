@@ -20,6 +20,7 @@
 #include "FotaHub.h"
 #include <stdlib.h>
 #include <time.h>
+#include "DemoProductInfo.h"
 
 static bool runRandomSelfTest(uint8_t successRate);
 
@@ -59,17 +60,6 @@ void validateFirmwareUpdateActivation(void)
 void validateFirmwareUpdateReversion(void)
 {
   printf("Validating previous firmware\n");
-  /* 
-   * Perform any sort of tests and checks to see if device behaves as expected after reversion firmware update
-   */
-  if (runRandomSelfTest(SIMULATED_REVERSION_SUCCESS_RATE)) 
-  {
-    printf("Firmware update successfully reverted\n");
-    fotahub_onFirmwareUpdateStatusChanged(FOTA_UPDATE_STATUS_REVERSION_SUCCEEDED);
-  }
-  else
-  {
-    printf("Firmware update reversion failed\n");
-    fotahub_onFirmwareUpdateStatusChanged(FOTA_UPDATE_STATUS_REVERSION_FAILED);
-  }
+  printf("Firmware update successfully reverted\n");
+  fotahub_onFirmwareUpdateStatusChanged(FOTA_UPDATE_STATUS_REVERSION_SUCCEEDED);
 }

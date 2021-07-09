@@ -35,6 +35,7 @@ extern "C" {
 
 #define DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM FOTA_UPDATE_VERIFICATION_ALGORITHM_SHA256
 
+
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

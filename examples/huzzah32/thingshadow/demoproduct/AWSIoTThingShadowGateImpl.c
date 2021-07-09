@@ -55,6 +55,18 @@ bool AWSIoTThingShadowGateImpl_awsThingShadowEngine__execute(awsThingShadowEngin
           }
           break;
         }
+        case awsThingShadowEngine_fotaUpdateStatus__event:
+        {
+          /* 
+           * transition actions
+           */
+          updateStatus.value = (*((FOTAUpdateStatus_t *)((arguments[0]))));
+          
+          /* 
+           * enter target state
+           */
+          break;
+        }
         default: {
           break;
         }
@@ -332,6 +344,11 @@ bool AWSIoTThingShadowGateImpl_awsThingShadowEngine__execute(awsThingShadowEngin
           if ((*((FOTAUpdateStatus_t *)((arguments[0])))) != FOTA_UPDATE_STATUS_DOWNLOAD_SUCCEEDED) 
           {
             /* 
+             * transition actions
+             */
+            updateStatus.value = (*((FOTAUpdateStatus_t *)((arguments[0]))));
+            
+            /* 
              * enter target state
              */
             instance->__currentState = awsThingShadowEngine_connectedToNetwork__state;
@@ -447,6 +464,7 @@ bool AWSIoTThingShadowGateImpl_updateThingShadowState(void *___id)
   stateObj.modified = true;
   attributeUpdateStateObj.modified = true;
   updateCurrentVersion.modified = true;
+  updateStatus.modified = true;
   
   char jsonDocument[MAX_JSON_BUFFER_LENGTH + 1] = { 0 };
   if (!(*___cid->jsonSerializer__ops->serialize)(((struct jsontree_value *)(&requestStateDoc)), MODE_MODIFIED_ATTRIBUTES, ___cid->jsonDocumentIOHandler__ops, NULL, jsonDocument, sizeof(jsonDocument), ___cid->jsonSerializer__ops->__instance)) 

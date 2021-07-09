@@ -17,17 +17,22 @@
  */
 #include "AWSIoTThingShadowDocumentDefinition.h"
 
+#include <string.h>
+
 struct jsontree_callback updateCurrentVersion = { JSON_TYPE_CALLBACK, false, &delegatingJSONTreeOutputHandler, &delegatingJSONTreeInputHandler };
 
 struct jsontree_callback updateNewVersion = { JSON_TYPE_CALLBACK, false, &delegatingJSONTreeOutputHandler, &delegatingJSONTreeInputHandler };
 
 struct jsontree_callback AWSIoTThingShadowDocumentDefinition_updateVerificationData = { JSON_TYPE_CALLBACK, false, &delegatingJSONTreeOutputHandler, &delegatingJSONTreeInputHandler };
 
+struct jsontree_enum updateStatus = { JSON_TYPE_ENUM, false, FOTA_UPDATE_STATUS_NONE, &updateStatusEncoderFunc, &updateStatusDecoderFunc };
+
 struct jsontree_object nullObj = { JSON_TYPE_OBJECT, false, true, 0, NULL };
 
 struct jsontree_pair attributeUpdateStatePairs[] = 
 {
-  { AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_UPDATE_CURRENT_VERSION, ((struct jsontree_value *)(&updateCurrentVersion)) }
+  { AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_UPDATE_CURRENT_VERSION, ((struct jsontree_value *)(&updateCurrentVersion)) }, 
+  { AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_UPDATE_STATUS, ((struct jsontree_value *)(&updateStatus)) }
 };
 
 struct jsontree_object attributeUpdateStateObj = { JSON_TYPE_OBJECT, false, false, ((uint8_t)((sizeof(attributeUpdateStatePairs) / sizeof(struct jsontree_pair)))), attributeUpdateStatePairs };
@@ -65,3 +70,44 @@ struct jsontree_pair deltaStateDocPairs[] =
  * This contains /desired, /reported, and /delta
  */
 struct jsontree_object deltaStateDoc = { JSON_TYPE_OBJECT, false, false, ((uint8_t)((sizeof(deltaStateDocPairs) / sizeof(struct jsontree_pair)))), deltaStateDocPairs };
+
+size_t updateStatusEncoderFunc(uint32_t value, char *msg, size_t msgLength)
+{
+  char *valueString = "";
+  switch (((FOTAUpdateStatus_t)value))
+  {
+    case FOTA_UPDATE_STATUS_NONE:
+    {
+      valueString = AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_NONE;
+      break;
+    }
+    case FOTA_UPDATE_STATUS_ACTIVATION_SUCCEEDED:
+    {
+      valueString = AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_SUCCEEDED;
+      break;
+    }
+    default: {
+      valueString = AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_FAILED;
+      break;
+    }
+  }
+  snprintf(msg, msgLength, valueString);
+  return strlen(valueString);
+}
+
+uint32_t updateStatusDecoderFunc(char const *msg, size_t msgLength)
+{
+  if (strncmp(msg, AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_NONE, msgLength) == 0) 
+  {
+    return FOTA_UPDATE_STATUS_NONE;
+  }
+  if (strncmp(msg, AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_SUCCEEDED, msgLength) == 0) 
+  {
+    return FOTA_UPDATE_STATUS_ACTIVATION_SUCCEEDED;
+  }
+  if (strncmp(msg, AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_FAILED, msgLength) == 0) 
+  {
+    return FOTA_UPDATE_STATUS_ACTIVATION_FAILED;
+  }
+  return 0;
+}

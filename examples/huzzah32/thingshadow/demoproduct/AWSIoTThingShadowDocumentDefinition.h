@@ -24,6 +24,7 @@
 #include "JSON.h"
 #include "JSONProcessorImpl.h"
 #include "AWSIoTDefinitions.h"
+#include "FOTAUpdateDefinitions.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,11 +36,25 @@ extern "C" {
 
 #define AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_UPDATE_VERIFICATION_DATA "verificationData"
 
+#define AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_UPDATE_STATUS "updateStatus"
+
+#define AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_FAILED "failed"
+
+#define AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_SUCCEEDED "succeeded"
+
+#define AWS_IOT_THING_SHADOW_JSON_ATTRIBUTE_VALUE_UPDATE_STATUS_NONE "none"
+
+size_t updateStatusEncoderFunc(uint32_t value, char *msg, size_t msgLength);
+
+uint32_t updateStatusDecoderFunc(char const *msg, size_t msgLength);
+
 extern struct jsontree_callback updateCurrentVersion;
 
 extern struct jsontree_callback updateNewVersion;
 
 extern struct jsontree_callback AWSIoTThingShadowDocumentDefinition_updateVerificationData;
+
+extern struct jsontree_enum updateStatus;
 
 extern struct jsontree_object requestStateDoc;
 

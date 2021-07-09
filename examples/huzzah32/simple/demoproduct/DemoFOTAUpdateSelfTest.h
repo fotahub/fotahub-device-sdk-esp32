@@ -29,8 +29,6 @@ extern "C" {
 
 #define SIMULATED_ACTIVATION_SUCCESS_RATE 70
 
-#define SIMULATED_REVERSION_SUCCESS_RATE 90
-
 void fotaUpdateSelfTest_init(void);
 
 void validateFirmwareUpdateActivation(void);

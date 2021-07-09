@@ -3,13 +3,13 @@ The FotaHub&reg; Device SDK for ESP32&reg; enables developers to create firmware
 
 # Installation
 
-To use the FotaHub® Device SDK for ESP32&reg;, the prerequisites described in the following must be available on your laptop or computer. The easiest and quickest way to make that happen is to use Docker. Alternatively, it is possible to install the complete set of prerequisites directly on your machine.
+To use the FotaHub® Device SDK for ESP32&reg;, the prerequisites described in the following must be available on your laptop or computer. The easiest and quickest way to make that happen is to use Docker. If you are an experienced user, you may also opt for installing the complete set of prerequisites directly on your machine instead.
 
 ## ESP32 SDK and toolchain
 
-When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. 
+When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands of the various examples included in this project.
 
-Otherwise, the following ESP32-related SDKs and tools must be installed: 
+In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead: 
 * The [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/v3.2.5/get-started/index.html#get-esp-idf) **v3.2.2**
 * The [ESP32 toolchain](https://docs.espressif.com/projects/esp-idf/en/v3.2.5/get-started/index.html#setup-toolchain)
 ## General purpose tools
