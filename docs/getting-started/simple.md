@@ -4,15 +4,19 @@ The *Simple* example demonstrates the most straight forward manner to make firmw
 
 ## Operating principle
 
-The device listens for a firmware update info string to be sent over the serial port. It is expected to consist of the new firmware version the device should be updated to followed by a ':' and the checksum or signature of the new firmware version:
+The device listens for a firmware update info string to be sent over the serial port. It is expected to consist of the new firmware version the device should be updated to followed by a ':' separator and the checksum or signature of the new firmware version:
 
-`<new-version>:<verificationData>` 
+`<new-version>:<verification-data>` 
 
-e.g., `1.1:a15d5599d8745ff4f51690eb3996afcf75d0b1729d1b8cda2491b03940417521`
+For example:
 
-Once a valid update info string has been received and the contained new firmware version is different from the version of the firmware already running on the device, the firmware update procedure is triggered. It involves the device to connect to FotaHub and download the binary of the new firmware version. Thereby, it uses a dedicated URL including the id of the product representing the device in FotaHub, and the name and the version of the firmware binary to be retrieved.
+`1.1:a15d5599d8745ff4f51690eb3996afcf75d0b1729d1b8cda2491b03940417521`
 
-The downloaded firmware binary is stored in the device's flash memory. At the same time, the downloaded firmware binary's checksum or signature gets recalculated and compared to the checksum or signature included in the previously communicated update info string. If both match the firmware update gets activated by restarting the device and letting boot it into the flash memory partition where the downloaded firmware binary has been stored. After the restart, the device executes the new firmware version downloaded from FotaHub. 
+Once a valid update info string has been received and the contained new firmware version is different from the version of the firmware already running on the device, the firmware update procedure is triggered. It involves the device to connect to FotaHub and download the binary of the new firmware version. Thereby, it uses a dedicated URL including the id of the product representing the device in FotaHub, and the name and the version of the firmware binary to be retrieved, e.g.:
+
+`https://bin.fotahub.com/7f52cf5e-7f0d-49dc-87fd-679ebfb94d8d/DemoProduct-1.1`
+
+The downloaded firmware binary is stored in the device's flash memory. At the same time, the downloaded firmware binary's checksum or signature gets recalculated and compared to the checksum or signature included in the previously communicated update info string. If both match, the firmware update gets activated by restarting the device and letting boot it into the flash memory partition where the downloaded firmware binary has been stored. After the restart, the device executes the new firmware version downloaded from FotaHub. 
 
 ## Supported targets
 
@@ -36,20 +40,20 @@ Create a FotaHub product that represents your board in FotaHub as explained [her
 
 ### Create and run initial firmware version
 
-1. Start the Visual Studio Code and open (`File > Folder...`) the `Simple` example included in the FotaHub Device SDK for ESP32 (`<device-sdk-root>/examples/simple`).
+1. Start the Visual Studio Code and open (`File > Folder...`) the `Simple` example included in the FotaHub Device SDK for ESP32 (`<device-sdk-root>/examples/huzzah32/simple`).
 
-2. Go to the `Configuration.h` file in the `demoproduct` folder, and initialize the `WIFI_SSID` and `WIFI_PASSPHRASE` constants with the crentials of the Wi-Fi network you want to connect to with your board:
+2. Go to the `Configuration.h` file in the `demoproduct` folder, and initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the crentials of the Wi-Fi network you want to connect to with your board:
 
 ```c
-#define WIFI_SSID "My-Fancy-WiFi-SSID"
+#define WIFI_STATION_SSID "my-fancy-WiFi-SSID"
 
-#define WIFI_PASSPHRASE "My-Cryptic-WiFi-Passphrase"
+#define WIFI_STATION_PASSPHRASE "my-cryptic-WiFi-passphrase"
 ```
 
 3. Open the `DemoProductInfo.h` file in the `demoproduct` folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (see `Products > {{Your FotaHub product}} > Settings > General` at [Fotahub](https://fotahub.com)). Leave the `DEMO_PRODUCT_FIRMWARE_VERSION` as is for now. In case you have selected anything else than `SHA256` as the binary checksum algorithm for your FotaHub product or opted for using a signature instead, you also must adjust the `DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM` constant accordingly:
 
 ```c
-#define DEMO_PRODUCT_ID "eb8ab3b1-0938-40ec-afba-9379363948cf"
+#define DEMO_PRODUCT_ID "7f52cf5e-7f0d-49dc-87fd-679ebfb94d8d"
 
 #define DEMO_PRODUCT_NAME "Demo Product"
 
@@ -70,14 +74,13 @@ mind
 ```sh
 ./mind.sh
 ```
-<p style="margin-left: 2em">If you have installed the ESP-IDF SDK and ESP32 toolchain directly on your machine, you can invoke <code>make</code> right away but must indicate the ESP-IDF install or checkout location by setting the <code>IDF_PATH</code> variable. Be sure that this location does not contain any spaces in its path and to specify it as <a href="https://cygwin.com/cygwin-ug-net/using.html#using-pathnames">Cygwin POSIX-style path name</a> when working under Windows (e.g., <code>/c/Git/esp-idf</code> instead of <code>C:\Git\esp-idf</code>):</p> 
+<p style="margin-left: 2em">If you have installed the ESP-IDF SDK and ESP32 toolchain directly on your machine, you can invoke <code>make</code> right away but must indicate the ESP-IDF install or checkout location by setting the <code>IDF_PATH</code> variable. Be sure that this location does not contain any spaces in its path and specify it as <a href="https://cygwin.com/cygwin-ug-net/using.html#using-pathnames">Cygwin POSIX-style path name</a> when working under Windows (e.g., <code>/c/Git/esp-idf</code> instead of <code>C:\Git\esp-idf</code>):</p> 
 
 ```bat
 make IDF_PATH=<ESP-IDF install/checkout location>
 ```
 
-5. Connect your board to your laptop or computer using a USB cable, and identify the corresponding serial port (a guide explaining how to do so can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html
-)).
+5. Connect your board to your laptop or computer using a USB cable, and identify the corresponding serial port (a guide explaining how to do so can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html)).
 
 > &#x26A0; It may happen that you are unable to find the serial port your board is connected to. Most of the time this is because the device driver for the USB to serial converter chip of your board is missing. You can fix that by manually installing the same as explained [here](../../README.md#general-purpose-tools).
 
@@ -94,7 +97,7 @@ flash <COM port name, e.g., COM3>
 ./flash.sh <serial port name, e.g., /dev/ttyUSB0>
 ```
 
-<p style="margin-left: 2em">If you have built the firmware binary with <code>make</code> and the ESP-IDF SDK and ESP32 toolchain installed on your machine, invoke <code>make flash</code> to flash the firmware binary to your board. Indicate the ESP-IDF install or checkout location and serial port it is connected to by setting the <code>ESP-IDF</code> and <code>CONFIG_ESPTOOLPY_PORT</code> variables:</p> 
+<p style="margin-left: 2em">If you have built the firmware binary with <code>make</code> and the ESP-IDF SDK and ESP32 toolchain installed on your machine, invoke <code>make flash</code> to flash the firmware binary to your board. Indicate the ESP-IDF install or checkout location and serial port your board is connected to by setting the <code>IDF_PATH</code> and <code>CONFIG_ESPTOOLPY_PORT</code> variables:</p> 
 
 ```bat
 make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<COM or serial port name, e.g., COM3 or /dev/ttyUSB0>
@@ -114,7 +117,7 @@ make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<C
 #define DEMO_PRODUCT_FIRMWARE_VERSION "1.1"
 ```
 
-2. *Optional:* Make another change in your firmware, e.g., increase the blink frequency of the red LED on your board by going back to the `Configuration.h` file  in the `demoproduct` folder and decreasing the `BLINK_PERIOD` constant:
+2. *Optional:* Make another change in your firmware, e.g., increase the blink frequency of the red LED on your board by going back to the `Configuration.h` file in the `demoproduct` folder and decreasing the `BLINK_PERIOD` constant:
 
 ```c
 #define BLINK_PERIOD 250
@@ -128,7 +131,7 @@ make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<C
 
 ### Make your first firmare over-the-air update 
 
-1. Go back to the serial monitor app showing the execution status of your board running the initial firmware version. Enter the new firmware version followed by a ':', the checksum or signature of the same (see `Products > {{Your FotaHub product}} > Details > {{New firmware version}}` at [Fotahub](https://fotahub.com)), and a terminating line break in the text field or dialog provided for sending data over the opened serial port (`Connection > Send String...` in CoolTerm):
+1. Go back to the serial monitor app showing the execution status of your board running the initial firmware version. Enter the new firmware version followed by a ':' separator, the checksum or signature of the same (see `Products > {{Your FotaHub product}} > Details > {{New firmware version}}` at [Fotahub](https://fotahub.com)), and a terminating line break in the text field or dialog provided for sending data over the opened serial port (`Connection > Send String...` in CoolTerm):
 
 ![](simple-2.png "Trigger of FOTA update") 
 
@@ -138,4 +141,4 @@ make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<C
 
 ![](simple-3.png "Execution of FOTA update") 
 
-<p style="margin-left: 2em">In case that the new firmware version includes the change wrt to the blink frequency of the red LED on your board as mentioned above, you should see that the latter is blinking significantly faster now.</p>
+<p style="margin-left: 2em">In case that the new firmware version includes the change wrt to the blink frequency of the red LED on your board as mentioned above, you should also see that the latter is blinking significantly faster now.</p>

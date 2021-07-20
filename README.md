@@ -12,6 +12,7 @@ When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itse
 In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead: 
 * The [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/v3.2.5/get-started/index.html#get-esp-idf) **v3.2.2**
 * The [ESP32 toolchain](https://docs.espressif.com/projects/esp-idf/en/v3.2.5/get-started/index.html#setup-toolchain)
+
 ## General purpose tools
 
 In addition to the ESP32-related prerequisites, the following general purpose tools need to be available on your laptop or computer:
@@ -26,6 +27,7 @@ The best way to get started with the FotaHub&reg; Device SDK for ESP32&reg; is t
 * [Simple](docs/getting-started/simple.md) - "Hello World" of firmware over-the-air updating with FotaHub&reg;
 * [Revertible](docs/getting-started/revertible.md) - Downloads and launches a new firmware version provided at FotaHub&reg;, reverts to the previous version if something goes wrong
 * [Thing Shadow](docs/getting-started/thingshadow.md) - A real-world scenario where FotaHub&reg; is used in combination with the AWS IoT Thing Shadow service to trigger firmware updates over-the-air updates through the cloud
+
 # API Reference
 View the [C API reference](include/FotaHub.h) for detailed information about the FotaHub&reg; client library (:construction: *under construction*).
 

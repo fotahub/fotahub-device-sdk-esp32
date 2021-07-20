@@ -1,4 +1,5 @@
 # Third Party Software Notices and Licenses
+
 This document contains notices about third-party software (or certain identified third-party software files) which is included in this project. Unless otherwise specified, the third-party software identified in this file is licensed under the licenses that are listed or incorporated by reference below. The disclaimers, copyright notices and license terms provided are based on information made available to FotaHub&reg; by the third party licensors listed.
 
 ## MQTTPacket component from Eclipse Paho MQTT C/C++ client for Embedded platforms
