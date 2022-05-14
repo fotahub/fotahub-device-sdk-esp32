@@ -5,13 +5,15 @@ The FotaHub&reg; Device SDK for ESP32&reg; enables developers to create firmware
 
 To use the FotaHub® Device SDK for ESP32&reg;, the prerequisites described in the following must be available on your laptop or computer. The easiest and quickest way to make that happen is to use Docker. If you are an experienced user, you may also opt for installing the complete set of prerequisites directly on your machine instead.
 
-## ESP32 SDK and toolchain
+## ESP32 SDK and toolchains
 
-When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands of the various examples included in this project.
+When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands for the various examples included in this project.
 
 In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead: 
-* The [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/v3.2.5/get-started/index.html#get-esp-idf) **v3.2.2**
-* The [ESP32 toolchain](https://docs.espressif.com/projects/esp-idf/en/v3.2.5/get-started/index.html#setup-toolchain)
+* A [Python 3](https://www.python.org/downloads) interpreter
+* The [ESP-IDF v4.4.1](https://github.com/espressif/esp-idf/releases/tag/v4.4.1)
+ 
+We recommend to follow the steps described [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-2-get-esp-idf) and [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-3-set-up-the-tools) to clone the ESP-IDF SDK from GitHub and install the toolchains and utilities that are required to make use of it. Be sure to refer to the steps **not** using the *ESP-IDF Tools Installer* when working under Windows.
 
 ## General purpose tools
 
@@ -25,7 +27,7 @@ In addition to the ESP32-related prerequisites, the following general purpose to
 # Getting started
 The best way to get started with the FotaHub&reg; Device SDK for ESP32&reg; is to try out and study the included examples:
 * [Simple](docs/getting-started/simple.md) - "Hello World" of firmware over-the-air updating with FotaHub&reg;
-* [Revertible](docs/getting-started/revertible.md) - Downloads and launches a new firmware version provided at FotaHub&reg;, reverts to the previous version if something goes wrong
+* [Rollbackable](docs/getting-started/rollbackable.md) - Downloads and launches a new firmware version provided at FotaHub&reg;, rolls it back to the previous version if something goes wrong
 * [Thing Shadow](docs/getting-started/thingshadow.md) - A real-world scenario where FotaHub&reg; is used in combination with the AWS IoT Thing Shadow service to trigger firmware updates over-the-air updates through the cloud
 
 # API Reference

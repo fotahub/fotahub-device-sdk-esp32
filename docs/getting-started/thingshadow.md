@@ -1,6 +1,6 @@
 # AWS IoT Thing Shadow-driven FOTA update example
 
-The *Thing Shadow* example demonstrates a real-world firmware over-the-air update procedure using the AWS IoT Thing Shadow (aka Device Shadow) service. The thing shadow is used to trigger firmware over-the-air updates on the device it represents through the cloud. Thanks to that, the device itself can be located in any place where Wi-Fi and Internet are available and does no longer need to be connected to a USB port of your laptop or computer as with the [Simple](simple.md) and [Revertible](revertible.md) examples. The thing shadow example also detects misbehaving firmware updates and reverts them to the previous version.
+The *Thing Shadow* example demonstrates a real-world firmware over-the-air update procedure using the AWS IoT Thing Shadow (aka Device Shadow) service. The thing shadow is used to trigger firmware over-the-air updates on the device it represents through the cloud. Thanks to that, the device itself can be located in any place where Wi-Fi and Internet are available and does no longer need to be connected to a USB port of your laptop or computer as with the [Simple](simple.md) and [Rollbackable](rollbackable.md) examples. The thing shadow example also detects misbehaving firmware updates and rolls them back to the previous version.
 
 ## Technical context
 
@@ -44,7 +44,7 @@ The downloaded firmware binary is stored in the device's flash memory. At the sa
 
 After the restart, the device starts executing the new firmware version downloaded from FotaHub. To be sure that it behaves as expeced, a built-in self test procedure is launched. Only when the latter completes successfully, the new firmware version is confirmed and becomes definite. In the opposite case, the previous firmware version is restored.
 
-For obvious reasons, the ultimately required self test logic depends heavily on the nature of the underlying IoT application and device. The thing shadow example therefore implements only a very simple self test stub which returns a positive or negative result on a pseudo-random basis (see [DemoFOTAUpdateSelfTest.c](../../examples/huzzah32/thingshadow/demoproduct/DemoFOTAUpdateSelfTest.c) for details). Consequently, the firmware update carried out in this example may succeed and remain in place or fail and be reverted to the previous version depending on how it goes. To see both scenarios happening, just run the same example multiple times. You can also force either of them by setting the `SIMULATED_ACTIVATION_SUCCESS_RATE` constant in [DemoFOTAUpdateSelfTest.h](../../examples/huzzah32/thingshadow/demoproduct/DemoFOTAUpdateSelfTest.h) to `100` or `0`.
+For obvious reasons, the ultimately required self test logic depends heavily on the nature of the underlying IoT application and device. The thing shadow example therefore implements only a very simple self test stub which returns a positive or negative result on a pseudo-random basis (see [DemoFOTAUpdateSelfTest.c](../../examples/huzzah32/thingshadow/main/DemoFOTAUpdateSelfTest.c) for details). Consequently, the firmware update carried out in this example may succeed and remain in place or fail and be rolled back to the previous version depending on how it goes. To see both scenarios happening, just run the same example multiple times. You can also force either of them by setting the `SIMULATED_ACTIVATION_SUCCESS_RATE` constant in [DemoFOTAUpdateSelfTest.h](../../examples/huzzah32/thingshadow/main/DemoFOTAUpdateSelfTest.h) to `100` or `0`.
 
 ## Supported targets
 
@@ -82,7 +82,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
 1. Start the Visual Studio Code and open (`File > Folder...`) the `Thing Shadow` example included in the FotaHub Device SDK for ESP32 (`<device-sdk-root>/examples/huzzah32/thingshadow`).
 
-2. Go to the `Configuration.h` file in the `demoproduct` folder, and initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the crentials of the Wi-Fi network you want to connect to with your board:
+2. Go to the `Configuration.h` file in the `main` folder, and initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the crentials of the Wi-Fi network you want to connect to with your board:
 
 ```c
 #define WIFI_STATION_SSID "my-fancy-WiFi-SSID"
@@ -90,7 +90,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 #define WIFI_STATION_PASSPHRASE "my-cryptic-WiFi-passphrase"
 ```
 
-3. Open the `DemoProductInfo.h` file in the `demoproduct` folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (see `Products > {{Your FotaHub product}} > Settings > General` at [Fotahub](https://fotahub.com)). Leave the `DEMO_PRODUCT_FIRMWARE_VERSION` as is for now. In case you have selected anything else than `SHA256` as the binary checksum algorithm for your FotaHub product or opted for using a signature instead, you also must adjust the `DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM` constant accordingly:
+3. Open the `DemoProductInfo.h` file in the `main` folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (see `Products > {{Your FotaHub product}} > Settings > General` at [Fotahub](https://fotahub.com)). Leave the `DEMO_PRODUCT_FIRMWARE_VERSION` as is for now. In case you have selected anything else than `SHA256` as the binary checksum algorithm for your FotaHub product or opted for using a signature instead, you also must adjust the `DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM` constant accordingly:
 
 ```c
 #define DEMO_PRODUCT_ID "7f52cf5e-7f0d-49dc-87fd-679ebfb94d8d"
@@ -102,7 +102,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 #define DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM FOTA_UPDATE_VERIFICATION_ALGORITHM_SHA256
 ```
 
-4. Open the `AWSIoTThingShadowConfiguration.c` file in the `demoproduct` folder, and initialize the `hostNameEndPoint.hostName` and `awsIoTConnParams.thingName` struct variable fields with your AWS account's [device data endpoint](https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html#iot-connect-device-endpoints) and the name of the previously created AWS IoT thing (see `Settings > Device data endpoint` and `Manage > Things` in the [AWS IoT Console](https://console.aws.amazon.com/iot/home) when using the *New console experience* which can be activated all down in the left side bar):
+4. Open the `AWSIoTThingShadowConfiguration.c` file in the `main` folder, and initialize the `hostNameEndPoint.hostName` and `awsIoTConnParams.thingName` struct variable fields with your AWS account's [device data endpoint](https://docs.aws.amazon.com/iot/latest/developerguide/iot-connect-devices.html#iot-connect-device-endpoints) and the name of the previously created AWS IoT thing (see `Settings > Device data endpoint` and `Manage > Things` in the [AWS IoT Console](https://console.aws.amazon.com/iot/home) when using the *New console experience* which can be activated all down in the left side bar):
 
 ```c
 HostNameEndpointAddress_t hostNameEndPoint = 
@@ -124,23 +124,31 @@ AWSIoTConnectionParameters_t awsIoTConnParams =
    
 ### Build and flash initial firmware version
 
-1. Open the integrated terminal (`Terminal > New Terminal`) and build the example by running `make`.
+1. Open the integrated terminal (`Terminal > New Terminal`) and build the example with the help of the `idf.bat` or `idf.sh` script.
     
-    When you have opted to use the ESP-IDF SDK and ESP32 toolchain through Docker, `make` must be run inside a Docker container providing the same. You can achieve that conveniently by making sure that Docker is running on your machine and invoking the `mind.bat` or `mind.sh` (**M**ake **IN** **D**ocker) script according to your operating system:
+    When you have opted to use the ESP-IDF SDK and ESP32 toolchains through Docker, the `idf.bat`/`idf.sh` script must be run inside a Docker container providing the same. You can achieve that conveniently by making sure that Docker is running on your machine and invoking the `bind.bat`/`bind.sh` (**B**uild **IN** **D**ocker) script according to your operating system:
    
 **Windows:**   
 ```bat
-mind
+bind
 ```
 **Linux/Mac OS X:**   
 ```sh
-./mind.sh
+./bind.sh
 ```
-<p style="margin-left: 2em">If you have installed the ESP-IDF SDK and ESP32 toolchain directly on your machine, you can invoke <code>make</code> right away but must indicate the ESP-IDF install or checkout location by setting the <code>IDF_PATH</code> variable. Be sure that this location does not contain any spaces in its path and specify it as <a href="https://cygwin.com/cygwin-ug-net/using.html#using-pathnames">Cygwin POSIX-style path name</a> when working under Windows (e.g., <code>/c/Git/esp-idf</code> instead of <code>C:\Git\esp-idf</code>):</p> 
 
+<p style="margin-left: 2em">If you have installed the ESP-IDF SDK and ESP32 toolchains directly on your machine, you can invoke the <code>idf.bat</code>/<code>idf.sh</code> script right away. Specify the ESP-IDF install or checkout location as first and the <code>build</code> command as second argument:</p> 
+
+**Windows:**   
 ```bat
-make IDF_PATH=<ESP-IDF install/checkout location>
+idf <ESP-IDF install/checkout location> build
 ```
+**Linux/Mac OS X:**   
+```sh
+./idf.sh <ESP-IDF install/checkout location> build
+```
+
+> &#x1F6C8; When you need to run this command frequently, you may want to make known the ESP-IDF install or checkout location once for all by setting an environment variable named <code>IDF_PATH</code> at user or system level. You then only need to specify the <code>build</code> command as argument when invoking the <code>idf.bat</code>/<code>idf.sh</code> script.
 
 2. Connect your board to your laptop or computer using a USB cable, and identify the corresponding serial port (a guide explaining how to do so can be found [here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html)).
 
@@ -148,7 +156,7 @@ make IDF_PATH=<ESP-IDF install/checkout location>
 
 3. Flash the firmware binary that has resulted from building the example to your board.
    
-   If you have used Docker and `mind` to build the firmware binary, you will notice that two new scripts, namely `flash.bat`/`flash.sh` and `erase.bat`/`erase.sh` have been created along the way. Use the first one to flash the firmware binary to your board and provide the serial port it is connected to as argument:
+   If you have used Docker and `bind` to build the firmware binary, you will notice that two new scripts, namely `flash.bat`/`flash.sh` and `erase.bat`/`erase.sh` have been created along the way. Use the first one to flash the firmware binary to your board and provide the serial port it is connected to as argument:
 
 **Windows:**   
 ```bat
@@ -159,10 +167,15 @@ flash <COM port name, e.g., COM3>
 ./flash.sh <serial port name, e.g., /dev/ttyUSB0>
 ```
 
-<p style="margin-left: 2em">If you have built the firmware binary with <code>make</code> and the ESP-IDF SDK and ESP32 toolchain installed on your machine, invoke <code>make flash</code> to flash the firmware binary to your board. Indicate the ESP-IDF install or checkout location and serial port your board is connected to by setting the <code>IDF_PATH</code> and <code>CONFIG_ESPTOOLPY_PORT</code> variables:</p> 
+<p style="margin-left: 2em">If you have built the firmware binary with the help of the <code>idf.bat</code>/<code>idf.sh</code> script and the ESP-IDF SDK and ESP32 toolchains installed on your machine, use the same <code>idf.bat</code>/<code>idf.sh</code> script also to flash the firmware binary to your board. Specify the <code>flash</code> command as first and the serial port your board is connected to as second argument:</p> 
 
+**Windows:**   
 ```bat
-make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<COM or serial port name, e.g., COM3 or /dev/ttyUSB0>
+idf flash <COM port name, e.g., COM3>
+```
+**Linux/Mac OS X:**   
+```sh
+./idf.sh flash <serial port name, e.g., /dev/ttyUSB0>
 ```
 
 4. Start your serial monitor app, point it at the serial port your board is connected to, and set the baudrate to `115200` (`Connection > Options...` in CoolTerm). Open the configured serial port (`Connection > Connect` in CoolTerm), observe how the firmware starts up and verify whether it connects to the Wi-Fi network as well as to its AWS IoT Thing Shadow:
@@ -179,19 +192,19 @@ make flash IDF_PATH=<ESP-IDF install/checkout location> CONFIG_ESPTOOLPY_PORT=<C
 
 ### Create and upload a new firmware version to FotaHub
 
-1. Go back to the `DemoProductInfo.h` file in the `demoproduct` folder, and bump the `DEMO_PRODUCT_FIRMWARE_VERSION` constant:
+1. Go back to the `DemoProductInfo.h` file in the `main` folder, and bump the `DEMO_PRODUCT_FIRMWARE_VERSION` constant:
 
 ```c
 #define DEMO_PRODUCT_FIRMWARE_VERSION "1.1"
 ```
 
-2. Make another change in your firmware, e.g., increase the blink frequency of the red LED on your board by going back to the `Configuration.h` file in the `demoproduct` folder and decreasing the `BLINK_PERIOD` constant:
+2. Make another change in your firmware, e.g., increase the blink frequency of the red LED on your board by going back to the `Configuration.h` file in the `main` folder and decreasing the `BLINK_PERIOD` constant:
 
 ```c
 #define BLINK_PERIOD 250
 ```
 
-3. Rebuild the example using Docker and `mind` or `make` in very much the same way as you did for building the initial firmware version (see step 1 in previous section). Locate the resulting new firmware binary file named `demoproduct.bin` in the `build` folder (using the `Explorer` view).
+3. Rebuild the example using Docker and `bind` or the `idf.bat`/`idf.sh` script in very much the same way as you did for building the initial firmware version (see step 1 in previous section). Locate the resulting new firmware binary file named `demoproduct.bin` in the `build` folder (using the `Explorer` view).
    
 > &#x1F6C8; You can locate the new firmware binary file also in your file system explorer or copy its path to the clipboard using corresponding Visual Studio Code context menu actions (`Reveal in File Explorer` and `Copy Path`). This can come quite handy in the subsequent steps.
 

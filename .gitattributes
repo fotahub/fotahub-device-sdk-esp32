@@ -1,0 +1,17 @@
+# Make sure that all files will always have LF line endings on checkout by default, even on Windows
+* text eol=lf
+
+# Declare files that will always have CRLF line endings on checkout
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Denote all files that are truly binary and should not be modified
+*.png binary
+*.jpg binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.ttf binary
+*.eot binary
+*.otf binary
+*.efi binary
