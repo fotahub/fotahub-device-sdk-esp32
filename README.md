@@ -1,9 +1,9 @@
 # FotaHub&reg; Embedded Device SDK for ESP32&reg;
-The FotaHub&reg; Device SDK for ESP32&reg; enables developers to create firmware for ESP32&reg;-based IoT devices that can be updated through [FotaHub](http://fotahub.com). It provides an C99-based FotaHub client library along with a set of examples illustrating how the latter can be used and integrated in real applications.
+The FotaHub&reg; Device SDK for ESP32&reg; enables developers to create firmware for ESP32&reg;-based IoT devices that can be updated through [FotaHub](http://fotahub.com). It provides a FotaHub client C library along with a set of examples illustrating how the latter can be used and integrated in real applications.
 
 # Installation
 
-To use the FotaHub® Device SDK for ESP32&reg;, the prerequisites described in the following must be available on your laptop or computer. The easiest and quickest way to make that happen is to use Docker. If you are an experienced user, you may also opt for installing the complete set of prerequisites directly on your machine instead.
+To use the FotaHub&reg; Device SDK for ESP32&reg;, the prerequisites described in the following must be available on your laptop or computer. The easiest and quickest way to make that happen is to use Docker. If you are an experienced user, you may also opt for installing the complete set of prerequisites directly on your machine instead.
 
 ## ESP32 SDK and toolchains
 
