@@ -7,7 +7,7 @@ To use the FotaHub&reg; Device SDK for ESP32&reg;, the prerequisites described i
 
 ## ESP32 SDK and toolchains
 
-When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands for the various examples included in this project.
+When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included in a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands for the various examples included in this project.
 
 In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead: 
 * A [Python 3](https://www.python.org/downloads) interpreter
