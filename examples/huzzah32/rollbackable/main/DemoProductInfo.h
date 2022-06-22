@@ -29,7 +29,7 @@ extern "C" {
 
 #define DEMO_PRODUCT_ID "<Your FotaHub product id>"
 
-#define DEMO_PRODUCT_NAME "DemoProduct"
+#define DEMO_PRODUCT_NAME "Demo Product"
 
 #define DEMO_PRODUCT_FIRMWARE_VERSION "1.0"
 

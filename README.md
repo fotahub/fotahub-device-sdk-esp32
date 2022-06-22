@@ -2,11 +2,9 @@
 The FotaHub&reg; Device SDK for ESP32&reg; enables developers to create firmware for ESP32&reg;-based IoT devices that can be updated through [FotaHub](http://fotahub.com). It provides a FotaHub client C library along with a set of examples illustrating how the latter can be used and integrated in real applications.
 
 # Installation
-
 To use the FotaHub&reg; Device SDK for ESP32&reg;, the prerequisites described in the following must be available on your laptop or computer. The easiest and quickest way to make that happen is to use Docker. If you are an experienced user, you may also opt for installing the complete set of prerequisites directly on your machine instead.
 
 ## ESP32 SDK and toolchains
-
 When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included in a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands for the various examples included in this project.
 
 In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead: 
@@ -16,7 +14,6 @@ In case you prefer to set up the ESP32 build environment directly on your machin
 We recommend to follow the steps described [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-2-get-esp-idf) and [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-3-set-up-the-tools) to clone the ESP-IDF SDK from GitHub and install the toolchains and utilities that are required to make use of it. Be sure to refer to the steps **not** using the *ESP-IDF Tools Installer* when working under Windows.
 
 ## General purpose tools
-
 In addition to the ESP32-related prerequisites, the following general purpose tools need to be available on your laptop or computer:
 * A text editor or IDE of your choice, e.g., [Visual Studio Code](https://code.visualstudio.com)  
 * A serial monitor of your choice, e.g., [CoolTerm](https://freeware.the-meiers.org) (a nice quick start guide can be found [here](https://learn.adafruit.com/getting-started-with-binho-nova/quickstart-with-coolterm))
