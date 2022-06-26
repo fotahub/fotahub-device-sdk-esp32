@@ -59,7 +59,7 @@ Cat face detection example included in the FotaHub Device SDK for ESP32
 ```
 3. Open the DemoProductInfo.h file in the main folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (`see Products > {{Your FotaHub product}} > Settings > General at Fotahub`). 
 
-![Product credentials](images\E0.PNG)
+![Product credentials](E0.PNG)
 
 Leave the `DEMO-PRODUCT-FIRMWARE-VERSION` as is for now.<br>
 In case you choose a different algorithm rather than SHA256 as the binary checksum algorithm or you preferred to use a signature instead, you must adjust the following constant  `DEMO-PRODUCT-FIRMWARE-UPDATE-VERIFICATION-ALGORITHM` accordingly: 
