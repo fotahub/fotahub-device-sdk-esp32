@@ -126,11 +126,11 @@ idf flash <COM port name, e.g., COM3>
 ```
 7. Start your serial monitor app, point it at the serial port your board is connected to, and set the baudrate to 115200 (Connection > Options... in CoolTerm). Open the configured serial port (Connection > Connect in CoolTerm), observe how the TinyML example starts up and verify whether it connects to the Wi-Fi network:
 
-![CoolTerm](images\E1.PNG)
+![CoolTerm](E1.PNG)
 
 Great ! now we're set ,ready to go for a quick test, open your browser and google cat faces, point your Esp Eye to one of the faces and observe them being detected in the serial monitor in the form of coordinates.
 
-![CoolTerm](images\E7.PNG)
+![CoolTerm](E7.PNG)
 
 
 # Create and upload a new model version to FotaHub : 
@@ -160,18 +160,18 @@ Locate the resulting new model binary file named humanfacedetection.bin in the b
 1. Once the binary file is uploaded into FotaHub platform, go to (` Products > {{Your FotaHub product}} > Details`), and retrieve the cheksum or the signature from there .
 <br>
 <br>
-![CoolTerm](images\E2.PNG)
+![CoolTerm](E2.PNG)
 Now go back to the serial monitor app showing the execution status of your board running the initial model version, click on (`Connection > Send String... in CoolTerm`) ,
 Enter the new model version (1.1 for instance) followed by a ':' separator, followed by the checksum or signature of product you previously retrieved from FotaHub platform, terminate with a `line break` in the text field or dialog provided for sending data over the opened serial port :
 
-![CoolTerm](images\E3.PNG)
+![CoolTerm](E3.PNG)
 
 2. Submit the model update info string to your board (Send button in CoolTerm). This will trigger the OTA update procedure. Upon successful completion, the board will be restarted with the new model version downloaded from FotaHub. To verify that, check the model version in the banner showing up in the serial monitor output:	
 
-![CoolTerm](images\E4.PNG)
-![CoolTerm](images\E5.PNG)
-![CoolTerm](images\E6.PNG)
+![CoolTerm](E4.PNG)
+![CoolTerm](E5.PNG)
+![CoolTerm](E6.PNG)
 
 Once the update is terminated successfully ,point your Esp Eye to your face and observe your face's coordinates getting print on the screen.
 
-![CoolTerm](images\E8.PNG)
+![CoolTerm](E8.PNG)
