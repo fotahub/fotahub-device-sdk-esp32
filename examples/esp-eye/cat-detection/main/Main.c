@@ -37,7 +37,7 @@ void app_main(void)
   wifi_init();
   
   printf("\n--------------------------------------------------------------------------\n");
-  printf("Running %s %s firmware\n", DEMO_PRODUCT_NAME, DEMO_PRODUCT_FIRMWARE_VERSION);
+  printf("Running cat face detection %s %s tinyML model \n", DEMO_PRODUCT_NAME, DEMO_PRODUCT_FIRMWARE_VERSION);
   printf("--------------------------------------------------------------------------\n\n");
   
   firmwareUpdateInfoReader_init();
