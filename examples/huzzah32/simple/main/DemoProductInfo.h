@@ -29,7 +29,7 @@ extern "C" {
 
 #define DEMO_PRODUCT_ID "da651e30-2d88-4e78-b790-22d1438fb3b4"
 
-#define DEMO_PRODUCT_NAME "ESPEYE"
+#define DEMO_PRODUCT_NAME "Demo Product"
 
 #define DEMO_PRODUCT_FIRMWARE_VERSION "1.0"
 

@@ -30,13 +30,24 @@ goto default
 
 :flash
 set IDF_OPTIONS=-p NONE -b 921600
-idf.py %IDF_OPTIONS% %*
+idf.py %IDF_OPTIONS% %1 %2 %3 %4 %5 %6 %7 %8 %9
 exit /B 0
 
 :monitor
 set IDF_OPTIONS=-p NONE
-idf.py %IDF_OPTIONS% %*
+idf.py %IDF_OPTIONS% %1 %2 %3 %4 %5 %6 %7 %8 %9
 exit /B 0
 
 :default
 idf.py %1 %2 %3 %4 %5 %6 %7 %8 %9
+if errorlevel 1 exit /B 1
+
+if "%1" == "-B" goto yield
+if "%1" == "--build-dir" goto yield
+exit /B 0
+
+:yield
+if exist "%2\demoproduct.bin" (
+    if not exist build md build
+    copy "%2\demoproduct.bin" build
+)
