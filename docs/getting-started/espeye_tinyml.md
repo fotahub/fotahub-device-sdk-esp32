@@ -22,7 +22,7 @@ Once a valid update info string has been received and the contained new model ve
 ```
 https://bin.fotahub.com/7f52cf5e-7f0d-49dc-87fd-679ebfb94d8d/DemoProduct-1.1 
 ```
-The downloaded TinyML model binary (newly updated model) is stored in the device's flash memory. At the same time, the downloaded model binary's checksum or signature gets recalculated and compared to the checksum or signature included in the previously communicated update info string. If both match, the model update gets activated by restarting the device and letting it boot into the flash memory partition where the downloaded TinyML model binary has been stored. After the restart, the device executes the new model version downloaded from FotaHub.
+The downloaded TinyML model binary is stored in the device's flash memory. At the same time, the downloaded model binary's checksum or signature is recalculated and compared to the checksum or signature included in the previously communicated update info string. If both match, the model update is applied by restarting the device and letting it boot into the flash memory partition where the downloaded TinyML model binary has been stored. After the restart, the device executes the new model version downloaded from FotaHub.
 
 ## Supported targets :
 Both cat face detection and human face detection can be used as is with ESP EYE board.
