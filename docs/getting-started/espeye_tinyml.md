@@ -55,15 +55,12 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 3. Open the `DemoProductInfo.h` file in the `main` folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (see `Products` > `{{Your FotaHub product}}` > `Settings` > `General` at [Fotahub](https://fotahub.com)):
 
 ![Product credentials](E0.PNG)
-```C
-#define DEMO_PRODUCT_ID "183d06a3-881a-462f-9daa-bfe51608f8ff"
-#define DEMO_PRODUCT_NAME "EspEye"
-Leave the `DEMO-PRODUCT-FIRMWARE-VERSION` as is for now.<br>
 <p style="margin-left: 2em">Leave the <code>DEMO_PRODUCT_FIRMWARE_VERSION</code> as is for now. In case you have selected anything else than <code>SHA256</code> as the binary checksum algorithm for your FotaHub product or opted for using a signature instead, you also must adjust the <code>DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM</code> constant accordingly:</p>
 
 ```C
+#define DEMO_PRODUCT_ID "183d06a3-881a-462f-9daa-bfe51608f8ff"
+#define DEMO_PRODUCT_NAME "EspEye"
 #define DEMO_PRODUCT_FIRMWARE_VERSION "1.0"
-
 #define DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM FOTA_UPDATE_VERIFICATION_ALGORITHM_SHA256
 ```
 4- To build the initial Cat face detection example, you should be able to find a `bind.bat` file inside the cat face detection folder, right-click on it and chose "open in integrated terminal" ,then invoke the bind command.
