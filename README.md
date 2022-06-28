@@ -27,7 +27,7 @@ The best way to get started with the FotaHub&reg; Device SDK for ESP32&reg; is t
 * [Rollbackable](docs/getting-started/rollbackable.md) - Downloads and launches a new firmware version provided at FotaHub&reg;, rolls it back to the previous version if something goes wrong
 * [Thing Shadow](docs/getting-started/thingshadow.md) - A real-world scenario where FotaHub&reg; is used in combination with the AWS IoT Thing Shadow service to trigger firmware updates over-the-air updates through the cloud
 
-* [TinyML ESPEYE](docs/getting-started/espeye_tinyml.md) - TinyML model over-the-air update example with FotaHub&reg; 
+* [TinyML ESP-EYE](docs/getting-started/espeye_tinyml.md) - TinyML model over-the-air update example with FotaHub&reg; 
 
 # API Reference
 View the [C API reference](include/FotaHub.h) for detailed information about the FotaHub&reg; client library (:construction: *under construction*).
