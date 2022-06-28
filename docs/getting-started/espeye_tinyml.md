@@ -42,7 +42,7 @@ Create a FotaHub product that represents your board in FotaHub as explained [her
 If not yet done so, either clone or download and uncompress the [FotaHub Device SDK for ESP32](https://github.com/fotahub/fotahub-device-sdk-esp32) to a location of your choice on your machine. 
 
 > &#x26A0; Make sure that the path to the location of the FotaHub Device SDK for ESP32 on your machine does not contain any spaces.
-#   Create and run initial Cat face detection TinyML model : 
+#   Create and run initial Cat face detection TinyML model
 
 1. Start the Visual Studio Code and open `(File > Folder...)` 
 Cat face detection example included in the FotaHub Device SDK for ESP32 
