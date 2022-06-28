@@ -7,11 +7,15 @@ To use the FotaHub&reg; Device SDK for ESP32&reg;, the prerequisites described i
 ## ESP32 SDK and toolchains
 When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included in a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands for the various examples included in this project.
 
-In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead: 
+In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead:
+
 * A [Python 3](https://www.python.org/downloads) interpreter
 * The [ESP-IDF v4.4.1](https://github.com/espressif/esp-idf/releases/tag/v4.4.1)
- 
-We recommend to follow the steps described [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-2-get-esp-idf) and [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-3-set-up-the-tools) to clone the ESP-IDF SDK from GitHub and install the toolchains and utilities that are required to make use of it. Be sure to refer to the steps **not** using the *ESP-IDF Tools Installer* when working under Windows.
+* The [ESP-WHO](https://github.com/espressif/esp-who) image processing development platform
+
+ESP-WHO provides examples such as Human Face Detection, Human Face Recognition, Cat Face Detection, Gesture Recognition, etc. You can develop a variety of practical applications based on these examples. ESP-WHO runs on ESP-IDF. ESP-DL provides rich deep learning related interfaces for ESP-WHO, which can be implemented with various peripherals to realize many interesting applications.
+
+We recommend to follow the steps described in esp-who github repository [here](https://github.com/espressif/esp-who).
 
 ## General purpose tools
 In addition to the ESP32-related prerequisites, the following general purpose tools need to be available on your laptop or computer:
