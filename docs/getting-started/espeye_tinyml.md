@@ -18,7 +18,7 @@ For example:<br>
 ```
  1.1:a15d5599d8745ff4f51690eb3996afcf75d0b1729d1b8cda2491b03940417521
 ```
-model version is different from the version of the model already running on the device, the model update procedure is triggered. It involves the device to connect to FotaHub and download the binary of the new model version. Thereby, it uses a dedicated URL including the id of the product representing the device in FotaHub, and the name and the version of the TinyML model binary to be retrieved, e.g.: <br> 
+Once a valid update info string has been received and the contained new model version is different from the version of the model already running on the device, the model update procedure is triggered. It involves the device to connect to FotaHub and download the binary of the new model version. Thereby, it uses a dedicated URL including the id of the product representing the device in FotaHub, and the name and the version of the TinyML model binary to be retrieved, e.g.: <br> 
 ```
 https://bin.fotahub.com/7f52cf5e-7f0d-49dc-87fd-679ebfb94d8d/DemoProduct-1.1 
 ```
