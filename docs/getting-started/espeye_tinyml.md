@@ -60,7 +60,7 @@ Cat face detection example included in the FotaHub Device SDK for ESP32
 ![Product credentials](E0.PNG)
 
 Leave the `DEMO-PRODUCT-FIRMWARE-VERSION` as is for now.<br>
-In case you choose a different algorithm rather than SHA256 as the binary checksum algorithm or you preferred to use a signature instead, you must adjust the following constant  `DEMO-PRODUCT-FIRMWARE-UPDATE-VERIFICATION-ALGORITHM` accordingly: 
+<p style="margin-left: 2em">Leave the <code>DEMO_PRODUCT_FIRMWARE_VERSION</code> as is for now. In case you have selected anything else than <code>SHA256</code> as the binary checksum algorithm for your FotaHub product or opted for using a signature instead, you also must adjust the <code>DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM</code> constant accordingly:</p>
 
 ```C
 #define DEMO_PRODUCT_ID "183d06a3-881a-462f-9daa-bfe51608f8ff"
