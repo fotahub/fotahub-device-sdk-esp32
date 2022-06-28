@@ -52,7 +52,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
 #define WIFI_STATION_PASSPHRASE "my-cryptic-WiFi-passphrase"
 ```
-3. Open the DemoProductInfo.h file in the main folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (`see Products > {{Your FotaHub product}} > Settings > General at Fotahub`). 
+3. Open the `DemoProductInfo.h` file in the `main` folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (see `Products` > `{{Your FotaHub product}}` > `Settings` > `General` at [Fotahub](https://fotahub.com)):
 
 ![Product credentials](E0.PNG)
 
