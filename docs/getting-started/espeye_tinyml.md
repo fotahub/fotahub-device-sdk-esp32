@@ -6,7 +6,7 @@ Tiny Machine Learning (TinyML) is a field of Machine Learning that focuses on th
 
 Deep neural networks have gained fame for their capability to process visual information. In the past few years, they have become a key component of many computer vision applications. With that being said, the TinyML models used in this example fall under the computer vision shadow as well. The goal is to make an initial deployment of a cat face detection model on the ESP-EYE, and then over-the-air update it to a human face detection model.
 
-## Operating principle :
+## Operating principle
 The device listens for a TinyML model update info string to be sent over the serial port. It is expected to consist of the new model version the device should be updated to, followed by a ':' separator and the checksum or signature of the new model version: 
 
 ```
