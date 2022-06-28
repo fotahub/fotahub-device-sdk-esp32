@@ -1,4 +1,4 @@
-# TinyML FOTA update example :
+# TinyML FOTA update example
 
 Tiny Machine Learning (TinyML) is a field of Machine Learning that focuses on the development and deployment of Machine Learning models on low power devices, It's a combination between embedded systems and machine learning algorithms, FotaHub is making Over-The-Air (OTA) updates for TinyML models  seamless and accessible to anyone like we witness in the previous sine model that was deployed to an ESP32 Dev module ,thus demonstrating how it can solve the challenging problem of AI models deployments and maintenance.in this illustration we gonna further extend and experience FotaHub's capabilities by taking it to the realm of The Esp Eye. 
 
