@@ -45,7 +45,6 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 #   Create and run initial Cat face detection TinyML model
 
 1. Start the Visual Studio Code and open `(File > Folder...)` 
-(`<device-sdk-root>/examples/huzzah32/TinyML/Cat_face_detection`) .
 		
 2. Inside main folder, go to the `Configuration.h` , and initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the credentials of the Wi-Fi network you want to connect to with your board:
 ```C
