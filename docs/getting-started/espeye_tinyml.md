@@ -29,7 +29,7 @@ Both cat face detection and human face detection can be used as is with ESP EYE 
 
 ## Installation :
 
-A description of the SDKs and tools that must be available on your laptop or computer, advise how to install them can be found [here](https://github.com/fotahub/fotahub-device-sdk-esp32/blob/main/README.md#installation).
+A description of the SDKs and tools that must be available on your laptop or computer and advise how to install them can be found [here](../../README.md#installation).
 
 # Usage :
 ## Get the FotaHub Device SDK for ESP : 
