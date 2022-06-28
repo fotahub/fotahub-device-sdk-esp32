@@ -46,7 +46,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
 1. Start the Visual Studio Code and open (`File` > `Folder...`) the `cat-detection` example included in the FotaHub Device SDK for ESP32 (`<device-sdk-root>/examples/esp-eye/cat-detection`).
 		
-2. Inside main folder, go to the `Configuration.h` , and initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the credentials of the Wi-Fi network you want to connect to with your board:
+2. Go to the `Configuration.h` file in the `main` folder, and initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the credentials of the Wi-Fi network you want to connect to with your board:
 ```C
 #define WIFI_STATION_SSID "my-fancy-WiFi-SSID"
 
