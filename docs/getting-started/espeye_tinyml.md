@@ -4,7 +4,7 @@ Tiny Machine Learning (TinyML) is a field of Machine Learning that focuses on th
 
 ## TinyML examples & update overview :
 
-Deep neural networks have gained fame for their capability to process visual information,in the past few years, they have become a key component of many computer vision applications,
+Deep neural networks have gained fame for their capability to process visual information. In the past few years, they have become a key component of many computer vision applications. With that being said, the TinyML models used in this example fall under the computer vision shadow as well. The goal is to make an initial deployment of a cat face detection model on the ESP-EYE, and then over-the-air update it to a human face detection model.
 with that being said The TinyML examples that will be used for this demonstration falls under the computer vision shadow as well,
 the goal is to initially deploy cat face detection model in the Esp Eye, then update the latter to a human face detection.
 
