@@ -16,7 +16,7 @@ Once a valid update info string has been received and the contained new firmware
 
 `https://bin.fotahub.com/7f52cf5e-7f0d-49dc-87fd-679ebfb94d8d/DemoProduct-1.1`
 
-The downloaded firmware binary is stored in the device's flash memory. At the same time, the downloaded firmware binary's checksum or signature gets recalculated and compared to the checksum or signature included in the previously communicated update info string. If both match, the firmware update is applied by restarting the device and letting it boot into the flash memory partition where the downloaded firmware binary has been stored. After the restart, the device executes the new firmware version downloaded from FotaHub. 
+The downloaded firmware binary is stored in the device's flash memory. At the same time, the downloaded firmware binary's checksum or signature is recalculated and compared to the checksum or signature included in the previously communicated update info string. If both match, the firmware update is applied by restarting the device and letting it boot into the flash memory partition where the downloaded firmware binary has been stored. After the restart, the device executes the new firmware version downloaded from FotaHub. 
 
 ## Supported targets
 
@@ -120,7 +120,7 @@ idf flash <COM port name, e.g., COM3>
 
 ![](simple-1.png "Start of initial firmware version")
 
-<p style="margin-left: 2em">Also have a look at the red LED next to the USB port on your board (GPIO #13). It should blink with a period of approx. 1 s.</p> 
+<p style="margin-left: 2em">Also have a look at the red LED (<code>GPIO #13</code>) next to the USB port on your board. It should blink with a period of approx. 1 s.</p> 
 
 ### Create and upload a new firmware version to FotaHub
 
@@ -138,7 +138,7 @@ idf flash <COM port name, e.g., COM3>
 
 3. Rebuild the example using Docker and `bind` or the `idf.bat`/`idf.sh` script in very much the same way as you did for building the initial firmware version (see step 4 in the previous section). Locate the resulting new firmware binary file named `demoproduct.bin` in the `build` folder (using the `Explorer` view).
    
-> &#x1F6C8; You can locate the new firmware binary file also in your file system explorer or copy its path to the clipboard using corresponding Visual Studio Code context menu actions (`Reveal in File Explorer` and `Copy Path`). This can come quite handy in the subsequent steps.
+> &#x1F6C8; You can locate the new firmware binary file also in your file system explorer or copy its path to the clipboard by using corresponding context menu actions in Visual Studio Code (`Reveal in File Explorer` and `Copy Path`). This can come quite handy in the subsequent steps.
 
 4. Upload the new binary (`build/demoproduct.bin`) as firmware version `1.1` to your FotaHub product as explained [here](../fotahub/upload-firmware.md).
 

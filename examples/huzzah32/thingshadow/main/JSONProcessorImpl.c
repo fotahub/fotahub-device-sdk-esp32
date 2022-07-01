@@ -50,7 +50,7 @@ JSONParseCtx_t *JSONProcessorImpl_newJSONParseCtx(void *___id)
     ___cid->parseCtx__field.busy = true;
     return &___cid->parseCtx__field;
   }
-  printf("No more JSON parse context blocks available\n");
+  printf("No more JSON parse context blocks available\r\n");
   return NULL;
 }
 
@@ -65,7 +65,7 @@ JSONSerializeCtx_t *JSONProcessorImpl_newJSONSerializeCtx(char *msg, size_t msgS
     ___cid->serializeCtx__field.msgState.pos = 0;
     return &___cid->serializeCtx__field;
   }
-  printf("No more JSON serialize context blocks available\n");
+  printf("No more JSON serialize context blocks available\r\n");
   return NULL;
 }
 
@@ -79,7 +79,7 @@ bool JSONProcessorImpl_jsonParser_parse(struct jsontree_value *pDocumentModel, I
   JSONProcessorImpl__cdata_t *___cid = ((JSONProcessorImpl__cdata_t *) ___id);
   if (msg == NULL) 
   {
-    printf("JSON message buffer must not be NULL\n");
+    printf("JSON message buffer must not be NULL\r\n");
   }
   JSONParseCtx_t *pParseCtx = JSONProcessorImpl_newJSONParseCtx(___cid);
   if (pParseCtx == NULL) 
@@ -108,7 +108,7 @@ bool JSONProcessorImpl_jsonSerializer_serialize(struct jsontree_value *pDocument
   JSONProcessorImpl__cdata_t *___cid = ((JSONProcessorImpl__cdata_t *) ___id);
   if (msg == NULL) 
   {
-    printf("JSON message buffer must not be NULL\n");
+    printf("JSON message buffer must not be NULL\r\n");
     return false;
   }
   JSONSerializeCtx_t *pSerializeCtx = JSONProcessorImpl_newJSONSerializeCtx(msg, msgSize, ___cid);
@@ -132,12 +132,12 @@ bool JSONProcessorImpl_jsonSerializer_serialize(struct jsontree_value *pDocument
   return true;
 }
 
-const void* JSONProcessorImpl_jsonSerializer_beginDocument(struct jsontree_value *pDocumentModel, IJSONDocumentIOHandler__idata_t *documentIOHandler, void *pUserData, char *msg, size_t msgSize, void *___id)
+void const* JSONProcessorImpl_jsonSerializer_beginDocument(struct jsontree_value *pDocumentModel, IJSONDocumentIOHandler__idata_t *documentIOHandler, void *pUserData, char *msg, size_t msgSize, void *___id)
 {
   JSONProcessorImpl__cdata_t *___cid = ((JSONProcessorImpl__cdata_t *) ___id);
   if (msg == NULL) 
   {
-    printf("JSON message buffer must not be NULL\n");
+    printf("JSON message buffer must not be NULL\r\n");
     return NULL;
   }
   JSONSerializeCtx_t *pSerializeCtx = JSONProcessorImpl_newJSONSerializeCtx(msg, msgSize, ___cid);
@@ -152,12 +152,12 @@ const void* JSONProcessorImpl_jsonSerializer_beginDocument(struct jsontree_value
   return pSerializeCtx;
 }
 
-bool JSONProcessorImpl_jsonSerializer_beginObject(const void* hDocument, char const *path, void *___id)
+bool JSONProcessorImpl_jsonSerializer_beginObject(void const* hDocument, char const *path, void *___id)
 {
   JSONProcessorImpl__cdata_t *___cid = ((JSONProcessorImpl__cdata_t *) ___id);
   if (hDocument == NULL) 
   {
-    printf("JSON document handle must not be NULL\n");
+    printf("JSON document handle must not be NULL\r\n");
     return false;
   }
   JSONSerializeCtx_t *pSerializeCtx = ((JSONSerializeCtx_t *) hDocument);
@@ -171,12 +171,12 @@ bool JSONProcessorImpl_jsonSerializer_beginObject(const void* hDocument, char co
   return true;
 }
 
-bool JSONProcessorImpl_jsonSerializer_addValue(const void* hDocument, char const *path, JSONObjectSerializationMode_t mode, void *___id)
+bool JSONProcessorImpl_jsonSerializer_addValue(void const* hDocument, char const *path, JSONObjectSerializationMode_t mode, void *___id)
 {
   JSONProcessorImpl__cdata_t *___cid = ((JSONProcessorImpl__cdata_t *) ___id);
   if (hDocument == NULL) 
   {
-    printf("JSON document handle must not be NULL\n");
+    printf("JSON document handle must not be NULL\r\n");
     return false;
   }
   JSONSerializeCtx_t *pSerializeCtx = ((JSONSerializeCtx_t *) hDocument);
@@ -195,12 +195,12 @@ bool JSONProcessorImpl_jsonSerializer_addValue(const void* hDocument, char const
   return true;
 }
 
-bool JSONProcessorImpl_jsonSerializer_endObject(const void* hDocument, void *___id)
+bool JSONProcessorImpl_jsonSerializer_endObject(void const* hDocument, void *___id)
 {
   JSONProcessorImpl__cdata_t *___cid = ((JSONProcessorImpl__cdata_t *) ___id);
   if (hDocument == NULL) 
   {
-    printf("JSON document handle must not be NULL\n");
+    printf("JSON document handle must not be NULL\r\n");
     return false;
   }
   JSONSerializeCtx_t *pSerializeCtx = ((JSONSerializeCtx_t *) hDocument);
@@ -214,12 +214,12 @@ bool JSONProcessorImpl_jsonSerializer_endObject(const void* hDocument, void *___
   return true;
 }
 
-bool JSONProcessorImpl_jsonSerializer_endDocument(const void* hDocument, void *___id)
+bool JSONProcessorImpl_jsonSerializer_endDocument(void const* hDocument, void *___id)
 {
   JSONProcessorImpl__cdata_t *___cid = ((JSONProcessorImpl__cdata_t *) ___id);
   if (hDocument == NULL) 
   {
-    printf("JSON document handle must not be NULL\n");
+    printf("JSON document handle must not be NULL\r\n");
     return false;
   }
   JSONSerializeCtx_t *pSerializeCtx = ((JSONSerializeCtx_t *) hDocument);

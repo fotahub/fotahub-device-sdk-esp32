@@ -33,7 +33,7 @@ static bool runRandomSelfTest(uint8_t successRate)
 {
   if (((uint8_t)((rand() % 100))) >= (successRate)) 
   {
-    printf("Firmware self test failed (reason: simulated pseudo-random failure)\n");
+    printf("Firmware self test failed (reason: simulated pseudo-random failure)\r\n");
     return false;
   }
   return true;
@@ -41,25 +41,25 @@ static bool runRandomSelfTest(uint8_t successRate)
 
 void validateFirmwareUpdateApplying(void)
 {
-  printf("Validating firmware update\n");
+  printf("Validating firmware update\r\n");
   /* 
    * Perform any sort of tests and checks to see if device behaves as expected after firmware over-the-air update
    */
   if (runRandomSelfTest(SIMULATED_APPLYING_SUCCESS_RATE)) 
   {
-    printf("Firmware update successfully applied\n");
+    printf("Firmware update successfully applied\r\n");
     fotahub_onFirmwareUpdateStatusChanged(FOTA_UPDATE_STATUS_APPLICATION_SUCCEEDED);
   }
   else
   {
-    printf("Firmware update applying failed\n");
+    printf("Firmware update applying failed\r\n");
     fotahub_onFirmwareUpdateStatusChanged(FOTA_UPDATE_STATUS_APPLICATION_FAILED);
   }
 }
 
 void validateFirmwareUpdateRollingback(void)
 {
-  printf("Validating previous firmware\n");
-  printf("Firmware update successfully rolled back\n");
+  printf("Validating previous firmware\r\n");
+  printf("Firmware update successfully rolled back\r\n");
   fotahub_onFirmwareUpdateStatusChanged(FOTA_UPDATE_STATUS_ROLLBACK_SUCCEEDED);
 }

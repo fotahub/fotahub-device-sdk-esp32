@@ -37,13 +37,13 @@ MbedTLSNetwork_t *MbedTLSClientImpl_newMbedTLSNetwork(void *___id)
       ___cid->networks__field[__i].pTLSDataParams = ((TLSDataParams_t *)(malloc(sizeof(TLSDataParams_t))));
       if (___cid->networks__field[__i].pTLSDataParams == NULL) 
       {
-        printf("No more memory available\n");
+        printf("No more memory available\r\n");
         return NULL;
       }
       return &___cid->networks__field[__i];
     }
   }
-  printf("No more mbedTLS network blocks available\n");
+  printf("No more mbedTLS network blocks available\r\n");
   return NULL;
 }
 
@@ -112,7 +112,7 @@ void MbedTLSClientImpl_deleteMbedTLSNetwork(MbedTLSNetwork_t *pNetwork, bool clo
   MbedTLSClientImpl_resetMbedTLSNetworkExtendedData(pNetwork, ___cid);
 }
 
-const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConnParams, void *pUserData, void *___id)
+void const* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConnParams, void *pUserData, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   if (pConnParams == NULL) 
@@ -146,7 +146,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
   int32_t ret = mbedtls_ctr_drbg_seed(&(pTLSDataParams->ctrDrbg), &mbedtls_entropy_func, &(pTLSDataParams->entropy), ((uint8_t *)(data)), strlen(data));
   if (ret != 0) 
   {
-    printf("Failed! mbedtls_ctr_drbg_seed returned %i\n", ret);
+    printf("Failed! mbedtls_ctr_drbg_seed returned %i\r\n", ret);
     MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
     return NULL;
   }
@@ -160,7 +160,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
       size_t count = (*___cid->x509DataProvider__ops->getX509RootCACount)(___cid->x509DataProvider__ops->__instance);
       if (count < 1) 
       {
-        printf("No root CA found!\n");
+        printf("No root CA found!\r\n");
         MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
         return NULL;
       }
@@ -169,7 +169,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
         (*___cid->x509DataProvider__ops->loadRootCA)(((uint8_t)(__i)), &pX509DataItem, &x509DataSize, ___cid->x509DataProvider__ops->__instance);
         if ((ret = mbedtls_x509_crt_parse(&pTLSDataParams->serverCert, pX509DataItem, x509DataSize)) < 0) 
         {
-          printf("Failed!  mbedtls_x509_crt_parse returned %i while parsing root cert\n", ret);
+          printf("Failed!  mbedtls_x509_crt_parse returned %i while parsing root cert\r\n", ret);
           MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
           (*___cid->x509DataProvider__ops->unloadX509DataItem)(&pX509DataItem, ___cid->x509DataProvider__ops->__instance);
           return NULL;
@@ -181,7 +181,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
     {
       if ((ret = mbedtls_x509_crt_parse(&(pTLSDataParams->clientCert), pX509DataItem, x509DataSize)) < 0) 
       {
-        printf("Failed!  mbedtls_x509_crt_parse returned %i while parsing client cert\n", ret);
+        printf("Failed!  mbedtls_x509_crt_parse returned %i while parsing client cert\r\n", ret);
         MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
         (*___cid->x509DataProvider__ops->unloadX509DataItem)(&pX509DataItem, ___cid->x509DataProvider__ops->__instance);
         return NULL;
@@ -192,7 +192,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
     {
       if ((ret = mbedtls_pk_parse_key(&(pTLSDataParams->privateKey), pX509DataItem, x509DataSize, ((uint8_t *) ""), 0)) < 0) 
       {
-        printf("Failed!  mbedtls_x509_crt_parse returned %i while parsing private key\n", ret);
+        printf("Failed!  mbedtls_x509_crt_parse returned %i while parsing private key\r\n", ret);
         MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
         (*___cid->x509DataProvider__ops->unloadX509DataItem)(&pX509DataItem, ___cid->x509DataProvider__ops->__instance);
         return NULL;
@@ -210,13 +210,13 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
   }
   if ((ret = mbedtls_net_connect(&(pTLSDataParams->serverFD), (pConnParams->pAddr->type == ENDPOINT_ADDRESS_TYPE_IPV4_ADDRESS) ? (ipBuffer) : (((HostNameEndpointAddress_t *)(pConnParams->pAddr))->hostName), portBuffer, MBEDTLS_NET_PROTO_TCP)) != 0) 
   {
-    printf("Failed! mbedtls_net_connect returned %i\n", ret);
+    printf("Failed! mbedtls_net_connect returned %i\r\n", ret);
     MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
     return NULL;
   }
   if ((ret = mbedtls_net_set_nonblock(&(pTLSDataParams->serverFD))) != 0) 
   {
-    printf("Failed! net_set_(non)block() returned %i\n", ret);
+    printf("Failed! net_set_(non)block() returned %i\r\n", ret);
     MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
     return NULL;
   }
@@ -225,7 +225,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
    */
   if ((ret = mbedtls_ssl_config_defaults(&(pTLSDataParams->conf), MBEDTLS_SSL_IS_CLIENT, MBEDTLS_SSL_TRANSPORT_STREAM, MBEDTLS_SSL_PRESET_DEFAULT)) != 0) 
   {
-    printf("Failed! mbedtls_ssl_config_defaults returned %i\n", ret);
+    printf("Failed! mbedtls_ssl_config_defaults returned %i\r\n", ret);
     MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
     return NULL;
   }
@@ -237,7 +237,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
      */
     if ((ret = mbedtls_ssl_conf_max_frag_len(&(pTLSDataParams->conf), convertMaxFragmentLengthToMFLCode(pConnParams->pSecureConnectionParams->maxFragmentLength))) != 0) 
     {
-      printf("Failed! mbedtls_ssl_conf_max_frag_len returned %i\n", ret);
+      printf("Failed! mbedtls_ssl_conf_max_frag_len returned %i\r\n", ret);
       MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
       return NULL;
     }
@@ -256,20 +256,20 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
   ret = mbedtls_ssl_conf_own_cert(&(pTLSDataParams->conf), &(pTLSDataParams->clientCert), &(pTLSDataParams->privateKey));
   if (ret != 0) 
   {
-    printf("Failed! mbedtls_ssl_conf_own_cert returned %i\n", ret);
+    printf("Failed! mbedtls_ssl_conf_own_cert returned %i\r\n", ret);
     MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
     return NULL;
   }
   
   if ((ret = mbedtls_ssl_setup(&(pTLSDataParams->ssl), &(pTLSDataParams->conf))) != 0) 
   {
-    printf("Failed! mbedtls_ssl_setup returned %i\n", ret);
+    printf("Failed! mbedtls_ssl_setup returned %i\r\n", ret);
     MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
     return NULL;
   }
   if ((ret = mbedtls_ssl_set_hostname(&(pTLSDataParams->ssl), (pConnParams->pAddr->type == ENDPOINT_ADDRESS_TYPE_IPV4_ADDRESS) ? (ipBuffer) : (((HostNameEndpointAddress_t *)(pConnParams->pAddr))->hostName))) != 0) 
   {
-    printf("Failed! mbedtls_ssl_set_hostname returned %i\n", ret);
+    printf("Failed! mbedtls_ssl_set_hostname returned %i\r\n", ret);
     MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
     return NULL;
   }
@@ -286,10 +286,10 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
   {
     if (((ret != MBEDTLS_ERR_SSL_WANT_READ) && (ret != MBEDTLS_ERR_SSL_WANT_WRITE) && (ret != MBEDTLS_ERR_SSL_TIMEOUT))) 
     {
-      printf("Failed! mbedtls_ssl_handshake returned %i\n", ret);
+      printf("Failed! mbedtls_ssl_handshake returned %i\r\n", ret);
       if (ret == MBEDTLS_ERR_X509_CERT_VERIFY_FAILED) 
       {
-        printf("Unable to verify the server's certificate\n");
+        printf("Unable to verify the server's certificate\r\n");
       }
       MbedTLSClientImpl_deleteMbedTLSNetwork(pNetwork, true, ___cid);
       return NULL;
@@ -308,7 +308,7 @@ const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConn
   return pNetwork;
 }
 
-bool MbedTLSClientImpl_socket_isConnected(const void* hSession, void *___id)
+bool MbedTLSClientImpl_socket_isConnected(void const* hSession, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   MbedTLSNetwork_t *pNetwork = ((MbedTLSNetwork_t *) hSession);
@@ -327,7 +327,7 @@ bool MbedTLSClientImpl_socket_isConnected(const void* hSession, void *___id)
   return false;
 }
 
-void *MbedTLSClientImpl_socket_getUserData(const void* hSession, void *___id)
+void *MbedTLSClientImpl_socket_getUserData(void const* hSession, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   MbedTLSNetwork_t *pNetwork = ((MbedTLSNetwork_t *) hSession);
@@ -339,19 +339,19 @@ void *MbedTLSClientImpl_socket_getUserData(const void* hSession, void *___id)
   return pNetwork->pUserData;
 }
 
-Datagram_t *MbedTLSClientImpl_socket_newDatagram(const void* hSession, size_t payloadLength, DatagramType_t type, void *___id)
+Datagram_t *MbedTLSClientImpl_socket_newDatagram(void const* hSession, size_t payloadLength, DatagramType_t type, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   return (*___cid->datagramPool__ops->newDatagram)(payloadLength, ___cid->datagramPool__ops->__instance);
 }
 
-Datagram_t *MbedTLSClientImpl_socket_resizeDatagram(const void* hSession, Datagram_t *pDatagram, size_t newSize, void *___id)
+Datagram_t *MbedTLSClientImpl_socket_resizeDatagram(void const* hSession, Datagram_t *pDatagram, size_t newSize, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   return (*___cid->datagramPool__ops->resizeDatagram)(pDatagram, newSize, ___cid->datagramPool__ops->__instance);
 }
 
-void MbedTLSClientImpl_socket_sendDatagram(const void* hSession, Datagram_t *pDatagram, SocketFrameOptions_t *pOptions, void *___id)
+void MbedTLSClientImpl_socket_sendDatagram(void const* hSession, Datagram_t *pDatagram, SocketFrameOptions_t *pOptions, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   MbedTLSNetwork_t *pNetwork = ((MbedTLSNetwork_t *) hSession);
@@ -368,7 +368,7 @@ void MbedTLSClientImpl_socket_sendDatagram(const void* hSession, Datagram_t *pDa
     {
       if (ret != MBEDTLS_ERR_SSL_WANT_READ && ret != MBEDTLS_ERR_SSL_WANT_WRITE) 
       {
-        printf("Failed! mbedtls_ssl_write returned %i\n", ret);
+        printf("Failed! mbedtls_ssl_write returned %i\r\n", ret);
         /* 
          * All other negative return values indicate connection needs to be reset, will be caught in ping request so ignored here
          */
@@ -411,13 +411,13 @@ void MbedTLSClientImpl_socket_sendDatagram(const void* hSession, Datagram_t *pDa
   }
 }
 
-void MbedTLSClientImpl_socket_deleteDatagram(const void* hSession, Datagram_t *pDatagram, void *___id)
+void MbedTLSClientImpl_socket_deleteDatagram(void const* hSession, Datagram_t *pDatagram, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   (*___cid->datagramPool__ops->deleteDatagram)(pDatagram, ___cid->datagramPool__ops->__instance);
 }
 
-void MbedTLSClientImpl_socket_disconnect(const void* hSession, void *___id)
+void MbedTLSClientImpl_socket_disconnect(void const* hSession, void *___id)
 {
   MbedTLSClientImpl__cdata_t *___cid = ((MbedTLSClientImpl__cdata_t *) ___id);
   MbedTLSNetwork_t *pNetwork = ((MbedTLSNetwork_t *) hSession);
@@ -534,7 +534,7 @@ void MbedTLSClientImpl_activity_run(void *___id)
         }
         if (ret < 0) 
         {
-          printf("Failed, mbedtls_ssl_read returned %i\n", ret);
+          printf("Failed, mbedtls_ssl_read returned %i\r\n", ret);
           MbedTLSClientImpl_freeMbedTLSNetworkResources(pNetwork, true, ___cid);
           for ( uint8_t ___pc = 0 ; ___pc < MAX_CLIENT_SOCKET_HANDLER_COUNT; ___pc++ )
           {

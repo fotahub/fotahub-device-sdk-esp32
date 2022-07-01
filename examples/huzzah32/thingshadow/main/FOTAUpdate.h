@@ -52,9 +52,9 @@ struct IFirmwareUpdateHandler__idata {
   void *__instance;
   bool ((*(canHandle))(FirmwareUpdateInfo_t const *,void *));
   bool ((*(reconcileUpdateInfo))(FirmwareUpdateInfo_t *,void *));
-  const void* ((*(beginWriteUpdate))(FirmwareUpdateInfo_t const *,size_t,void *));
-  size_t ((*(writeUpdateChunk))(const void*,uint8_t const  *,size_t,void *));
-  bool ((*(endWriteUpdate))(const void*,void *));
+  void const* ((*(beginWriteUpdate))(FirmwareUpdateInfo_t const *,size_t,void *));
+  size_t ((*(writeUpdateChunk))(void const*,uint8_t const  *,size_t,void *));
+  bool ((*(endWriteUpdate))(void const*,void *));
   bool ((*(applyUpdate))(FirmwareUpdateInfo_t const *,void *));
   bool ((*(confirmUpdate))(FirmwareUpdateInfo_t const *,void *));
   bool ((*(rollBackUpdate))(FirmwareUpdateInfo_t const *,void *));

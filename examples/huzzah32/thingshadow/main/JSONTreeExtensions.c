@@ -482,11 +482,11 @@ static bool jsonparse_do_parse_value(struct jsontree_context *js_ctx, struct jso
       }
       case JSON_TYPE_ERROR:
       {
-        printf("JSON parse error: %d\n", jsonparse_get_error(parseState));
+        printf("JSON parse error: %d\r\n", jsonparse_get_error(parseState));
         return false;
       }
       default: {
-        printf("Unknown JSON element type: %i\n", type);
+        printf("Unknown JSON element type: %i\r\n", type);
         return false;
       }
     }

@@ -29,7 +29,9 @@ extern "C" {
 
 #define COLON (((uint8_t) ':'))
 
-#define LF (((uint8_t) '\n'))
+#define CARRET (((uint8_t) '\r'))
+
+#define LINEF (((uint8_t) '\n'))
 
 #define MAX_DEMO_FIRMWARE_UPDATE_VERSION_LENGTH 32
 

@@ -25,7 +25,7 @@ Datagram_t *DynamicDatagramPoolImpl_datagramPool_newDatagram(size_t length, void
 {
   if (length == 0) 
   {
-    printf("Requested datagram length must be at least 1\n");
+    printf("Requested datagram length must be at least 1\r\n");
     return NULL;
   }
   /* 
@@ -34,7 +34,7 @@ Datagram_t *DynamicDatagramPoolImpl_datagramPool_newDatagram(size_t length, void
   Datagram_t *pDatagram = ((Datagram_t *)(malloc(sizeof(Datagram_t) + length)));
   if (pDatagram == NULL) 
   {
-    printf("Out of memory\n");
+    printf("Out of memory\r\n");
     return NULL;
   }
   pDatagram->pBase = ((uint8_t *)(((ptrdiff_t)(pDatagram)) + sizeof(Datagram_t)));
@@ -64,7 +64,7 @@ Datagram_t *DynamicDatagramPoolImpl_datagramPool_resizeDatagram(Datagram_t *pDat
   DynamicDatagramPoolImpl__cdata_t *___cid = ((DynamicDatagramPoolImpl__cdata_t *) ___id);
   if (newLength == 0) 
   {
-    printf("Requested datagram length must be at least 1\n");
+    printf("Requested datagram length must be at least 1\r\n");
     return NULL;
   }
   /* 
@@ -87,7 +87,7 @@ Datagram_t *DynamicDatagramPoolImpl_datagramPool_resizeDatagram(Datagram_t *pDat
    */
   if (newLength < pDatagram->length - pDatagram->visiblePayloadLength) 
   {
-    printf("Requested new datagram length must remain high enough to include at least all downstream protocol headers & trailers located before & behind current visible payload\n");
+    printf("Requested new datagram length must remain high enough to include at least all downstream protocol headers & trailers located before & behind current visible payload\r\n");
     return NULL;
   }
   
