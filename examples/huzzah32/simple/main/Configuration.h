@@ -30,9 +30,9 @@
 extern "C" {
 #endif
 
-#define WIFI_STATION_SSID "Galaxy A10s3731"
+#define WIFI_STATION_SSID "<Your Wi-Fi SSID>"
 
-#define WIFI_STATION_PASSPHRASE "rhqr2377"
+#define WIFI_STATION_PASSPHRASE "<Your Wi-Fi password>"
 
 #define UART_TX_PIN (((uint8_t)(GPIO_NUM_1)))
 

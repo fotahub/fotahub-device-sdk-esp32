@@ -94,6 +94,13 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
       {
         case FirmwareUpdateInfoParser_characterReceived__event:
         {
+          if (((*((uint8_t *)((arguments[0])))) == CARRET || (*((uint8_t *)((arguments[0])))) == LINEF) && instance->characterIdx == 0) 
+          {
+            /* 
+             * enter target state
+             */
+            break;
+          }
           if ((*((uint8_t *)((arguments[0])))) != COLON && isspace((*((uint8_t *)((arguments[0]))))) == 0 && instance->characterIdx < MAX_DEMO_FIRMWARE_UPDATE_VERSION_LENGTH - 1) 
           {
             /* 
@@ -131,7 +138,7 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
             /* 
              * transition actions
              */
-            printf("Received firmware update version too long (max. length = %hhu)\n", MAX_DEMO_FIRMWARE_UPDATE_VERSION_LENGTH);
+            printf("Received firmware update version too long (max. length = %hhu)\r\n", MAX_DEMO_FIRMWARE_UPDATE_VERSION_LENGTH);
             
             /* 
              * enter target state
@@ -144,7 +151,7 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
             /* 
              * transition actions
              */
-            printf("Firmware update request with missing version received\n");
+            printf("Firmware update request with missing version received\r\n");
             
             /* 
              * enter target state
@@ -152,25 +159,12 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
             instance->__currentState = FirmwareUpdateInfoParser_receiving_receivingBadCharacters__state;
             break;
           }
-          if ((*((uint8_t *)((arguments[0])))) == LF && instance->characterIdx == 0) 
+          if (((*((uint8_t *)((arguments[0])))) == CARRET || (*((uint8_t *)((arguments[0])))) == LINEF) && instance->characterIdx > 0) 
           {
             /* 
              * transition actions
              */
-            printf("Empty firmware update request received\n");
-            instance->characterIdx = 0;
-            
-            /* 
-             * enter target state
-             */
-            break;
-          }
-          if ((*((uint8_t *)((arguments[0])))) == LF && instance->characterIdx > 0) 
-          {
-            /* 
-             * transition actions
-             */
-            printf("Firmware update request with missing verification data received\n");
+            printf("Firmware update request with missing verification data received\r\n");
             memset(updateVersion, 0, sizeof(updateVersion));
             instance->characterIdx = 0;
             
@@ -192,14 +186,14 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
       {
         case FirmwareUpdateInfoParser_characterReceived__event:
         {
-          if ((*((uint8_t *)((arguments[0])))) != LF) 
+          if ((*((uint8_t *)((arguments[0])))) != CARRET && (*((uint8_t *)((arguments[0])))) != LINEF) 
           {
             /* 
              * enter target state
              */
             break;
           }
-          if ((*((uint8_t *)((arguments[0])))) == LF) 
+          if ((*((uint8_t *)((arguments[0])))) == CARRET || (*((uint8_t *)((arguments[0])))) == LINEF) 
           {
             /* 
              * transition actions
@@ -260,7 +254,7 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
              */
             break;
           }
-          if ((*((uint8_t *)((arguments[0])))) == LF && instance->characterIdx > 0) 
+          if (((*((uint8_t *)((arguments[0])))) == CARRET || (*((uint8_t *)((arguments[0])))) == LINEF) && instance->characterIdx > 0) 
           {
             /* 
              * enter target state
@@ -273,7 +267,7 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
             /* 
              * transition actions
              */
-            printf("Received firmware update verification data too long (max. length = %d)\n", getVerificationDataSize(DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM) << 1);
+            printf("Received firmware update verification data too long (max. length = %d)\r\n", getVerificationDataSize(DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM) << 1);
             
             /* 
              * enter target state
@@ -281,12 +275,12 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
             instance->__currentState = FirmwareUpdateInfoParser_receiving_receivingBadCharacters__state;
             break;
           }
-          if ((*((uint8_t *)((arguments[0])))) == LF && instance->characterIdx == 0) 
+          if (((*((uint8_t *)((arguments[0])))) == CARRET || (*((uint8_t *)((arguments[0])))) == LINEF) && instance->characterIdx == 0) 
           {
             /* 
              * transition actions
              */
-            printf("Firmware update request with missing verification data received\n");
+            printf("Firmware update request with missing verification data received\r\n");
             memset(updateVersion, 0, sizeof(updateVersion));
             memset(updateVerificationData, 0, getVerificationDataSize(DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM));
             instance->characterIdx = 0;
@@ -316,7 +310,7 @@ static bool FirmwareUpdateInfoParser__execute(FirmwareUpdateInfoParser__data_t *
           /* 
            * transition actions
            */
-          printf("Firmware update request towards version %s received\n", updateVersion);
+          printf("Firmware update request towards version %s received\r\n", updateVersion);
           fotaUpdateWorkflow_onFirmwareUpdateVersionChanged(updateVersion);
           instance->characterIdx = 0;
           

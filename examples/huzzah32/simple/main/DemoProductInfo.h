@@ -27,7 +27,7 @@
 extern "C" {
 #endif
 
-#define DEMO_PRODUCT_ID "da651e30-2d88-4e78-b790-22d1438fb3b4"
+#define DEMO_PRODUCT_ID "<Your FotaHub product id>"
 
 #define DEMO_PRODUCT_NAME "Demo Product"
 

@@ -36,9 +36,9 @@ void app_main(void)
   blink_init(BLINK_PERIOD);
   wifi_init();
   
-  printf("\n--------------------------------------------------------------------------\n");
-  printf("Running cat face detection %s %s tinyML model \n", DEMO_PRODUCT_NAME, DEMO_PRODUCT_FIRMWARE_VERSION);
-  printf("--------------------------------------------------------------------------\n\n");
+  printf("\r\n--------------------------------------------------------------------------\r\n");
+  printf("Running cat face detection %s %s TinyML model\r\n", DEMO_PRODUCT_NAME, DEMO_PRODUCT_FIRMWARE_VERSION);
+  printf("--------------------------------------------------------------------------\r\n\r\n");
   
   firmwareUpdateInfoReader_init();
   fotaUpdateWorkflow_init();
