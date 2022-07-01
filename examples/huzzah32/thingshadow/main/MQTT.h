@@ -33,26 +33,26 @@ extern "C" {
  */
 struct IMQTTClient__idata {
   void *__instance;
-  const void* ((*(connect))(MQTTConnectionParameters_t *,void *,void *));
-  bool ((*(isConnected))(const void*,void *));
-  void *((*(getUserData))(const void*,void *));
-  Datagram_t *((*(newDatagram))(const void*,size_t,DatagramType_t,void *));
-  Datagram_t *((*(newPublishMessage))(const void*,size_t,void *));
-  bool ((*(subscribe))(const void*,char *[],MQTTQoS_t [],uint64_t const ,uint16_t,bool,void *));
-  bool ((*(sendPublishMessage))(const void*,char *,Datagram_t *,MQTTPublishParameters_t *,void *));
-  void ((*(deleteDatagram))(const void*,Datagram_t *,void *));
-  void ((*(disconnect))(const void*,void *));
+  void const* ((*(connect))(MQTTConnectionParameters_t *,void *,void *));
+  bool ((*(isConnected))(void const*,void *));
+  void *((*(getUserData))(void const*,void *));
+  Datagram_t *((*(newDatagram))(void const*,size_t,DatagramType_t,void *));
+  Datagram_t *((*(newPublishMessage))(void const*,size_t,void *));
+  bool ((*(subscribe))(void const*,char *[],MQTTQoS_t [],uint64_t const ,uint16_t,bool,void *));
+  bool ((*(sendPublishMessage))(void const*,char *,Datagram_t *,MQTTPublishParameters_t *,void *));
+  void ((*(deleteDatagram))(void const*,Datagram_t *,void *));
+  void ((*(disconnect))(void const*,void *));
 };
 typedef struct IMQTTClient__idata IMQTTClient__idata_t;
 
 struct IMQTTClientHandler__idata {
   void *__instance;
-  void ((*(connected))(const void*,void *));
-  void ((*(subscribed))(const void*,uint16_t,MQTTQoS_t [],void *));
-  void ((*(published))(const void*,void *));
-  void ((*(publishMessageReceived))(const void*,char *,size_t,Datagram_t *,void *));
-  void ((*(disconnected))(const void*,void *));
-  void ((*(connectionError))(const void*,MQTTError_t,void *));
+  void ((*(connected))(void const*,void *));
+  void ((*(subscribed))(void const*,uint16_t,MQTTQoS_t [],void *));
+  void ((*(published))(void const*,void *));
+  void ((*(publishMessageReceived))(void const*,char *,size_t,Datagram_t *,void *));
+  void ((*(disconnected))(void const*,void *));
+  void ((*(connectionError))(void const*,MQTTError_t,void *));
 };
 typedef struct IMQTTClientHandler__idata IMQTTClientHandler__idata_t;
 

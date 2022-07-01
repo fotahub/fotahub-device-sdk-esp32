@@ -64,7 +64,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_deleteAWSIoTData(AWSIoTSessionData_t *pSe
   pSessionData->busy = false;
 }
 
-bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_report(const void* hSession, char *jsonString, void *___id)
+bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_report(void const* hSession, char *jsonString, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *) hSession);
@@ -110,7 +110,7 @@ bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_report(const void* hSession, 
   return true;
 }
 
-bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_get(const void* hSession, void *___id)
+bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_get(void const* hSession, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *) hSession);
@@ -154,7 +154,7 @@ bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_get(const void* hSession, voi
   return true;
 }
 
-bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_isConnected(const void* hSession, void *___id)
+bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_isConnected(void const* hSession, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *) hSession);
@@ -166,7 +166,7 @@ bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_isConnected(const void* hSess
   return (*___cid->mqttClient__ops->isConnected)(pSessionData->hDownstreamSession, ___cid->mqttClient__ops->__instance);
 }
 
-void AbstractAWSIoTMQTTThingShadowImpl_thingShadow_disconnect(const void* hSession, void *___id)
+void AbstractAWSIoTMQTTThingShadowImpl_thingShadow_disconnect(void const* hSession, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *) hSession);
@@ -177,7 +177,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_thingShadow_disconnect(const void* hSessi
   (*___cid->mqttClient__ops->disconnect)(pSessionData->hDownstreamSession, ___cid->mqttClient__ops->__instance);
 }
 
-void *AbstractAWSIoTMQTTThingShadowImpl_thingShadow_getUserData(const void* hSession, void *___id)
+void *AbstractAWSIoTMQTTThingShadowImpl_thingShadow_getUserData(void const* hSession, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *) hSession);
@@ -188,7 +188,7 @@ void *AbstractAWSIoTMQTTThingShadowImpl_thingShadow_getUserData(const void* hSes
   return pSessionData->pUserData;
 }
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connected(const void* hSession, void *___id)
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connected(void const* hSession, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *)((*___cid->mqttClient__ops->getUserData)(hSession, ___cid->mqttClient__ops->__instance)));
@@ -197,7 +197,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connected(const void* h
     return;
   }
   
-  printf("Subscribing to AWS IoT Thing Shadow topics...\n");
+  printf("Subscribing to AWS IoT Thing Shadow topics...\r\n");
   
   char updateAcceptedTopicName[MAX_AWS_IOT_THING_SHADOW_TOPIC_NAME_LENGTH + 1] = { 0 };
   char updateRejectedTopicName[MAX_AWS_IOT_THING_SHADOW_TOPIC_NAME_LENGTH + 1] = { 0 };
@@ -226,7 +226,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connected(const void* h
   }
 }
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(const void* hSession, uint16_t subMsgId, MQTTQoS_t grantedQoS[], void *___id)
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(void const* hSession, uint16_t subMsgId, MQTTQoS_t grantedQoS[], void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *)((*___cid->mqttClient__ops->getUserData)(hSession, ___cid->mqttClient__ops->__instance)));
@@ -258,12 +258,12 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(const void* 
   }
 }
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_published(const void* hSession, void *___id)
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_published(void const* hSession, void *___id)
 {
   
 }
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_publishMessageReceived(const void* hSession, char *topicName, size_t topicNameLen, Datagram_t *pDatagram, void *___id)
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_publishMessageReceived(void const* hSession, char *topicName, size_t topicNameLen, Datagram_t *pDatagram, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *)((*___cid->mqttClient__ops->getUserData)(hSession, ___cid->mqttClient__ops->__instance)));
@@ -317,7 +317,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_publishMessageReceived(
   }
 }
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_disconnected(const void* hSession, void *___id)
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_disconnected(void const* hSession, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *)((*___cid->mqttClient__ops->getUserData)(hSession, ___cid->mqttClient__ops->__instance)));
@@ -335,7 +335,7 @@ void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_disconnected(const void
   AbstractAWSIoTMQTTThingShadowImpl_deleteAWSIoTData(pSessionData, ___cid);
 }
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connectionError(const void* hSession, MQTTError_t error, void *___id)
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connectionError(void const* hSession, MQTTError_t error, void *___id)
 {
   AbstractAWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AbstractAWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   AWSIoTSessionData_t *pSessionData = ((AWSIoTSessionData_t *)((*___cid->mqttClient__ops->getUserData)(hSession, ___cid->mqttClient__ops->__instance)));

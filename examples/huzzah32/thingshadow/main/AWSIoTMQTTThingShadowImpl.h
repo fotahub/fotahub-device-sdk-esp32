@@ -34,7 +34,7 @@ struct AWSIoTMQTTThingShadowImpl__cdata {
 };
 typedef struct AWSIoTMQTTThingShadowImpl__cdata AWSIoTMQTTThingShadowImpl__cdata_t;
 
-const void* AWSIoTMQTTThingShadowImpl_thingShadow_connect(IoTConnectionParameters_t *pConnParams, void *pUserData, void *___id);
+void const* AWSIoTMQTTThingShadowImpl_thingShadow_connect(IoTConnectionParameters_t *pConnParams, void *pUserData, void *___id);
 
 #ifdef __cplusplus
 } /* extern "C" */

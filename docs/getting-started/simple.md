@@ -120,7 +120,7 @@ idf flash <COM port name, e.g., COM3>
 
 ![](simple-1.png "Start of initial firmware version")
 
-<p style="margin-left: 2em">Also have a look at the red LED next to the USB port on your board (GPIO #13). It should blink with a period of approx. 1 s.</p> 
+<p style="margin-left: 2em">Also have a look at the red LED (<code>GPIO #13</code>) next to the USB port on your board. It should blink with a period of approx. 1 s.</p> 
 
 ### Create and upload a new firmware version to FotaHub
 

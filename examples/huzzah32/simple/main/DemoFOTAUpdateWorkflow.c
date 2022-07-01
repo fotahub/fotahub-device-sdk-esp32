@@ -111,7 +111,7 @@ static bool DemoFOTAUpdateWorkflowEngine__execute(DemoFOTAUpdateWorkflowEngine__
           /* 
            * transition actions
            */
-          printf("Cannot handle firmware over-the-air update request (missing network connection)\n");
+          printf("Cannot handle firmware over-the-air update request (missing network connection)\r\n");
           
           /* 
            * enter target state
@@ -193,7 +193,7 @@ static bool DemoFOTAUpdateWorkflowEngine__execute(DemoFOTAUpdateWorkflowEngine__
             /* 
              * transition actions
              */
-            printf("Ignoring firmware over-the-air update request to version %s as this version is already running\n", (*((char **)((arguments[0])))));
+            printf("Ignoring firmware over-the-air update request to version %s as this version is already running\r\n", (*((char **)((arguments[0])))));
             
             /* 
              * enter target state
@@ -304,10 +304,10 @@ static bool DemoFOTAUpdateWorkflowEngine__execute(DemoFOTAUpdateWorkflowEngine__
 
 static inline void DemoFOTAUpdateWorkflowEngine_connected_EntryAction(DemoFOTAUpdateWorkflowEngine__data_t *instance)
 {
-  printf("Ready for firmware over-the-air update\n");
+  printf("Ready for firmware over-the-air update\r\n");
 }
 
 static inline void DemoFOTAUpdateWorkflowEngine_restarting_EntryAction(DemoFOTAUpdateWorkflowEngine__data_t *instance)
 {
-  printf("Waiting for restart\n");
+  printf("Waiting for restart\r\n");
 }

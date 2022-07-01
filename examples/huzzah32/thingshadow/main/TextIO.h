@@ -28,13 +28,13 @@ extern "C" {
 
 struct ITextReader__idata {
   void *__instance;
-  char ((*(readChar))(const void*,void *));
+  char ((*(readChar))(void const*,void *));
 };
 typedef struct ITextReader__idata ITextReader__idata_t;
 
 struct ITextWriter__idata {
   void *__instance;
-  void ((*(writeChar))(const void*,char,void *));
+  void ((*(writeChar))(void const*,char,void *));
 };
 typedef struct ITextWriter__idata ITextWriter__idata_t;
 

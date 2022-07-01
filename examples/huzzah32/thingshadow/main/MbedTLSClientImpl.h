@@ -92,21 +92,21 @@ void MbedTLSClientImpl_resetMbedTLSNetworkExtendedData(MbedTLSNetwork_t *pNetwor
 
 void MbedTLSClientImpl_deleteMbedTLSNetwork(MbedTLSNetwork_t *pNetwork, bool closeNotify, void *___id);
 
-const void* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConnParams, void *pUserData, void *___id);
+void const* MbedTLSClientImpl_socket_connect(SocketConnectionParameters_t *pConnParams, void *pUserData, void *___id);
 
-bool MbedTLSClientImpl_socket_isConnected(const void* hSession, void *___id);
+bool MbedTLSClientImpl_socket_isConnected(void const* hSession, void *___id);
 
-void *MbedTLSClientImpl_socket_getUserData(const void* hSession, void *___id);
+void *MbedTLSClientImpl_socket_getUserData(void const* hSession, void *___id);
 
-Datagram_t *MbedTLSClientImpl_socket_newDatagram(const void* hSession, size_t payloadLength, DatagramType_t type, void *___id);
+Datagram_t *MbedTLSClientImpl_socket_newDatagram(void const* hSession, size_t payloadLength, DatagramType_t type, void *___id);
 
-Datagram_t *MbedTLSClientImpl_socket_resizeDatagram(const void* hSession, Datagram_t *pDatagram, size_t newSize, void *___id);
+Datagram_t *MbedTLSClientImpl_socket_resizeDatagram(void const* hSession, Datagram_t *pDatagram, size_t newSize, void *___id);
 
-void MbedTLSClientImpl_socket_sendDatagram(const void* hSession, Datagram_t *pDatagram, SocketFrameOptions_t *pOptions, void *___id);
+void MbedTLSClientImpl_socket_sendDatagram(void const* hSession, Datagram_t *pDatagram, SocketFrameOptions_t *pOptions, void *___id);
 
-void MbedTLSClientImpl_socket_deleteDatagram(const void* hSession, Datagram_t *pDatagram, void *___id);
+void MbedTLSClientImpl_socket_deleteDatagram(void const* hSession, Datagram_t *pDatagram, void *___id);
 
-void MbedTLSClientImpl_socket_disconnect(const void* hSession, void *___id);
+void MbedTLSClientImpl_socket_disconnect(void const* hSession, void *___id);
 
 void MbedTLSClientImpl_activity_run(void *___id);
 

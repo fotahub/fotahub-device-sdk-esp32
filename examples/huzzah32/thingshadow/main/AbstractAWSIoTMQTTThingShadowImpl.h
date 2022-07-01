@@ -36,7 +36,7 @@ extern "C" {
 
 struct AWSIoTSessionData {
   bool busy;
-  const void* hDownstreamSession;
+  void const* hDownstreamSession;
   void *pUserData;
   Datagram_t *pPublishMessage;
   IoTAction_t action;
@@ -64,7 +64,7 @@ struct AbstractAWSIoTMQTTThingShadowImpl__cdata {
   /* 
    * Abstract runnables
    */
-  const void* ((*(thingShadow_connect__abstract))(IoTConnectionParameters_t *,void *,void *));
+  void const* ((*(thingShadow_connect__abstract))(IoTConnectionParameters_t *,void *,void *));
 };
 typedef struct AbstractAWSIoTMQTTThingShadowImpl__cdata AbstractAWSIoTMQTTThingShadowImpl__cdata_t;
 
@@ -74,27 +74,27 @@ bool AbstractAWSIoTMQTTThingShadowImpl_isAWSIoTDataDeleted(AWSIoTSessionData_t *
 
 void AbstractAWSIoTMQTTThingShadowImpl_deleteAWSIoTData(AWSIoTSessionData_t *pSessionData, void *___id);
 
-bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_report(const void* hSession, char *jsonString, void *___id);
+bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_report(void const* hSession, char *jsonString, void *___id);
 
-bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_get(const void* hSession, void *___id);
+bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_get(void const* hSession, void *___id);
 
-bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_isConnected(const void* hSession, void *___id);
+bool AbstractAWSIoTMQTTThingShadowImpl_thingShadow_isConnected(void const* hSession, void *___id);
 
-void AbstractAWSIoTMQTTThingShadowImpl_thingShadow_disconnect(const void* hSession, void *___id);
+void AbstractAWSIoTMQTTThingShadowImpl_thingShadow_disconnect(void const* hSession, void *___id);
 
-void *AbstractAWSIoTMQTTThingShadowImpl_thingShadow_getUserData(const void* hSession, void *___id);
+void *AbstractAWSIoTMQTTThingShadowImpl_thingShadow_getUserData(void const* hSession, void *___id);
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connected(const void* hSession, void *___id);
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connected(void const* hSession, void *___id);
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(const void* hSession, uint16_t subMsgId, MQTTQoS_t grantedQoS[], void *___id);
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_subscribed(void const* hSession, uint16_t subMsgId, MQTTQoS_t grantedQoS[], void *___id);
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_published(const void* hSession, void *___id);
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_published(void const* hSession, void *___id);
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_publishMessageReceived(const void* hSession, char *topicName, size_t topicNameLen, Datagram_t *pDatagram, void *___id);
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_publishMessageReceived(void const* hSession, char *topicName, size_t topicNameLen, Datagram_t *pDatagram, void *___id);
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_disconnected(const void* hSession, void *___id);
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_disconnected(void const* hSession, void *___id);
 
-void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connectionError(const void* hSession, MQTTError_t error, void *___id);
+void AbstractAWSIoTMQTTThingShadowImpl_mqttClientHandler_connectionError(void const* hSession, MQTTError_t error, void *___id);
 
 void AbstractAWSIoTMQTTThingShadowImpl_timeoutHandler_expired(void *___id);
 

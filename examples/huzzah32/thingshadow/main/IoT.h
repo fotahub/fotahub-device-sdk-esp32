@@ -32,22 +32,22 @@ extern "C" {
  */
 struct IIoTClient__idata {
   void *__instance;
-  const void* ((*(connect))(IoTConnectionParameters_t *,void *,void *));
-  void *((*(getUserData))(const void*,void *));
-  bool ((*(isConnected))(const void*,void *));
-  bool ((*(report))(const void*,char *,void *));
-  bool ((*(get))(const void*,void *));
-  void ((*(disconnect))(const void*,void *));
+  void const* ((*(connect))(IoTConnectionParameters_t *,void *,void *));
+  void *((*(getUserData))(void const*,void *));
+  bool ((*(isConnected))(void const*,void *));
+  bool ((*(report))(void const*,char *,void *));
+  bool ((*(get))(void const*,void *));
+  void ((*(disconnect))(void const*,void *));
 };
 typedef struct IIoTClient__idata IIoTClient__idata_t;
 
 struct IIoTClientHandler__idata {
   void *__instance;
-  void ((*(connected))(const void*,void *));
-  void ((*(status))(const void*,char const *,IoTAction_t,IoTResponseStatus_t,char *,size_t,void *));
-  void ((*(desired))(const void*,char const *,char *,size_t,void *));
-  void ((*(disconnected))(const void*,void *));
-  void ((*(connectionError))(const void*,IoTError_t,void *));
+  void ((*(connected))(void const*,void *));
+  void ((*(status))(void const*,char const *,IoTAction_t,IoTResponseStatus_t,char *,size_t,void *));
+  void ((*(desired))(void const*,char const *,char *,size_t,void *));
+  void ((*(disconnected))(void const*,void *));
+  void ((*(connectionError))(void const*,IoTError_t,void *));
 };
 typedef struct IIoTClientHandler__idata IIoTClientHandler__idata_t;
 

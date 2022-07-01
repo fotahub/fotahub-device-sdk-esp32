@@ -19,7 +19,7 @@
 
 #include <string.h>
 
-const void* AWSIoTMQTTThingShadowImpl_thingShadow_connect(IoTConnectionParameters_t *pConnParams, void *pUserData, void *___id)
+void const* AWSIoTMQTTThingShadowImpl_thingShadow_connect(IoTConnectionParameters_t *pConnParams, void *pUserData, void *___id)
 {
   AWSIoTMQTTThingShadowImpl__cdata_t *___cid = ((AWSIoTMQTTThingShadowImpl__cdata_t *) ___id);
   if (pConnParams == NULL) 

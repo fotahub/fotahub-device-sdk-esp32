@@ -182,7 +182,7 @@ idf flash <COM port name, e.g., COM3>
 
 ![](thingshadow-1.png "Start of initial firmware version")
 
-<p style="margin-left: 2em">Also have a look at the red LED next to the USB port on your board (GPIO #13). It should blink with a period of approx. 1 s.</p> 
+<p style="margin-left: 2em">Also have a look at the red LED (<code>GPIO #13</code>) next to the USB port on your board. It should blink with a period of approx. 1 s.</p> 
 
 5. Go back to the [AWS IoT Console](https://console.aws.amazon.com/iot/home) and visit the unnamed classic shadow of your AWS IoT thing (`Manage` > `Things` > `{{Your AWS IoT thing}}` > `Device Shadows` > `Classic Shadow` when using the *New console experience* which can be activated all down in the left side bar). Click on the refresh button if no such is displayed. You should see that yields a shadow state document with a `currentVersion` attribute that indicates the currently running firmware version on your board:
 

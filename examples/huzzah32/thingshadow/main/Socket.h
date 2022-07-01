@@ -33,24 +33,24 @@ extern "C" {
  */
 struct IClientSocket__idata {
   void *__instance;
-  const void* ((*(connect))(SocketConnectionParameters_t *,void *,void *));
-  bool ((*(isConnected))(const void*,void *));
-  void *((*(getUserData))(const void*,void *));
-  Datagram_t *((*(newDatagram))(const void*,size_t,DatagramType_t,void *));
-  Datagram_t *((*(resizeDatagram))(const void*,Datagram_t *,size_t,void *));
-  void ((*(sendDatagram))(const void*,Datagram_t *,SocketFrameOptions_t *,void *));
-  void ((*(deleteDatagram))(const void*,Datagram_t *,void *));
-  void ((*(disconnect))(const void*,void *));
+  void const* ((*(connect))(SocketConnectionParameters_t *,void *,void *));
+  bool ((*(isConnected))(void const*,void *));
+  void *((*(getUserData))(void const*,void *));
+  Datagram_t *((*(newDatagram))(void const*,size_t,DatagramType_t,void *));
+  Datagram_t *((*(resizeDatagram))(void const*,Datagram_t *,size_t,void *));
+  void ((*(sendDatagram))(void const*,Datagram_t *,SocketFrameOptions_t *,void *));
+  void ((*(deleteDatagram))(void const*,Datagram_t *,void *));
+  void ((*(disconnect))(void const*,void *));
 };
 typedef struct IClientSocket__idata IClientSocket__idata_t;
 
 struct IClientSocketHandler__idata {
   void *__instance;
-  void ((*(connected))(const void*,void *));
-  void ((*(datagramSent))(const void*,void *));
-  void ((*(datagramReceived))(const void*,Datagram_t *,void *));
-  void ((*(disconnected))(const void*,void *));
-  void ((*(connectionError))(const void*,SocketError_t,void *));
+  void ((*(connected))(void const*,void *));
+  void ((*(datagramSent))(void const*,void *));
+  void ((*(datagramReceived))(void const*,Datagram_t *,void *));
+  void ((*(disconnected))(void const*,void *));
+  void ((*(connectionError))(void const*,SocketError_t,void *));
 };
 typedef struct IClientSocketHandler__idata IClientSocketHandler__idata_t;
 
@@ -68,20 +68,20 @@ struct IServerSocket__idata {
   void *__instance;
   bool ((*(bind))(uint32_t,uint16_t,bool,void *));
   bool ((*(listen))(void *));
-  Datagram_t *((*(newDatagram))(const void*,size_t,void *));
-  void ((*(sendDatagram))(const void*,Datagram_t *,void *));
-  void ((*(deleteDatagram))(const void*,Datagram_t *,void *));
-  void ((*(disconnect))(const void*,void *));
+  Datagram_t *((*(newDatagram))(void const*,size_t,void *));
+  void ((*(sendDatagram))(void const*,Datagram_t *,void *));
+  void ((*(deleteDatagram))(void const*,Datagram_t *,void *));
+  void ((*(disconnect))(void const*,void *));
   void ((*(close))(void *));
 };
 typedef struct IServerSocket__idata IServerSocket__idata_t;
 
 struct IServerSocketHandler__idata {
   void *__instance;
-  void ((*(accepted))(const void*,void *));
-  bool ((*(datagramReceived))(const void*,Datagram_t *,void *));
-  void ((*(datagramSent))(const void*,bool,void *));
-  void ((*(disconnected))(const void*,void *));
+  void ((*(accepted))(void const*,void *));
+  bool ((*(datagramReceived))(void const*,Datagram_t *,void *));
+  void ((*(datagramSent))(void const*,bool,void *));
+  void ((*(disconnected))(void const*,void *));
   void ((*(closed))(void *));
 };
 typedef struct IServerSocketHandler__idata IServerSocketHandler__idata_t;

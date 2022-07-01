@@ -41,11 +41,11 @@ typedef struct IJSONParser__idata IJSONParser__idata_t;
 struct IJSONSerializer__idata {
   void *__instance;
   bool ((*(serialize))(struct jsontree_value *,JSONObjectSerializationMode_t,IJSONDocumentIOHandler__idata_t *,void *,char *,size_t,void *));
-  const void* ((*(beginDocument))(struct jsontree_value *,IJSONDocumentIOHandler__idata_t *,void *,char *,size_t,void *));
-  bool ((*(beginObject))(const void*,char const *,void *));
-  bool ((*(addValue))(const void*,char const *,JSONObjectSerializationMode_t,void *));
-  bool ((*(endObject))(const void*,void *));
-  bool ((*(endDocument))(const void*,void *));
+  void const* ((*(beginDocument))(struct jsontree_value *,IJSONDocumentIOHandler__idata_t *,void *,char *,size_t,void *));
+  bool ((*(beginObject))(void const*,char const *,void *));
+  bool ((*(addValue))(void const*,char const *,JSONObjectSerializationMode_t,void *));
+  bool ((*(endObject))(void const*,void *));
+  bool ((*(endDocument))(void const*,void *));
 };
 typedef struct IJSONSerializer__idata IJSONSerializer__idata_t;
 

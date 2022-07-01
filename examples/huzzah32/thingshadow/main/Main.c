@@ -37,9 +37,9 @@ void app_main(void)
   blink_init(BLINK_PERIOD);
   wifi_init();
   
-  printf("\n--------------------------------------------------------------------------\n");
-  printf("Running %s %s firmware\n", DEMO_PRODUCT_NAME, DEMO_PRODUCT_FIRMWARE_VERSION);
-  printf("--------------------------------------------------------------------------\n\n");
+  printf("\r\n--------------------------------------------------------------------------\r\n");
+  printf("Running %s %s firmware\r\n", DEMO_PRODUCT_NAME, DEMO_PRODUCT_FIRMWARE_VERSION);
+  printf("--------------------------------------------------------------------------\r\n\r\n");
   
   fotaUpdateWorkflow_init();
   fotaUpdateSelfTest_init();

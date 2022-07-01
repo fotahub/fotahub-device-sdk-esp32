@@ -71,7 +71,7 @@ MQTTSessionData_t *MQTTClientImpl_newMQTTSessionData(void *___id)
       return &___cid->mqttSessions__field[__i];
     }
   }
-  printf("No more MQTT request data blocks available\n");
+  printf("No more MQTT request data blocks available\r\n");
   return NULL;
 }
 
@@ -104,7 +104,7 @@ void MQTTClientImpl_deleteMQTTSessionData(MQTTSessionData_t *pSessionData, void 
   pSessionData->busy = false;
 }
 
-const void* MQTTClientImpl_mqttClient_connect(MQTTConnectionParameters_t *pConnParams, void *pUserData, void *___id)
+void const* MQTTClientImpl_mqttClient_connect(MQTTConnectionParameters_t *pConnParams, void *pUserData, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   if (pConnParams == NULL) 
@@ -144,7 +144,7 @@ const void* MQTTClientImpl_mqttClient_connect(MQTTConnectionParameters_t *pConnP
   pSessionData->pConnDatagram->visiblePayloadLength = ((size_t)(len));
   if (len == 0) 
   {
-    printf("Failed to serialize MQTT CONNECT packet\n");
+    printf("Failed to serialize MQTT CONNECT packet\r\n");
     MQTTClientImpl_deleteMQTTSessionData(pSessionData, ___cid);
     return NULL;
   }
@@ -158,7 +158,7 @@ const void* MQTTClientImpl_mqttClient_connect(MQTTConnectionParameters_t *pConnP
   return pSessionData;
 }
 
-bool MQTTClientImpl_mqttClient_isConnected(const void* hSession, void *___id)
+bool MQTTClientImpl_mqttClient_isConnected(void const* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *) hSession);
@@ -169,7 +169,7 @@ bool MQTTClientImpl_mqttClient_isConnected(const void* hSession, void *___id)
   return pSessionData->connected && (*___cid->socket__ops->isConnected)(pSessionData->hSocketSession, ___cid->socket__ops->__instance);
 }
 
-bool MQTTClientImpl_mqttClient_subscribe(const void* hSession, char *topicList[], MQTTQoS_t qosList[], uint64_t const  topicCount, uint16_t subMsgId, bool duplicatedMsg, void *___id)
+bool MQTTClientImpl_mqttClient_subscribe(void const* hSession, char *topicList[], MQTTQoS_t qosList[], uint64_t const  topicCount, uint16_t subMsgId, bool duplicatedMsg, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *) hSession);
@@ -203,7 +203,7 @@ bool MQTTClientImpl_mqttClient_subscribe(const void* hSession, char *topicList[]
   pMqttMessage->visiblePayloadLength = ((size_t)(len));
   if (len <= 0) 
   {
-    printf("Failed to serialize MQTT SUBSCRIBE packet\n");
+    printf("Failed to serialize MQTT SUBSCRIBE packet\r\n");
     (*___cid->mqttClientHandler__ops->connectionError)(hSession, MQTT_ERROR_PACKET_SERIALIZATION_FAILED, ___cid->mqttClientHandler__ops->__instance);
     (*___cid->socket__ops->deleteDatagram)(NULL, pMqttMessage, ___cid->socket__ops->__instance);
     MQTTClientImpl_deleteMQTTSessionData(pSessionData, ___cid);
@@ -213,7 +213,7 @@ bool MQTTClientImpl_mqttClient_subscribe(const void* hSession, char *topicList[]
   return true;
 }
 
-Datagram_t *MQTTClientImpl_mqttClient_newPublishMessage(const void* hSession, size_t payloadLength, void *___id)
+Datagram_t *MQTTClientImpl_mqttClient_newPublishMessage(void const* hSession, size_t payloadLength, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   Datagram_t *pDatagram = (*___cid->socket__ops->newDatagram)(NULL, MAX_PUBLISH_HEADER_LENGTH + payloadLength, PROTOCOL_SPECIFIC, ___cid->socket__ops->__instance);
@@ -226,7 +226,7 @@ Datagram_t *MQTTClientImpl_mqttClient_newPublishMessage(const void* hSession, si
   return pDatagram;
 }
 
-bool MQTTClientImpl_mqttClient_sendPublishMessage(const void* hSession, char *topicName, Datagram_t *pMessage, MQTTPublishParameters_t *pParams, void *___id)
+bool MQTTClientImpl_mqttClient_sendPublishMessage(void const* hSession, char *topicName, Datagram_t *pMessage, MQTTPublishParameters_t *pParams, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *) hSession);
@@ -263,7 +263,7 @@ bool MQTTClientImpl_mqttClient_sendPublishMessage(const void* hSession, char *to
   pMessage->visiblePayloadLength -= MAX_PUBLISH_HEADER_LENGTH - exactHeaderlength;
   if (len <= 0) 
   {
-    printf("Failed to serialize MQTT PUBLISH packet\n");
+    printf("Failed to serialize MQTT PUBLISH packet\r\n");
     return false;
   }
   
@@ -271,7 +271,7 @@ bool MQTTClientImpl_mqttClient_sendPublishMessage(const void* hSession, char *to
   return true;
 }
 
-void MQTTClientImpl_mqttClient_disconnect(const void* hSession, void *___id)
+void MQTTClientImpl_mqttClient_disconnect(void const* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *) hSession);
@@ -286,7 +286,7 @@ void MQTTClientImpl_mqttClient_disconnect(const void* hSession, void *___id)
   (*___cid->socket__ops->disconnect)(pSessionData->hSocketSession, ___cid->socket__ops->__instance);
 }
 
-void *MQTTClientImpl_mqttClient_getUserData(const void* hSession, void *___id)
+void *MQTTClientImpl_mqttClient_getUserData(void const* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *) hSession);
@@ -298,7 +298,7 @@ void *MQTTClientImpl_mqttClient_getUserData(const void* hSession, void *___id)
   return pSessionData->pUserData;
 }
 
-void MQTTClientImpl_clientSocketHandler_connected(const void* hSession, void *___id)
+void MQTTClientImpl_clientSocketHandler_connected(void const* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *)((*___cid->socket__ops->getUserData)(hSession, ___cid->socket__ops->__instance)));
@@ -313,7 +313,7 @@ void MQTTClientImpl_clientSocketHandler_connected(const void* hSession, void *__
   pSessionData->pConnDatagram = NULL;
 }
 
-void MQTTClientImpl_clientSocketHandler_datagramSent(const void* hSession, void *___id)
+void MQTTClientImpl_clientSocketHandler_datagramSent(void const* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   if (___cid->keepAliveTimer__ops != NULL) 
@@ -327,7 +327,7 @@ void MQTTClientImpl_clientSocketHandler_datagramSent(const void* hSession, void 
   }
 }
 
-void MQTTClientImpl_clientSocketHandler_datagramReceived(const void* hSession, Datagram_t *pDatagram, void *___id)
+void MQTTClientImpl_clientSocketHandler_datagramReceived(void const* hSession, Datagram_t *pDatagram, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *)((*___cid->socket__ops->getUserData)(hSession, ___cid->socket__ops->__instance)));
@@ -352,7 +352,7 @@ void MQTTClientImpl_clientSocketHandler_datagramReceived(const void* hSession, D
     pSessionData->pReceivedDatagram = (*___cid->socket__ops->newDatagram)(hSession, mqttPacketLengths.headerLength + mqttPacketLengths.payloadLength + 1, BASIC, ___cid->socket__ops->__instance);
     if (pSessionData->pReceivedDatagram == NULL) 
     {
-      printf("out of memory\n");
+      printf("out of memory\r\n");
       return;
     }
     pSessionData->pReceivedDatagram->visiblePayloadLength = mqttPacketLengths.headerLength + mqttPacketLengths.payloadLength;
@@ -437,7 +437,7 @@ void MQTTClientImpl_clientSocketHandler_datagramReceived(const void* hSession, D
         break;
       }
       default: {
-        printf("Received MQTT message is invalid\n");
+        printf("Received MQTT message is invalid\r\n");
         (*___cid->mqttClientHandler__ops->connectionError)(pSessionData, MQTT_ERROR_INVALID_PACKET, ___cid->mqttClientHandler__ops->__instance);
         break;
       }
@@ -445,12 +445,12 @@ void MQTTClientImpl_clientSocketHandler_datagramReceived(const void* hSession, D
     return;
   }
   else if (pSessionData->pReceivedDatagram->visiblePayloadLength > pSessionData->pReceivedDatagram->length - 1) {
-    printf("Received MQTT message is invalid\n");
+    printf("Received MQTT message is invalid\r\n");
     (*___cid->mqttClientHandler__ops->connectionError)(pSessionData, MQTT_ERROR_INVALID_PACKET, ___cid->mqttClientHandler__ops->__instance);
   }
 }
 
-void MQTTClientImpl_clientSocketHandler_disconnected(const void* hSession, void *___id)
+void MQTTClientImpl_clientSocketHandler_disconnected(void const* hSession, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *)((*___cid->socket__ops->getUserData)(hSession, ___cid->socket__ops->__instance)));
@@ -478,7 +478,7 @@ void MQTTClientImpl_clientSocketHandler_disconnected(const void* hSession, void 
   MQTTClientImpl_deleteMQTTSessionData(pSessionData, ___cid);
 }
 
-void MQTTClientImpl_clientSocketHandler_connectionError(const void* hSession, SocketError_t error, void *___id)
+void MQTTClientImpl_clientSocketHandler_connectionError(void const* hSession, SocketError_t error, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   MQTTSessionData_t *pSessionData = ((MQTTSessionData_t *)((*___cid->socket__ops->getUserData)(hSession, ___cid->socket__ops->__instance)));
@@ -513,13 +513,13 @@ void MQTTClientImpl_clientSocketHandler_connectionError(const void* hSession, So
   }
 }
 
-void MQTTClientImpl_mqttClient_deleteDatagram(const void* hSession, Datagram_t *pDatagram, void *___id)
+void MQTTClientImpl_mqttClient_deleteDatagram(void const* hSession, Datagram_t *pDatagram, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   (*___cid->socket__ops->deleteDatagram)(hSession, pDatagram, ___cid->socket__ops->__instance);
 }
 
-Datagram_t *MQTTClientImpl_mqttClient_newDatagram(const void* hSession, size_t payloadLength, DatagramType_t type, void *___id)
+Datagram_t *MQTTClientImpl_mqttClient_newDatagram(void const* hSession, size_t payloadLength, DatagramType_t type, void *___id)
 {
   MQTTClientImpl__cdata_t *___cid = ((MQTTClientImpl__cdata_t *) ___id);
   return (*___cid->socket__ops->newDatagram)(hSession, payloadLength, type, ___cid->socket__ops->__instance);
@@ -536,12 +536,12 @@ void MQTTClientImpl_keepAliveTimerHandler_expired(void *___id)
   {
     if (___cid->mqttSessions__field[__i].busy) 
     {
-      printf("Issuing MQTT ping request\n");
+      printf("Issuing MQTT ping request\r\n");
       Datagram_t *pingReqMsg = (*___cid->socket__ops->newDatagram)(NULL, PINGREQ_MESSAGE_LENGTH, PROTOCOL_SPECIFIC, ___cid->socket__ops->__instance);
       size_t len = ((size_t)(MQTTSerialize_pingreq(pingReqMsg->pVisiblePayload, ((int32_t)(pingReqMsg->visiblePayloadLength)))));
       if (len < PINGREQ_MESSAGE_LENGTH) 
       {
-        printf("Failed to serialize MQTT PING packet\n");
+        printf("Failed to serialize MQTT PING packet\r\n");
         (*___cid->socket__ops->deleteDatagram)(NULL, pingReqMsg, ___cid->socket__ops->__instance);
         return;
       }
@@ -561,7 +561,7 @@ void MQTTClientImpl_keepAliveTimeoutHandler_expired(void *___id)
    * !! Important Note !! This implementation is not complete and supposes that we support only one session at the same time (which is not correct)
    * TODO A timeout timer should be associated with each session and a global timer should filter the expired ones to report the ping error message
    */
-  printf("MQTT ping request failed\n");
+  printf("MQTT ping request failed\r\n");
   /* 
    * cancel keep alive timer to discard sending mqtt ping message
    */
@@ -585,7 +585,7 @@ void MQTTClientImpl_handleReceivedConnAckPacket(MQTTSessionData_t *pSessionData,
   uint8_t connack_rc;
   if (MQTTDeserialize_connack(&sessionPresent, &connack_rc, pSessionData->pReceivedDatagram->pVisiblePayload, ((int32_t)(pSessionData->pReceivedDatagram->visiblePayloadLength))) != 1) 
   {
-    printf("Failed to deserialize MQTT CONNACK packet\n");
+    printf("Failed to deserialize MQTT CONNACK packet\r\n");
     return;
   }
   if (connack_rc != 0) 
@@ -610,7 +610,7 @@ void MQTTClientImpl_handleReceivedSubAckPacket(MQTTSessionData_t *pSessionData, 
   int32_t qosReturnCodes[MAX_TOPICS_COUNT];
   if (MQTTDeserialize_suback(&submsgid, MAX_TOPICS_COUNT, &subcount, qosReturnCodes, pSessionData->pReceivedDatagram->pVisiblePayload, ((int32_t)(pSessionData->pReceivedDatagram->visiblePayloadLength))) != 1) 
   {
-    printf("Failed to deserialize MQTT SUBACK packet\n");
+    printf("Failed to deserialize MQTT SUBACK packet\r\n");
     (*___cid->mqttClientHandler__ops->connectionError)(pSessionData, MQTT_ERROR_PACKET_DESERIALIZATION_FAILED, ___cid->mqttClientHandler__ops->__instance);
     MQTTClientImpl_deleteMQTTSessionData(pSessionData, ___cid);
     return;
@@ -644,7 +644,7 @@ void MQTTClientImpl_handleReceivedPublishPacket(MQTTSessionData_t *pSessionData,
   int32_t payloadLen;
   if (MQTTDeserialize_publish(&dup, &qos, &retained, &packetID, &topicString, &payload, &payloadLen, pSessionData->pReceivedDatagram->pVisiblePayload, ((int32_t)(pSessionData->pReceivedDatagram->visiblePayloadLength))) != 1) 
   {
-    printf("Failed to deserialize MQTT PUBLISH packet\n");
+    printf("Failed to deserialize MQTT PUBLISH packet\r\n");
     (*___cid->mqttClientHandler__ops->connectionError)(pSessionData, MQTT_ERROR_PACKET_DESERIALIZATION_FAILED, ___cid->mqttClientHandler__ops->__instance);
     return;
   }
@@ -666,11 +666,11 @@ void MQTTClientImpl_handleReceivedPublishPacket(MQTTSessionData_t *pSessionData,
     /* 
      * MQTT serialize pub ack
      */
-    printf("Acknowledging received publish message\n");
+    printf("Acknowledging received publish message\r\n");
     Datagram_t *pubAckmsg = (*___cid->socket__ops->newDatagram)(pSessionData, SUBACK_MESSAGE_LENGTH, PROTOCOL_SPECIFIC, ___cid->socket__ops->__instance);
     if (MQTTSerialize_ack(pubAckmsg->pVisiblePayload, ((int32_t)(pubAckmsg->visiblePayloadLength)), MQTT_MSG_PUBACK, dup, packetID) != 1) 
     {
-      printf("Failed to serialize MQTT PUBACK packet\n");
+      printf("Failed to serialize MQTT PUBACK packet\r\n");
       (*___cid->mqttClientHandler__ops->connectionError)(pSessionData, MQTT_ERROR_PACKET_SERIALIZATION_FAILED, ___cid->mqttClientHandler__ops->__instance);
       (*___cid->socket__ops->deleteDatagram)(NULL, pubAckmsg, ___cid->socket__ops->__instance);
       return;
@@ -687,7 +687,7 @@ void MQTTClientImpl_handleReceivedPubAckPacket(MQTTSessionData_t *pSessionData, 
   MQTTMsgType_t packetType;
   if (MQTTDeserialize_ack(((uint8_t *)(&packetType)), &dup, &packetID, pSessionData->pReceivedDatagram->pVisiblePayload, ((int32_t)(pSessionData->pReceivedDatagram->visiblePayloadLength))) != 1) 
   {
-    printf("Failed to deserialize MQTT PUBACK packet\n");
+    printf("Failed to deserialize MQTT PUBACK packet\r\n");
     (*___cid->mqttClientHandler__ops->connectionError)(pSessionData, MQTT_ERROR_PACKET_DESERIALIZATION_FAILED, ___cid->mqttClientHandler__ops->__instance);
     return;
   }

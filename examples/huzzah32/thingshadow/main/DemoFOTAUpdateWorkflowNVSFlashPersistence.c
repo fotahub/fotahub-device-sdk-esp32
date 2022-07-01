@@ -38,7 +38,7 @@ void saveState(int16_t state)
     return;
   }
   free(nvsHandle);
-  printf("Failed write statemachine state to NVS\n");
+  printf("Failed write statemachine state to NVS\r\n");
 }
 
 int16_t loadState(void)
