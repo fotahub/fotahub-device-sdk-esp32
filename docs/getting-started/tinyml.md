@@ -4,7 +4,7 @@ Tiny Machine Learning (TinyML) is a field of Machine Learning that focuses on th
 
 ## Overview
 
-Deep neural networks have gained fame for their capability to process visual information. In the past few years, they have become a key component of many computer vision applications. With that being said, the TinyML models used in this example fall under the computer vision shadow as well. The goal is to make an initial deployment of a cat detection model on the ESP-EYE, and then over-the-air update it to a human face detection model.
+Deep neural networks have gained fame for their capability to process visual information. In the past few years, they have become a key component of many computer vision applications. With that being said, the TinyML models used in this example fall under the computer vision shadow as well. The goal is to make an initial deployment of a cat detection model on an ESP32-based device with a built-in camera, and then over-the-air update it to a human face detection model.
 
 ## Operating principle
 The device listens for a TinyML model update info string to be sent over the serial port. It is expected to consist of the new model version the device should be updated to, followed by a ':' separator and the checksum or signature of the new model version: 
@@ -41,7 +41,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
 > &#x26A0; Make sure that the path to the location of the FotaHub Device SDK for ESP32 on your machine does not contain any spaces.
 
-### Create and run initial cat detection TinyML model
+### Create and run initial TinyML model version
 
 1. Start the Visual Studio Code and open (`File` > `Folder...`) the `cat-detection` example included in the FotaHub Device SDK for ESP32 (`<device-sdk-root>/examples/esp-eye/cat-detection`).
 		
@@ -124,34 +124,41 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
     ![CoolTerm](tinyml-1.png)
 
-    Great ! now we're set ,ready to go for a quick test, open your browser and google cat faces, point your Esp Eye to one of the faces and observe them being detected in the serial monitor in the form of coordinates.
+    Great! Your are ready to go for a quick test now. Open your browser and google some cat faces. Point the camera of your board to one of them and observe them being detected in the serial monitor output in the form of coordinates.
 
     ![CoolTerm](tinyml-2.png)
 
 ### Create and upload a new TinyML model version to FotaHub
- 
-1- the aim of this demonstration is to move from the cat detection to human face detection like previously mentioned.<br> to make this update possible, open ( `File > Folder...`) human face detection example included in the FotaHub Device SDK for ESP32 (`<device-sdk-root>/examples/huzzah32/TinyML/Human_face_detection`) and
-go to the `DemoPrudctInfo.h` inside the main folder, 
 
-initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product like we did in the previous section( step 3 ) and this time bump the `DEMO-PRODUCT-FIRMWARE-VERSION` constant to `1.1` :
-```C
-#define DEMO_PRODUCT_ID "183d06a3-881a-462f-9daa-bfe51608f8ff"
-
-#define DEMO_PRODUCT_NAME "EspEye"
-
-#define DEMO_PRODUCT_FIRMWARE_VERSION "1.1"
-
-#define DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM FOTA_UPDATE_VERIFICATION_ALGORITHM_SHA256
-```
-
-2. Sure enough we need to initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the credentials of the Wi-Fi network for the human face detection as well ( see step 2 in previous section )	.
-		
-3. Now we build the human face detection example using bind just like we have for building the initial cat detection model (see step 4 in previous section),
-Locate the resulting new model binary file named humanfacedetection.bin in the build folder (using the Explorer view) .
-		
-4. Upload the new binary (build/humanfacedetection.bin) as the new model version 1.1 to your FotaHub product as explained [here](../fotahub/upload-firmware.md).
+1. As previously mentioned, the goal of this example is to evolve the cat detection feature on your board towards a human face detection capability by simply running a  TinyML model over-the-air update. To make this happen, go back to Visual Studio Code and open ( `File > Folder...`) the `human-face-detection` example included in the FotaHub Device SDK for ESP32 (`<device-sdk-root>/examples/esp-eye/human_face_detection`).
    
-#  Make your TinyML OTA update
+2. Go to the `Configuration.h` file in the `main` folder, and initialize the `WIFI_STATION_SSID` and `WIFI_STATION_PASSPHRASE` constants with the credentials of your Wi-Fi network as you did in the cat detection example already (see step 2 in the previous section).
+
+    ```C
+    #define WIFI_STATION_SSID "my-fancy-WiFi-SSID"
+
+    #define WIFI_STATION_PASSPHRASE "my-cryptic-WiFi-passphrase"
+    ```
+
+3. Open the `DemoPrudctInfo.h` in the `main` folder, and initialize the `DEMO_PRODUCT_ID`, `DEMO_PRODUCT_NAME`, and `DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM ` constants with the same values you have used in the cat detection example (see step 3 in the previous section). Bump the `DEMO-PRODUCT-FIRMWARE-VERSION` constant this time to indicate the version of the new TinyML model:
+  
+    ```C
+    #define DEMO_PRODUCT_ID "183d06a3-881a-462f-9daa-bfe51608f8ff"
+
+    #define DEMO_PRODUCT_NAME "EspEye"
+
+    #define DEMO_PRODUCT_FIRMWARE_VERSION "1.1"
+
+    #define DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM FOTA_UPDATE_VERIFICATION_ALGORITHM_SHA256
+    ```
+
+4. Rebuild the human face detection example using Docker and `bind` or the `idf.bat`/`idf.sh` script in very much the same way as you did for building the cat detection example (see step 4 in the previous section). Locate the resulting new TinyML model binary file named `humanfacedetection.bin` in the `build` folder (using the `Explorer` view).
+   
+    > &#x1F6C8; You can locate the new TinyML model binary file also in your file system explorer or copy its path to the clipboard by using corresponding context menu actions in Visual Studio Code (`Reveal in File Explorer` and `Copy Path`). This can come quite handy in the subsequent steps.
+		
+5. Upload the new binary (`build/humanfacedetection.bin`) as TinyML model version `1.1` to your FotaHub product as explained [here](../fotahub/upload-firmware.md).
+   
+###  Make your first TinyML model over-the-air update
 
 1. Once the binary file is uploaded into FotaHub platform, go to (` Products > {{Your FotaHub product}} > Details`), and retrieve the cheksum or the signature from there .
 <br>
