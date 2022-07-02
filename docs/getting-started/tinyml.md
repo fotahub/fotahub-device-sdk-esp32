@@ -126,7 +126,8 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
     Great! Your are ready to go for a quick test now. Open your browser and google some cat faces. Point the camera of your board to one of them and observe them being detected in the serial monitor output in the form of coordinates.
 
-    ![CoolTerm](tinyml-2.png)
+    ![Detected-cat-faces](E10.png)
+
 
 ### Create and upload a new TinyML model version to FotaHub
 
@@ -177,4 +178,5 @@ Enter the new model version (1.1 for instance) followed by a ':' separator, foll
 
 Once the update is terminated successfully ,point your Esp Eye to your face and observe your face's coordinates getting print on the screen.
 
-![CoolTerm](E8.PNG)
+![Detected-human-faces](E9.PNG)
+
