@@ -6,10 +6,10 @@ if not "%1" == "build" (
     goto removeFirstArg
   )
 )
-goto leaveArgsAsIs
+goto validateEnv
 :removeFirstArg
 shift
-:leaveArgsAsIs
+:validateEnv
 if "%IDF_PATH%" == "" (
   set IDF_PATH=%USERPROFILE%\esp\esp-idf
 )
