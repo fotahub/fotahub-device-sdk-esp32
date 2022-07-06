@@ -7,4 +7,5 @@
 /examples/**/sdkconfig
 !/examples/**/sdkconfig.defaults
 /examples/**/sdkconfig.old
+/examples/**/dependencies.lock
 /tools
