@@ -15,7 +15,7 @@ For example:<br>
 
 `1.1:a15d5599d8745ff4f51690eb3996afcf75d0b1729d1b8cda2491b03940417521`
 
-Once a valid update info string has been received and the contained new model version is different from the version of the model already running on the device, the model update procedure is triggered. It involves the device to connect to FotaHub and download the binary of the new model version. Thereby, it uses a dedicated URL including the id of the product representing the device in FotaHub, and the name and the version of the TinyML model binary to be retrieved, e.g.:
+Once a valid update info string has been received and the contained new model version is different from the version of the model already running on the device, the TinyML model update procedure is triggered. It involves the device to connect to FotaHub and download the binary of the new model version. Thereby, it uses a dedicated URL including the id of the product representing the device in FotaHub, and the name and the version of the TinyML model binary to be retrieved, e.g.:
 
 `https://bin.fotahub.com/7f52cf5e-7f0d-49dc-87fd-679ebfb94d8d/DemoProduct-1.1 `
 
@@ -55,7 +55,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
 3. Open the `DemoProductInfo.h` file in the `main` folder, and initialize the `DEMO_PRODUCT_ID` and `DEMO_PRODUCT_NAME` constants with the id and the name of the previously created FotaHub product (see `Products` > `{{Your FotaHub product}}` > `Settings` > `General` at [Fotahub](https://fotahub.com)):
 
-    ![FotaHub product information](tinyml-0.png)
+    ![](tinyml-1.png "FotaHub product information")
     
     Leave the `DEMO_PRODUCT_FIRMWARE_VERSION` as is for now. In case you have selected anything else than `SHA256` as the binary checksum algorithm for your FotaHub product or opted for using a signature instead, you also must adjust the `DEMO_PRODUCT_FIRMWARE_UPDATE_VERIFICATION_ALGORITHM` constant accordingly:
 
@@ -122,11 +122,11 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
 7. Start your serial monitor app, point it at the serial port your board is connected to, and set the baudrate to `115200` (`Connection` > `Options...` in CoolTerm). Open the configured serial port (`Connection` > `Connect` in CoolTerm), observe how the cat detection example starts up and verify whether it connects to the Wi-Fi network:
 
-    ![CoolTerm](tinyml-1.png)
+    ![](tinyml-2.png "Start of initial TinyML model version")
 
-    Great! Your are ready to go for a quick test now. Open your browser and google some cat faces. Point the camera of your board to one of them and observe them being detected in the serial monitor output in the form of coordinates.
+    That's it! You are ready to go for a quick test now. Open your browser and google some cat faces. Point the camera of your board to one of them and observe them being detected in the serial monitor output in the form of coordinates:
 
-    ![Detected-cat-faces](E10.PNG)
+    ![](tinyml-3.png "Cat detection TinyML model in action")
 
 
 ### Create and upload a new TinyML model version to FotaHub
@@ -161,22 +161,17 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
    
 ###  Make your first TinyML model over-the-air update
 
-1. Once the binary file is uploaded into FotaHub platform, go to (` Products > {{Your FotaHub product}} > Details`), and retrieve the cheksum or the signature from there .
-<br>
-<br>
-![CoolTerm](E2.PNG)
-Now go back to the serial monitor app showing the execution status of your board running the initial model version, click on (`Connection > Send String... in CoolTerm`) ,
-Enter the new model version (1.1 for instance) followed by a ':' separator, followed by the checksum or signature of product you previously retrieved from FotaHub platform, terminate with a `line break` in the text field or dialog provided for sending data over the opened serial port :
+1. Go back to the serial monitor app showing the execution status of your board running the initial TinyML model version. Enter the new model version followed by a ':' separator, the checksum or signature of the same (see `Products` > `{{Your FotaHub product}}` > `Details` > `{{New TinyML model version}}` at [Fotahub](https://fotahub.com)), and a terminating line break in the text field or dialog provided for sending data over the opened serial port (`Connection` > `Send String...` in CoolTerm):
 
-![CoolTerm](E3.PNG)
+    ![](tinyml-4.png "")
 
-2. Submit the model update info string to your board (Send button in CoolTerm). This will trigger the OTA update procedure. Upon successful completion, the board will be restarted with the new model version downloaded from FotaHub. To verify that, check the model version in the banner showing up in the serial monitor output:	
+    > &#x1F6C8; In most cases, your serial monitor app can be configured to automatically terminate all strings being sent with a line break so that you can't forget to do so manually upon every submission (`Connection` > `Options...` > `Transmit` > `Send String Options` > `Terminate 'Send String' Data` in CoolTerm).
 
-![CoolTerm](E4.PNG)
-![CoolTerm](E5.PNG)
-![CoolTerm](E6.PNG)
+2. Submit the TinyML model update info string to your board (`Send` button in CoolTerm). This will trigger the TinyML model over-the-air update procedure. Upon successful completion, the board will be restarted with the new model version downloaded from FotaHub. To verify that, check the model version in the banner showing up in the serial monitor output:
 
-Once the update is terminated successfully, point your ESP-EYE to a human face (or some photo of a human face) and observe the face's coordinates getting print on the screen.
+    ![](tinyml-5.png)
 
-![Detected-human-faces](E9.PNG)
+    Great! You can start using the updated TinyML model right away. Point the camera on your board to different human faces (or photos of any such), and observe how the coordinates of those faces appear in the serial monitor output:
+
+    ![](tinyml-6.png)
 
