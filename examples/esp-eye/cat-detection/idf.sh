@@ -18,7 +18,7 @@ if [ ! -f "$IDF_PATH/export.sh" ]; then
 fi
 if [ -z "$WHO_PATH" ]; then
  export WHO_PATH=$HOME/esp/esp-who
-)
+fi
 if [ ! -d "$WHO_PATH/components" ]; then
   echo "ERROR: ESP-WHO at '$WHO_PATH' does not exist or is corrupted"
   exit 1
