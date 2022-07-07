@@ -11,7 +11,7 @@ In case you prefer to set up the ESP32 build environment directly on your machin
 
 * A [Python 3](https://www.python.org/downloads) interpreter
 * The [ESP-IDF v4.4.1](https://github.com/espressif/esp-idf/releases/tag/v4.4.1)
-* The [ESP-WHO v0.9.3](https://github.com/espressif/esp-who/releases/tag/v0.9.3) image processing development platform
+* The latest [ESP-WHO](https://github.com/espressif/esp-who) image processing development platform
 
 To install the ESP-IDF, we recommend to follow the steps described [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-2-get-esp-idf) and [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-3-set-up-the-tools) to clone it from GitHub and install the toolchains and utilities that are required to make use of it. Be sure to refer to the steps **not** using the *ESP-IDF Tools Installer* when working under Windows&reg;.
 
