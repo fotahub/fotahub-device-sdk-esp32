@@ -5,13 +5,17 @@ The FotaHub&reg; Device SDK for ESP32&reg; enables developers to create firmware
 To use the FotaHub&reg; Device SDK for ESP32&reg;, the prerequisites described in the following must be available on your laptop or computer. The easiest and quickest way to make that happen is to use Docker. If you are an experienced user, you may also opt for installing the complete set of prerequisites directly on your machine instead.
 
 ## ESP32 SDK and toolchains
-When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included in a dedicated Docker image that is provided at [Docker Hub](https://hub.docker.com/r/fotahub/esp-idf). It gets automatically pulled onto your machine when running the build commands for the various examples included in this project.
+When using Docker, nothing but [Docker](https://docs.docker.com/get-docker) itself needs to be installed to cover the ESP32-specific preqrequisites. All of the latter are included in a dedicated Docker images that are provided at [Docker Hub](https://hub.docker.com/r/fotahub). They get automatically pulled onto your machine when running the build commands for the various examples included in this project.
 
-In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead: 
+In case you prefer to set up the ESP32 build environment directly on your machine, you don't need Docker but must install the following items instead:
+
 * A [Python 3](https://www.python.org/downloads) interpreter
 * The [ESP-IDF v4.4.1](https://github.com/espressif/esp-idf/releases/tag/v4.4.1)
- 
-We recommend to follow the steps described [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-2-get-esp-idf) and [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-3-set-up-the-tools) to clone the ESP-IDF SDK from GitHub and install the toolchains and utilities that are required to make use of it. Be sure to refer to the steps **not** using the *ESP-IDF Tools Installer* when working under Windows.
+* The [ESP-WHO v0.9.3](https://github.com/espressif/esp-who/releases/tag/v0.9.3) image processing development platform
+
+To install the ESP-IDF, we recommend to follow the steps described [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-2-get-esp-idf) and [here](https://docs.espressif.com/projects/esp-idf/en/v4.4.1/esp32/get-started/index.html#step-3-set-up-the-tools) to clone it from GitHub and install the toolchains and utilities that are required to make use of it. Be sure to refer to the steps **not** using the *ESP-IDF Tools Installer* when working under Windows&reg;.
+
+The ESP-WHO essentially only needs to be cloned from GitHub as described [here](https://github.com/espressif/esp-who#get-esp-who).
 
 ## General purpose tools
 In addition to the ESP32-related prerequisites, the following general purpose tools need to be available on your laptop or computer:
@@ -26,6 +30,7 @@ The best way to get started with the FotaHub&reg; Device SDK for ESP32&reg; is t
 * [Simple](docs/getting-started/simple.md) - "Hello World" of firmware over-the-air updating with FotaHub&reg;
 * [Rollbackable](docs/getting-started/rollbackable.md) - Downloads and launches a new firmware version provided at FotaHub&reg;, rolls it back to the previous version if something goes wrong
 * [Thing Shadow](docs/getting-started/thingshadow.md) - A real-world scenario where FotaHub&reg; is used in combination with the AWS IoT Thing Shadow service to trigger firmware updates over-the-air updates through the cloud
+* [TinyML](docs/getting-started/tinyml.md) - Shows how FotaHub&reg; can be used to over-the-air update TinyML models deployed to edgeless devices
 
 # API Reference
 View the [C API reference](include/FotaHub.h) for detailed information about the FotaHub&reg; client library (:construction: *under construction*).
