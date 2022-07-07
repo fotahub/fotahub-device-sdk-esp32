@@ -64,9 +64,9 @@ A description of the SDKs and tools that must be available on your laptop or com
    * Create an AWS IoT policy which authorizes your board to exchange messages with AWS IoT 
    * Create the AWS IoT thing itself along with an X.509 board certificate that is used to authenticate your board to AWS IoT
 
-A comprehensive guide explaining how to proceed in detail can be found [here](https://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html). 
+    A comprehensive guide explaining how to proceed in detail can be found [here](https://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html). 
 
-1. Delete the initially created unnamed classic shadow of your AWS IoT thing (`Manage` > `Things` > `{{Your AWS IoT thing}}` > `Device Shadows` > `Classic Shadow` > `Delete` when using the *New console experience* which can be activated all down in the left side bar).
+3. Delete the initially created unnamed classic shadow of your AWS IoT thing (`Manage` > `Things` > `{{Your AWS IoT thing}}` > `Device Shadows` > `Classic Shadow` > `Delete` when using the *New console experience* which can be activated all down in the left side bar).
 
 ### Create a FotaHub product
 
