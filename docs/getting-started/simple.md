@@ -64,7 +64,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
 4. Open the integrated terminal (`Terminal` > `New Terminal`) and build the example with the help of the `idf.bat` or `idf.sh` script.
     
-    When you have opted to use the ESP-IDF SDK and ESP32 toolchains through Docker, the `idf.bat`/`idf.sh` script must be run inside a Docker container providing the same. You can achieve that conveniently by making sure that Docker is running on your machine and invoking the `bind.bat`/`bind.sh` (**B**uild **IN** **D**ocker) script according to your operating system:
+    When you have opted to use the ESP-IDF SDK and ESP32 toolchains through Docker, the `idf.bat`/`idf.sh` script must be run inside a Docker container providing the same. You can achieve that conveniently by making sure that Docker is running on your machine and invoking the `bind.bat`/`bind.sh` (**B**uild **IN** **D**ocker) script. You may need to make the `idf` and `bind` scripts executable, first, before invoking Docker according to your operating system:
    
     **Windows:**   
     ```bat
