@@ -76,6 +76,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
     ```
     **Linux/Mac OS X:**   
     ```sh
+    chmod +x bind.sh && chmod +x idf.sh
     ./bind.sh
     ```
 
@@ -87,6 +88,7 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
     ```
     **Linux/Mac OS X:**   
     ```sh
+    chmod +x idf.sh
     ./idf.sh <ESP-IDF install/checkout location> <ESP-WHO install/checkout location> build
     ```
 
