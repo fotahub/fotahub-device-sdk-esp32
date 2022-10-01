@@ -44,7 +44,7 @@ The downloaded firmware binary is stored in the device's flash memory. At the sa
 
 After the restart, the device starts executing the new firmware version downloaded from FotaHub. To be sure that it behaves as expeced, a built-in self test procedure is launched. Only when the latter completes successfully, the new firmware version is confirmed and becomes definite. In the opposite case, the previous firmware version is restored.
 
-For obvious reasons, the ultimately required self test logic depends heavily on the nature of the underlying IoT application and device. The thing shadow example therefore implements only a very simple self test stub which returns a positive or negative result on a pseudo-random basis (see [DemoFOTAUpdateSelfTest.c](../../examples/huzzah32/thingshadow/main/DemoFOTAUpdateSelfTest.c) for details). Consequently, the firmware update carried out in this example may succeed and remain in place or fail and be rolled back to the previous version depending on how it goes. To see both scenarios happening, just run the same example multiple times. You can also force either of them by setting the `SIMULATED_ACTIVATION_SUCCESS_RATE` constant in [DemoFOTAUpdateSelfTest.h](../../examples/huzzah32/thingshadow/main/DemoFOTAUpdateSelfTest.h) to `100` or `0`.
+For obvious reasons, the ultimately required self test logic depends heavily on the nature of the underlying IoT application and device. The thing shadow example therefore implements only a very simple self test stub which returns a positive or negative result on a pseudo-random basis (see [DemoFOTAUpdateSelfTest.c](../../examples/huzzah32/thingshadow/main/DemoFOTAUpdateSelfTest.c) for details). Consequently, the firmware update carried out in this example may succeed and remain in place or fail and be rolled back to the previous version depending on how it goes. To see both scenarios happening, just run the same example multiple times. You can also force either of them by setting the `SIMULATED_FOTA_UPDATE_VALIDATION_SUCCESS_RATE` constant in [DemoFOTAUpdateSelfTest.h](../../examples/huzzah32/thingshadow/main/DemoFOTAUpdateSelfTest.h) to `100` or `0`.
 
 ## Supported targets
 
@@ -173,11 +173,11 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
     **Windows:**   
     ```bat
-    idf flash <COM port name, e.g., COM3>
+    idf flash
     ```
     **Linux/Mac OS X:**   
     ```sh
-    ./idf.sh flash <serial port name, e.g., /dev/ttyUSB0>
+    ./idf.sh flash
     ```
 
 4. Start your serial monitor app, point it at the serial port your board is connected to, and set the baudrate to `115200` (`Connection` > `Options...` in CoolTerm). Open the configured serial port (`Connection` > `Connect` in CoolTerm), observe how the firmware starts up and verify whether it connects to the Wi-Fi network as well as to its AWS IoT Thing Shadow:

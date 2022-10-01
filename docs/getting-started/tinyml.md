@@ -115,11 +115,11 @@ If not yet done so, either clone or download and uncompress the [FotaHub Device 
 
     **Windows:**   
     ```bat
-    idf flash <COM port name, e.g., COM3>
+    idf flash
     ```
     **Linux/Mac OS X:**   
     ```sh
-    ./idf.sh flash <serial port name, e.g., /dev/ttyUSB0>
+    ./idf.sh flash
     ```
 
 7. Start your serial monitor app, point it at the serial port your board is connected to, and set the baudrate to `115200` (`Connection` > `Options...` in CoolTerm). Open the configured serial port (`Connection` > `Connect` in CoolTerm), observe how the cat detection example starts up and verify whether it connects to the Wi-Fi network:
