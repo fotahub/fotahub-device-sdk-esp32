@@ -27,13 +27,13 @@
 extern "C" {
 #endif
 
-#define SIMULATED_APPLYING_SUCCESS_RATE 70
+#define SIMULATED_FOTA_UPDATE_VALIDATION_SUCCESS_RATE 70
 
 void fotaUpdateSelfTest_init(void);
 
-void validateFirmwareUpdateApplying(void);
+void validateFirmwareUpdate(void);
 
-void validateFirmwareUpdateRollingback(void);
+void validateFirmwareRollback(void);
 
 #ifdef __cplusplus
 } /* extern "C" */

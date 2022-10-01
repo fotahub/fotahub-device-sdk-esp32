@@ -43,19 +43,4 @@ if "%IDF_PYTHON_ENV_PATH%" == "" (
   if errorlevel 1 exit /B 1
 )
 
-if "%1" == "flash" goto flash 
-if "%1" == "erase-flash" goto flash
-goto default
-
-:flash
-set IDF_OPTIONS=-p NONE -b 921600
-idf.py %IDF_OPTIONS% %1 %2 %3 %4 %5 %6 %7 %8 %9
-exit /B 0
-
-:monitor
-set IDF_OPTIONS=-p NONE
-idf.py %IDF_OPTIONS% %1 %2 %3 %4 %5 %6 %7 %8 %9
-exit /B 0
-
-:default
 idf.py %1 %2 %3 %4 %5 %6 %7 %8 %9

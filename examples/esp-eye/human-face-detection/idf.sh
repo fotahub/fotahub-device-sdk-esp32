@@ -28,15 +28,7 @@ if [ -z "$IDF_PYTHON_ENV_PATH" ]; then
   source $IDF_PATH/export.sh
 fi
 
-if [ "$1" == "flash" ] || [ "$1" == "erase-flash" ]; then
-  IDF_OPTIONS="-p NONE -b 921600"
-  idf.py $IDF_OPTIONS $@
-elif [ "$1" == "monitor" ]; then
-  IDF_OPTIONS="-p NONE"
-  idf.py $IDF_OPTIONS $@
-else  
-  idf.py $@   
-fi
+idf.py $@
 
 if [ -f "$IDF_PATH/tools/gen-flash-cmds.sh" ]; then
   $IDF_PATH/tools/gen-flash-cmds.sh

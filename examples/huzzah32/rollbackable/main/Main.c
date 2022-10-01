@@ -47,10 +47,10 @@ void app_main(void)
   
   wifiStation_connect(WIFI_STATION_SSID, WIFI_STATION_PASSPHRASE);
   
-  xTaskCreate(&demoTask, "demoTask", TASK_DEFAULT_STACK_SIZE * 5, NULL, 10, NULL);
+  xTaskCreate(&updateTask, "updateTask", TASK_DEFAULT_STACK_SIZE * 5, NULL, 10, NULL);
 }
 
-void demoTask(void *args)
+void updateTask(void *pvParameters)
 {
   while (true)
   {

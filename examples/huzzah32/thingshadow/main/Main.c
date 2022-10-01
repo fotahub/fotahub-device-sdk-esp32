@@ -52,7 +52,7 @@ void app_main(void)
   xTaskCreate(&blinkTask, "blinkTask", TASK_DEFAULT_STACK_SIZE, NULL, 10, NULL);
 }
 
-void thingShadowTask(void *args)
+void thingShadowTask(void *pvParameters)
 {
   while (true)
   {
@@ -61,7 +61,7 @@ void thingShadowTask(void *args)
   }
 }
 
-void updateTask(void *args)
+void updateTask(void *pvParameters)
 {
   while (true)
   {
@@ -70,7 +70,7 @@ void updateTask(void *args)
   }
 }
 
-void blinkTask(void *args)
+void blinkTask(void *pvParameters)
 {
   while (true)
   {

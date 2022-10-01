@@ -29,7 +29,7 @@
 extern "C" {
 #endif
 
-void demoTask(void *args);
+void updateTask(void *pvParameters);
 
 #ifdef __cplusplus
 } /* extern "C" */

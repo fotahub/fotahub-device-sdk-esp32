@@ -28,11 +28,11 @@
 extern "C" {
 #endif
 
-void thingShadowTask(void *args);
+void thingShadowTask(void *pvParameters);
 
-void updateTask(void *args);
+void updateTask(void *pvParameters);
 
-void blinkTask(void *args);
+void blinkTask(void *pvParameters);
 
 #ifdef __cplusplus
 } /* extern "C" */
